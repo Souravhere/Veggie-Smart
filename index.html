@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veggie Smart</title>
+    <link rel="stylesheet" href="./styles/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Veggie Smart</h1>
+        <h3>Designed and Developed by Sourav Chhimpa</h3>
+
+        <h2>Calculate Total Price</h2>
+        <form id="priceForm">
+            <div class="form-group">
+                <label for="vegPrice">Price (₹/kg):</label>
+                <input type="number" id="vegPrice" placeholder="Enter price per kg">
+            </div>
+            <div class="form-group">
+                <label for="vegQtyKg">Quantity (kg):</label>
+                <input type="number" id="vegQtyKg" placeholder="Enter quantity in kg">
+                <label for="vegQtyG">Quantity (g):</label>
+                <input type="number" id="vegQtyG" placeholder="Enter quantity in g">
+            </div>
+            <button type="button" onclick="calculateTotalPrice()">Calculate Total</button>
+        </form>
+        <div id="totalResult" class="result"></div>
+
+        <h2>Calculate Price per Kg</h2>
+        <form id="perKgForm">
+            <div class="form-group">
+                <label for="totalQtyKg">Total Quantity (kg):</label>
+                <input type="number" id="totalQtyKg" placeholder="Enter total quantity in kg">
+                <label for="totalQtyG">Total Quantity (g):</label>
+                <input type="number" id="totalQtyG" placeholder="Enter total quantity in g">
+            </div>
+            <div class="form-group">
+                <label for="totalPrice">Total Price (₹):</label>
+                <input type="number" id="totalPrice" placeholder="Enter total price in ₹">
+            </div>
+            <button type="button" onclick="calculatePricePerKg()">Calculate Price per Kg</button>
+        </form>
+        <div id="perKgResult" class="result"></div>
+    </div>
+    <script src="./scripts/scripts.js"></script>
+</body>
+</html>
