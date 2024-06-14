@@ -6,7 +6,8 @@ function calculateTotalPrice() {
     const totalQtyKg = vegQtyKg + (vegQtyG / 1000);
     const totalPrice = vegPrice * totalQtyKg;
 
-    document.getElementById('totalResult').innerText = `Total Price: ₹${totalPrice.toFixed(2)}`;
+    document.getElementById('totalResult').innerHTML = `<span style="display: block; background-color: #00ff00; border-radius: 8px; padding-top: 8px; padding-bottom: 8px; font-weight: bold; font-size: larger; color: black;">Total Price: ₹${totalPrice.toFixed(2)}</span>`;
+    //<span style="display: block; background-color: #00ff00; border-radius: 8px; padding-top: 8px; padding-bottom: 8px; font-weight: bold; font-size: larger; color: black;">Total Price: ₹${totalPrice.toFixed(2)}</span>
 }
 
 function calculatePricePerKg() {
@@ -17,5 +18,16 @@ function calculatePricePerKg() {
     const totalQty = totalQtyKg + (totalQtyG / 1000);
     const pricePerKg = totalPrice / totalQty;
 
-    document.getElementById('perKgResult').innerText = `Price per Kg: ₹${pricePerKg.toFixed(2)}`;
+    document.getElementById('perKgResult').innerHTML = `<span style="display: block; background-color: #00ff00; border-radius: 8px; padding-top: 8px; padding-bottom: 8px; font-weight: bold; font-size: larger; color: black;">Price per Kg: ₹${pricePerKg.toFixed(2)}</span>`;
+}
+
+function calculateQuantity() {
+    const amountPerKg = parseFloat(document.getElementById('amountPerKg').value) || 0;
+    const amountToSpend = parseFloat(document.getElementById('amountToSpend').value) || 0;
+
+    const quantityKg = amountToSpend / amountPerKg;
+    const quantityG = (quantityKg * 1000).toFixed(2);
+
+    document.getElementById('quantityResult').innerHTML = `<span style="display: block; background-color: #00ff00; border-radius: 8px; padding-top: 8px; padding-bottom: 8px; font-weight: bold; font-size: larger; color: black;">Quantity: ${quantityKg.toFixed(2)} kg (${quantityG} g)</span>`;
+    //<span style="display: block; background-color: #00ff00; border-radius: 8px; padding-top: 8px; padding-bottom: 8px; font-weight: bold; font-size: larger; color: black;">Total Price: ₹${totalPrice.toFixed(2)}</span>
 }

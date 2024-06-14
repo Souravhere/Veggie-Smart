@@ -17,7 +17,7 @@ body {
     animation: fadeIn 1s ease-in-out;
 }
 
-h1, h3, h4 {
+h1, h3, h4, h5 {
     text-align: center;
     margin-bottom: 20px;
     color: #f4f4f4;
@@ -28,6 +28,27 @@ h2 {
     margin-bottom: 20px;
     text-align: center;
     color: #ff9800;
+}
+
+h6 {
+    text-align: center;
+}
+
+h6 a {
+    color: #ff9800;
+    text-decoration: none;
+    text-align: center;
+}
+
+h4 a:hover {
+    text-decoration: underline;
+}
+
+.calculator {
+    margin-bottom: 40px;
+    border: 1px solid #e68900;
+    padding: 10px;
+    border-radius: 8px;
 }
 
 .form-group {
