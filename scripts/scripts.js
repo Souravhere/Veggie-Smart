@@ -18,7 +18,7 @@ function calculatePricePerKg() {
     const totalQty = totalQtyKg + (totalQtyG / 1000);
     const pricePerKg = totalPrice / totalQty;
 
-    document.getElementById('perKgResult').innerHTML = `<span style="display: block; background-color: #00ff00; border-radius: 8px; padding-top: 8px; padding-bottom: 8px; font-weight: bold; font-size: larger; color: black;">Price per Kg: ₹${pricePerKg.toFixed(2)}</span>`;
+    document.getElementById('perKgResult').innerHTML = `<span id="resultbox" style="display: block; background-color: #00ff00; border-radius: 8px; padding-top: 8px; padding-bottom: 8px; font-weight: bold; font-size: larger; color: black;">Price per Kg: ₹${pricePerKg.toFixed(2)}</span>`;
 }
 
 function calculateQuantity() {

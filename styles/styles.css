@@ -22,7 +22,11 @@ h1, h3, h4, h5 {
     margin-bottom: 20px;
     color: #f4f4f4;
 }
-
+h5 a{
+    text-decoration: none;
+    color: rgb(238, 195, 96);
+    font-size: larger;
+}
 h2 {
     margin-top: 30px;
     margin-bottom: 20px;
@@ -102,6 +106,16 @@ button:hover {
     color: #f4f4f4;
 }
 
+#resultbox {
+    display: block; background-color: #00ff00; border-radius: 8px; padding-top: 8px; padding-bottom: 8px; font-weight: bold; font-size: larger; color: black;
+}
+
+.tagname {
+    background: #e68a004e;
+    color: #e68900;
+    padding: 2px 3px 2px 3px;
+    border-radius: 4px;
+}
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }

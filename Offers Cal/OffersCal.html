@@ -3,9 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Veggie Smart - Discount Cal</title>
+    <link rel="stylesheet" href="./../styles/styles.css">
 </head>
 <body>
-    
+    <div class="container">
+        <h1>Veggie Smart</h1>
+        <div class="calculator">
+            <h2>Discount Calculator</h2>
+            <form id="discountForm">
+                <div class="form-group">
+                    <label for="totalPrice">Total Price (₹):</label>
+                    <input type="number" id="totalPrice" placeholder="Enter total price">
+                </div>
+                <div class="form-group">
+                    <label for="discount">Discount (%):</label>
+                    <input type="number" id="discount" placeholder="Enter discount percentage">
+                </div>
+                <button type="button" onclick="calculateDiscount()">Calculate Discount</button>
+            </form>
+            <div id="discountResult" class="result"></div>
+        </div>
+        <h5><a href="./../index.html">Home</a></h5>
+        <h5>Designed and Developed by Sourav Chhimpa</h5>
+        <h6>Insta: <a href="https://www.instagram.com/sourav-chhimpa/" target="_blank">@sourav-chhimpa</a></h6>
+    </div>
+    <script src="./offerscal.js"></script>
 </body>
 </html>
