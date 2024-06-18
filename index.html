@@ -3,23 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Meta Description -->
+    <meta name="description" content="Veggie Smart - A tool to calculate vegetable prices, recipe costs, and more. This project is updated regularly with new calculators. I am Sourav Chhimpa, a freelance web developer from India.">
+
+    <!-- Meta Keywords -->
+    <meta name="keywords" content="Veggie Smart, vegetable calculator, recipe cost calculator, price calculator, web developer, Sourav Chhimpa, India, freelance web developer">
+    
+    <!-- Author Meta Tag -->
+    <meta name="author" content="Sourav Chhimpa">
+    
+    <!-- Open Graph Meta Tags for Social Media Sharing -->
+    <meta property="og:title" content="Veggie Smart">
+    <meta property="og:description" content="A tool to calculate vegetable prices, recipe costs, and more. Updated regularly with new features.">
+    <meta property="og:image" content="Source Images/index img.png">
+    <meta property="og:url" content="https://souravhere.github.io/Veggie-Smart/">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Veggie Smart">
+    <meta name="twitter:description" content="A tool to calculate vegetable prices, recipe costs, and more. Updated regularly with new features.">
+    <meta name="twitter:image" content="Source Images/index img.png">
+    <meta name="twitter:creator" content="@sourav-chhimpa">
+        
     <title>Veggie Smart</title>
     <link rel="stylesheet" href="./styles/styles.css">
 </head>
 <body>
     <div class="container">
         <h1>Veggie Smart</h1>
-        <div class="calculator">
+        <!-- <div class="calculator">
             <h2>All Calculators</h2>
             <div>
                 <h5><a href="#totalprice"><span class="tagname">New</span> Calculate Total Price</a></h5>
                 <h5><a href="#priceperkg"><span class="tagname">New</span> Calculate Price per Kg</a></h5>
-                <h5><a href="#Calquntity"><span class="tagname">New</span> Calculate Quantity</a></h5>
+                <h5><a href="#Calquntity"><span class="tagname">Trending</span> Calculate Quantity</a></h5>
                 <h5><a href="./Offers Cal/OffersCal.html"><span class="tagname">New</span> Discount Calculator</a></h5>
                 <h5><a href="./NutritionCal/NutritionCal.html"><span class="tagname">Beta</span> Nutrition Calculator</a></h5>
                 <h5><a href="./Recipe Cost Calculator/RecipeCostCalculator.html"><span class="tagname">Beta</span> Recipe Cost Calculator</a></h5>
             </div>                
-        </div>
+        </div> -->
         <div id="totalprice" class="calculator">
             <h2>Calculate Total Price</h2>
             <form id="priceForm">
@@ -57,6 +80,9 @@
         </div>
 
         <div id="Calquntity" class="calculator">
+            <div style="display: flex; justify-content: center; padding: 0;">
+                <h4 class="tagname" style="text-align: center; display: inline; padding: 2px 9px 2px 9px; color: orange; letter-spacing: 1px;">Trending</h4>
+            </div>
             <h2>Calculate Quantity</h2>
             <form id="quantityForm">
                 <div class="form-group">
@@ -70,6 +96,14 @@
                 <button type="button" onclick="calculateQuantity()">Calculate Quantity</button>
             </form>
             <div id="quantityResult" class="result"></div>
+        </div>
+        <div class="calculator">
+            <h2>Other Calculators</h2>
+            <div>
+                <h5><a href="./Offers Cal/OffersCal.html"><span class="tagname">New</span> Discount Calculator</a></h5>
+                <h5><a href="./NutritionCal/NutritionCal.html"><span class="tagname">Beta</span> Nutrition Calculator</a></h5>
+                <h5><a href="./Recipe Cost Calculator/RecipeCostCalculator.html"><span class="tagname">Beta</span> Recipe Cost Calculator</a></h5>
+            </div>                
         </div>
         <h5>Designed and Developed by Sourav Chhimpa</h5>
         <h6>Insta: <a href="https://www.instagram.com/sourav-chhimpa/" target="_blank">@sourav-chhimpa</a></h6>
