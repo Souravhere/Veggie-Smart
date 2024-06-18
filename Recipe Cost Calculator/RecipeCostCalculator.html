@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veggie Smart - Recipe Cost Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .suggestion-box {
+            position: absolute;
+            background-color: #1a1a1a;
+            border: 1px solid #ccc;
+            z-index: 1000;
+            max-height: 150px;
+            overflow-y: auto;
+            width: calc(100% - 1rem);
+            display: none;
+        }
+        .suggestion-box p {
+            padding: 8px;
+            margin: 0;
+            cursor: pointer;
+        }
+        .suggestion-box p:hover, .suggestion-box p.selected {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold text-center mb-8">Veggie Smart</h1>
+
+        <!-- Instructions Box -->
+        <div class="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 p-6 rounded-lg shadow-md mb-8 text-white">
+            <h2 class="text-2xl font-semibold mb-4">How to Use</h2>
+            <ul class="list-disc pl-5 space-y-2">
+                <li>Enter the ingredient name. Suggestions will appear as you type.</li>
+                <li>Enter the quantity in grams and the price per kilogram.</li>
+                <li>Click "Add Ingredient" to add it to the list.</li>
+                <li>Click "Calculate Total Cost" to see the total cost of your recipe.</li>
+            </ul>
+        </div>
+
+        <!-- Calculator Container -->
+        <div class="calculator bg-gray-800 p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold mb-4">Recipe Cost Calculator</h2>
+            <form id="recipeForm" class="relative mb-6">
+                <div class="form-group mb-4">
+                    <label for="ingredientName" class="block text-lg font-medium mb-2">Ingredient:</label>
+                    <input type="text" id="ingredientName" class="w-full p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-600" placeholder="Enter ingredient name" oninput="suggestIngredients()" onkeydown="navigateSuggestions(event)">
+                    <div id="suggestionBox" class="suggestion-box"></div>
+                </div>
+                <div class="form-group mb-4">
+                    <label for="ingredientQty" class="block text-lg font-medium mb-2">Quantity (grams):</label>
+                    <input type="number" id="ingredientQty" class="w-full p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-600" placeholder="Enter quantity in grams">
+                </div>
+                <div class="form-group mb-4">
+                    <label for="ingredientPrice" class="block text-lg font-medium mb-2">Price (₹ per kg):</label>
+                    <input type="number" id="ingredientPrice" class="w-full p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-600" placeholder="Enter price per kg">
+                </div>
+                <button type="button" onclick="addIngredient()" class="w-full p-2 bg-purple-600 rounded hover:bg-purple-700">Add Ingredient</button>
+            </form>
+            <div id="ingredientsList" class="mb-6"></div>
+            <button type="button" onclick="calculateRecipeCost()" class="w-full p-2 bg-green-600 rounded hover:bg-green-700">Calculate Total Cost</button>
+            <div id="recipeCostResult" class="result mt-6 bg-gray-700 p-4 rounded"></div>
+        </div>
+
+        <h6 class="text-center text-2xl mt-6 font-bold"><a href="./../index.html" class="text-purple-400">Home</a></h6>
+        <h5 class="text-center mt-8">Designed and Developed by Sourav Chhimpa</h5>
+        <h6 class="text-center mt-2">Insta: <a href="https://www.instagram.com/sourav-chhimpa/" target="_blank" class="text-purple-400">@sourav-chhimpa</a></h6>
+    </div>
+    <script src="./RecipeCostCalculator.js"></script>
+</body>
+</html>
