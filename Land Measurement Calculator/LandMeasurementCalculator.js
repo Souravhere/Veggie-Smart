@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Initialize the map with satellite view option
     let satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'Tiles &copy; GIS User Community'
+        attribution: 'Sourav Chhimpa'
     });
 
     // Feature Group to store editable layers
