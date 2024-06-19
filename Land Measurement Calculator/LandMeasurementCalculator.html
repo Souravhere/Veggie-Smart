@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Land Measurement Tool</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <style>
+        #map {
+            height: 80vh;
+            width: 100%;
+        }
+        #instructions {
+            /* background: linear-gradient(to right, #4caf50, #2196f3, #9c27b0); */
+            background: rgba(128, 128, 128, 0.486);
+            padding: 15px;
+            border-radius: 8px;
+            color: white;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold text-center mb-8">Land Measurement Tool</h1>
+        
+        <!-- Instructions Box -->
+        <div id="instructions">
+            <h2 class="text-2xl font-semibold mb-4">How to Use</h2>
+            <ul class="list-disc pl-5 space-y-2">
+                <li>Use the drawing tools on the map to outline the area of the land.</li>
+                <li>Click on the "Calculate Area" button to get the measurement.</li>
+                <li>Use the search box to find a specific location.</li>
+            </ul>
+        </div>
+
+        <!-- Search Box -->
+        <input type="text" id="searchBox" placeholder="Search for a place" class="w-full p-2 mb-4 text-black rounded">
+
+        <!-- Map Container -->
+        <div id="map"></div>
+
+        <!-- Satellite View Checkbox -->
+        <label class="block mb-2">
+            <input type="checkbox" id="satelliteView" class="mr-2 leading-tight">
+            <span class="text-sm">Satellite View</span>
+        </label>
+
+        <!-- Calculate Button -->
+        <button onclick="calculateArea()" class="w-full p-2 mt-4 bg-green-600 rounded hover:bg-green-700">Calculate Area</button>
+
+        <!-- Reset Button -->
+        <button onclick="resetMap()" class="w-full p-2 mt-4 bg-red-600 rounded hover:bg-red-700">Reset</button>
+
+        <!-- Result Display -->
+        <div id="result" class="result mt-6 bg-gray-700 p-4 rounded"></div>
+
+        <h6 class="text-center mt-4"><a href="./../index.html" target="_blank" class="text-purple-400 text-2xl font-bold">Home</a></h6>
+        <h5 class="text-center mt-8">Designed and Developed by Sourav Chhimpa</h5>
+        <h6 class="text-center mt-2">Insta: <a href="https://www.instagram.com/sourav-chhimpa/" target="_blank" class="text-purple-400">@sourav-chhimpa</a></h6>
+    </div>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script src="./LandMeasurementCalculator.js"></script>
+</body>
+</html>

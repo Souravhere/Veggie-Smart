@@ -88,7 +88,7 @@ function updateIngredientsList() {
     ingredientsList.innerHTML = ingredients.map((ingredient, index) => `
         <div class="flex justify-between items-center bg-gray-700 p-2 rounded mb-2">
             <p>${ingredient.name}: ${ingredient.qty}g at ₹${ingredient.price} per kg</p>
-            <button class="bg-red-600 text-white p-1 rounded" onclick="removeIngredient(${index})">Remove</button>
+            <button class="bg-red-600 text-white p-1 rounded" onclick="removeIngredient(${index})"><i class="ri-delete-bin-6-line"></i></button>
         </div>
     `).join('');
 }
