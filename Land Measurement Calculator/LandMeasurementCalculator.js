@@ -51,6 +51,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
         map.fitBounds(poly.getBounds());
     }).addTo(map);
 
+    // Geocoding control
+    let searchControl = new L.Control.Geocoder.Nominatim();
+    document.getElementById('searchBox').addEventListener('input', function(e) {
+        searchControl.geocode(e.target.value, function(results) {
+            if (results.length > 0) {
+                let bbox = results[0].boundingbox;
+                map.fitBounds([
+                    [bbox[0], bbox[2]],
+                    [bbox[1], bbox[3]]
+                ]);
+            }
+        });
+    });
+
     // Function to calculate area in different units
     window.calculateArea = function () {
         let totalArea = 0;
@@ -78,15 +92,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         drawnItems.clearLayers();
         document.getElementById('result').innerHTML = '';
     };
-
-    // Event listener for the search box
-    document.getElementById('searchBox').addEventListener('input', function (e) {
-        geocoder.options.geocoder.geocode(e.target.value, function(results) {
-            if (results && results.length > 0) {
-                map.fitBounds(results[0].bbox);
-            }
-        });
-    });
 
     // Event listener for satellite view checkbox
     document.getElementById('satelliteView').addEventListener('change', function (e) {
