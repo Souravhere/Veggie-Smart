@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #111827; /* Black theme background */
+            color: #F3F4F6; /* Light text color */
+        }
+    </style>
+</head>
+<body class="flex justify-center sm:items-center h-fit">
+    <div class="w-full max-w-md p-6 bg-gray-800 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-semibold mb-6 text-center">BMI Calculator</h2>
+        <div id="instructions">
+            <h2 class="text-2xl font-semibold mb-4">Instructions:</h2>
+            <ul class="list-disc pl-5 space-y-2 mb-4">
+                <li>1. Enter your height and weight.</li>
+                <li>2. Select the appropriate units.</li>
+                <li>3. Click "Calculate BMI".</li>
+            </ul>
+        </div>
+        <div>
+            <label class="block mb-2">Height</label>
+            <div class="flex mb-4">
+                <input type="number" id="height" class="w-1/2 mr-2 px-3 py-2 bg-gray-700 rounded-lg text-white" placeholder="Enter height">
+                <select id="heightUnit" class="w-1/2 px-3 py-2 bg-gray-700 rounded-lg text-white">
+                    <option value="m">Meters</option>
+                    <option value="cm">Centimeters</option>
+                    <option value="ft">Feet</option>
+                </select>
+            </div>
+            <label class="block mb-2">Weight</label>
+            <div class="flex mb-4">
+                <input type="number" id="weight" class="w-1/2 mr-2 px-3 py-2 bg-gray-700 rounded-lg text-white" placeholder="Enter weight">
+                <select id="weightUnit" class="w-1/2 px-3 py-2 bg-gray-700 rounded-lg text-white">
+                    <option value="kg">Kilograms</option>
+                    <option value="lbs">Pounds</option>
+                </select>
+            </div>
+            <button id="calculateBtn" class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg mb-4">Calculate BMI</button>
+            <div id="result" class="hidden p-4 bg-gray-900 rounded-lg"></div>
+        </div>
+        <div id="suggestion" class="hidden mt-4">
+            <p class="font-semibold">BMI Suggestion:</p>
+            <p id="suggestionText"></p>
+        </div>
+                <!-- BMI Table -->
+                <div class="mt-8">
+                    <h3 class="text-xl font-semibold mb-4">BMI Categories</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-700">
+                            <thead>
+                                <tr class="bg-gray-900">
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-300">Category</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-300">BMI Range</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-300">Interpretation</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-700">
+                                <tr>
+                                    <td class="px-4 py-2">Underweight</td>
+                                    <td class="px-4 py-2">&lt; 18.5</td>
+                                    <td class="px-4 py-2">You may need to gain some weight.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2">Normal weight</td>
+                                    <td class="px-4 py-2">18.5 - 24.9</td>
+                                    <td class="px-4 py-2">Keep up the good work!</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2">Overweight</td>
+                                    <td class="px-4 py-2">25.0 - 29.9</td>
+                                    <td class="px-4 py-2">Consider losing some weight for better health.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2">Obese</td>
+                                    <td class="px-4 py-2">30.0 and above</td>
+                                    <td class="px-4 py-2">It's important to lose weight for better health.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        <h6 class="text-center mt-4"><a href="./../index.html" target="_blank" class="text-purple-400 text-2xl font-bold">Home</a></h6>
+        <h5 class="text-center mt-8">Designed and Developed by Sourav Chhimpa</h5>
+        <h6 class="text-center mt-2">Insta: <a href="https://www.instagram.com/sourav-chhimpa/" target="_blank" class="text-purple-400">@sourav-chhimpa</a></h6>    
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const calculateBtn = document.getElementById('calculateBtn');
+    const resultDiv = document.getElementById('result');
+    const suggestionDiv = document.getElementById('suggestion');
+    const suggestionText = document.getElementById('suggestionText');
+
+    calculateBtn.addEventListener('click', function() {
+        const height = parseFloat(document.getElementById('height').value);
+        const weight = parseFloat(document.getElementById('weight').value);
+        const heightUnit = document.getElementById('heightUnit').value;
+        const weightUnit = document.getElementById('weightUnit').value;
+
+        let bmi;
+
+        if (heightUnit === 'cm') {
+            bmi = calculateBMI(height / 100, weight, 'kg');
+        } else if (heightUnit === 'ft') {
+            const heightInMeters = height * 0.3048; // 1 foot = 0.3048 meters
+            bmi = calculateBMI(heightInMeters, weight, 'kg');
+        } else {
+            bmi = calculateBMI(height, weight, weightUnit);
+        }
+
+        resultDiv.innerHTML = `<p class="font-semibold">Your BMI: <span class="text-blue-500">${bmi.toFixed(1)}</span></p>`;
+        resultDiv.classList.remove('hidden');
+
+        // Show BMI suggestion
+        showBMISuggestion(bmi);
+
+        // Reset fields
+        document.getElementById('height').value = '';
+        document.getElementById('weight').value = '';
+    });
+
+    function calculateBMI(height, weight, weightUnit) {
+        if (weightUnit === 'lbs') {
+            // Convert pounds to kilograms (1 lb = 0.453592 kg)
+            weight = weight * 0.453592;
+        }
+
+        // Calculate BMI
+        return weight / (height * height);
+    }
+
+    function showBMISuggestion(bmi) {
+        let suggestion = '';
+
+        if (bmi < 18.5) {
+            suggestion = 'Underweight - You may need to gain some weight.';
+        } else if (bmi < 25) {
+            suggestion = 'Normal weight - Keep up the good work!';
+        } else if (bmi < 30) {
+            suggestion = 'Overweight - Consider losing some weight for better health.';
+        } else {
+            suggestion = 'Obese - It\'s important to lose weight for better health.';
+        }
+
+        suggestionText.textContent = suggestion;
+        suggestionDiv.classList.remove('hidden');
+    }
+});
+
+    </script>
+</body>
+</html>
