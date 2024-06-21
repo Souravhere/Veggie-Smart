@@ -27,22 +27,29 @@
     <meta name="twitter:creator" content="@sourav-chhimpa">
         
     <title>Veggie Smart</title>
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+    rel="stylesheet"/>
     <link rel="stylesheet" href="./styles/styles.css">
 </head>
 <body>
+    <div class="calculator note">
+        <h3>This web page is under construction</h3>
+        <p>This page is currently under construction. We apologize for any inconvenience this may cause and appreciate your patience as we work to bring you a better experience.</p>
+    </div>
     <div class="container">
         <header class="header">
-            <h1>Veggie Smart</h1>
+            <h1 style="display: flex; justify-content: center; align-items: center;"><span><img style="width: 40px;" src="https://img.icons8.com/color/48/calculator--v1.png" alt="Logo" loading="lazy"></span> Veggie Smart</h1>
             <a href="https://bit.ly/Souravhere" target="_blank">
                 <div>
                     <dfn> <abbr title="Know About Sourav Chhimpa">
-                     <img src="https://i.pinimg.com/564x/8d/e8/02/8de8027a3ffd2d16d827d145ea1d1908.jpg" alt="">
+                        <i class="ri-user-3-line"></i>
                  </abbr></dfn>
                  </div>
             </a>
         </header>
         <!-- <div class="calculator">
-            <h2>All Calculators</h2>
+           
             <div>
                 <h5><a href="#totalprice"><span class="tagname">New</span> Calculate Total Price</a></h5>
                 <h5><a href="#priceperkg"><span class="tagname">New</span> Calculate Price per Kg</a></h5>
@@ -52,6 +59,55 @@
                 <h5><a href="./Recipe Cost Calculator/RecipeCostCalculator.html"><span class="tagname">Beta</span> Recipe Cost Calculator</a></h5>
             </div>                
         </div> -->
+        <div class="calculator">
+            <h2>Market Calculators</h2>
+            <div class="btn-container">
+                <a href="">
+                    <div class="calbtn">
+                        <div>
+                            <img src="https://img.icons8.com/color/800/calculate.png" alt="Calculator" loading="lazy">
+                        </div>
+                        <div class="btnsecondsection">
+                            <span class="btn-tagname">Free</span>
+                            <h4 class="btn-name">Calculate Total Price</h4>
+                        </div>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="calbtn">
+                        <div>
+                            <img src="https://img.icons8.com/color/800/weight-kg.png" alt="Calculator" loading="lazy">
+                        </div>
+                        <div class="btnsecondsection">
+                            <span class="btn-tagname">Free</span>
+                            <h4 class="btn-name">Calculate Price Kg</h4>
+                        </div>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="calbtn">
+                        <div>
+                            <img src="https://img.icons8.com/color/800/scale.png" alt="Calculator" loading="lazy">
+                        </div>
+                        <div class="btnsecondsection">
+                            <span class="btn-tagname">Free</span>
+                            <h4 class="btn-name">Calculate Quantity</h4>
+                        </div>
+                    </div>
+                </a>
+                <a href="./Offers Cal/OffersCal.html">
+                    <div class="calbtn">
+                        <div>
+                            <img src="https://img.icons8.com/fluency/800/discount--v1.png" alt="Calculator" loading="lazy">
+                        </div>
+                        <div class="btnsecondsection">
+                            <span class="btn-tagname">Free</span>
+                            <h4 class="btn-name">Discount Calculator</h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
         <div id="totalprice" class="calculator">
             <h2>Calculate Total Price</h2>
             <form id="priceForm">
