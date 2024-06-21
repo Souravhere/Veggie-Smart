@@ -1,29 +1,22 @@
 const fooddata = [
     {
-        link: "https://example.com/item1",
-        imageSrc: "https://img.icons8.com/color/800/calculate.png",
+        link: "./Recipe Cost Calculator/RecipeCostCalculator.html",
+        imageSrc: "https://img.icons8.com/fluency/800/cost.png",
         imageAlt: "Calculator 1",
         tagName: "Free",
-        buttonName: "Calculate Total Price 1"
+        buttonName: "Recipe Cost"
     },
     {
-        link: "https://example.com/item2",
-        imageSrc: "https://img.icons8.com/color/800/calculate.png",
-        imageAlt: "Calculator 2",
-        tagName: "Pro",
-        buttonName: "Calculate Total Price 2"
+        link: "./NutritionCal/NutritionCal.html",
+        imageSrc: "https://img.icons8.com/color/800/healthy-food-calories-calculator.png",
+        imageAlt: "Nutrition",
+        tagName: "Beta",
+        buttonName: "Nutrition Calculator"
     },
-    {
-        link: "https://example.com/item3",
-        imageSrc: "https://img.icons8.com/color/800/calculate.png",
-        imageAlt: "Calculator 3",
-        tagName: "Premium",
-        buttonName: "Calculate Total Price 3"
-    }
 ];
 
 const foodcontainer = document.getElementById("FoodCalculators");
-foodcontainer.innerHTML = ''; // Clear any existing content
+foodcontainer.innerHTML = ''; 
 
 fooddata.forEach(item => {
     foodcontainer.innerHTML += `
