@@ -46,6 +46,13 @@ function healthcalc(){
             tagName: "Free",
             buttonName: "Body Mass Index"
         },
+        {
+            link: "./calhealth/calorieBurnCalculator.html",
+            imageSrc: "https://img.icons8.com/color/800/treadmill-skin-type-3.png",
+            imageAlt: "Calorie Burn Calculator",
+            tagName: "Beta",
+            buttonName: "Calorie Burn Calculator"
+        },
     ]
     const healthcont = document.getElementById("HealthCal");
     healthcont.innerHTML = ''; 

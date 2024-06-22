@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calorie Burn Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #111827; /* Black theme background */
+            color: #F3F4F6; /* Light text color */
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body class="flex flex-col justify-center items-center min-h-screen py-6 sm:bg-gray-900 bg-gray-800">
+    <div class="w-full max-w-xl p-6 bg-gray-800 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-semibold mb-6 text-center">Calorie Burn Calculator</h2>
+        <!-- Short Note on Use of the Calculator -->
+        <div class="mb-4">
+            <button id="noteToggleBtn" class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg mb-2">Use of this Calculator</button>
+            <div id="noteContent" class="block p-4 bg-gray-900 rounded-lg">
+                <p>This calculator helps estimate the number of calories burned during different physical activities based on your weight and the duration of the activity.</p>
+            </div>
+        </div>
+        <!-- Interactive Instructions Box -->
+        <div class="mb-4">
+            <button id="instructionsToggleBtn" class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg mb-2">Instructions</button>
+            <div id="instructionsContent" class="block p-4 bg-gray-900 rounded-lg">
+                <p class="text-sm mb-2">1. Select the physical activity from the dropdown.</p>
+                <p class="text-sm mb-2">2. Enter your weight in kilograms.</p>
+                <p class="text-sm mb-2">3. Enter the duration of the activity in minutes.</p>
+                <p class="text-sm mb-2">4. Click "Calculate Calories Burned".</p>
+            </div>
+        </div>
+        <div>
+            <label class="block mb-2">Activity</label>
+            <div class="flex mb-4">
+                <select id="activity" class="w-full px-3 py-2 bg-gray-700 rounded-lg text-white">
+                    <option value="running">Running</option>
+                    <option value="cycling">Cycling</option>
+                    <option value="swimming">Swimming</option>
+                    <option value="walking">Walking</option>
+                    <option value="weightlifting">Weight Lifting</option>
+                    <option value="basketball">Basketball</option>
+                    <option value="football">Football</option>
+                    <option value="tennis">Tennis</option>
+                    <option value="yoga">Yoga</option>
+                    <option value="dancing">Dancing</option>
+                </select>
+            </div>
+            <label class="block mb-2">Weight (kg)</label>
+            <div class="flex mb-4">
+                <input type="number" id="weight" class="w-full px-3 py-2 bg-gray-700 rounded-lg text-white" placeholder="Enter your weight">
+            </div>
+            <label class="block mb-2">Duration (minutes)</label>
+            <div class="flex mb-4">
+                <input type="number" id="duration" class="w-full px-3 py-2 bg-gray-700 rounded-lg text-white" placeholder="Enter duration in minutes">
+            </div>
+            <button id="calculateBtn" class="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg mb-4">Calculate Calories Burned</button>
+            <div id="result" class="hidden p-4 bg-gray-900 rounded-lg"></div>
+        </div>
+        <h6 class="text-center mt-4"><a href="./../index.html" class="text-purple-400 text-2xl font-bold">Home</a></h6>
+        <h5 class="text-center mt-8">Designed and Developed by Sourav Chhimpa</h5>
+        <h6 class="text-center mt-2">Insta: <a href="https://www.instagram.com/sourav-chhimpa/" target="_blank" class="text-purple-400">@sourav-chhimpa</a></h6>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const calculateBtn = document.getElementById('calculateBtn');
+    const resultDiv = document.getElementById('result');
+
+    const MET_VALUES = {
+        running: 11.0, // MET value for running
+        cycling: 8.5, // MET value for cycling
+        swimming: 7.0, // MET value for swimming
+        walking: 3.8, // MET value for walking
+        weightlifting: 3.0, // MET value for weight lifting
+        basketball: 7.0, // MET value for basketball
+        football: 8.0, // MET value for football
+        tennis: 7.3, // MET value for tennis
+        yoga: 2.5, // MET value for yoga
+        dancing: 5.5 // MET value for dancing
+    };
+    calculateBtn.addEventListener('click', function() {
+        const activity = document.getElementById('activity').value;
+        const weight = parseFloat(document.getElementById('weight').value);
+        const duration = parseFloat(document.getElementById('duration').value);
+
+        if (isNaN(weight) || isNaN(duration) || weight <= 0 || duration <= 0) {
+            resultDiv.innerHTML = `<p class="text-red-500">Please enter valid weight and duration.</p>`;
+            resultDiv.classList.remove('hidden');
+            return;
+        }
+
+        const metValue = MET_VALUES[activity];
+        const caloriesBurned = calculateCaloriesBurned(metValue, weight, duration);
+
+        resultDiv.innerHTML = `<p class="font-semibold">Calories Burned: <span class="text-green-500">${caloriesBurned.toFixed(1)}</span> kcal</p>`;
+        resultDiv.classList.remove('hidden');
+    });
+
+    function calculateCaloriesBurned(met, weight, duration) {
+        // Formula: Calories burned = MET value * weight (kg) * duration (hours)
+        return met * weight * (duration / 60);
+    }
+
+    // Toggle note visibility
+    const noteToggleBtn = document.getElementById('noteToggleBtn');
+    const noteContent = document.getElementById('noteContent');
+    noteToggleBtn.addEventListener('click', function() {
+        noteContent.classList.toggle('hidden');
+    });
+
+    // Toggle instructions visibility
+    const instructionsToggleBtn = document.getElementById('instructionsToggleBtn');
+    const instructionsContent = document.getElementById('instructionsContent');
+    instructionsToggleBtn.addEventListener('click', function() {
+        instructionsContent.classList.toggle('hidden');
+    });
+});
+
+    </script>
+</body>
+</html>
