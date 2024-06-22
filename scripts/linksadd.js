@@ -60,6 +60,13 @@ function healthcalc(){
             tagName: "Beta",
             buttonName: "Hydration Calculator"
         },
+        {
+            link: "./calhealth/MacroNutrientcal.html",
+            imageSrc: "https://img.icons8.com/external-flaticons-flat-flat-icons/800/external-meal-fitness-and-healthy-living-flaticons-flat-flat-icons.png",
+            imageAlt: "Macro Nutrient Calculator",
+            tagName: "Beta",
+            buttonName: "Macro Nutrient Cal"
+        },
     ]
     const healthcont = document.getElementById("HealthCal");
     healthcont.innerHTML = ''; 

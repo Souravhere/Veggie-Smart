@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Macro Nutrient Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #111827; /* Black theme background */
+            color: #F3F4F6; /* Light text color */
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body class="flex flex-col justify-center items-center min-h-screen py-6">
+    <div class="w-full max-w-xl p-6 bg-gray-800 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-semibold mb-6 text-center">Macro Nutrient Calculator</h2>
+        <div class="mb-4">
+            <button id="noteToggleBtn" class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg mb-2">Use of this Calculator</button>
+            <div id="noteContent" class="block p-4 bg-gray-900 rounded-lg">
+                <p>This Macro Nutrient Calculator helps you determine your daily protein, fat, and carbohydrate needs based on your age, weight, height, activity level, and goal (weight loss, maintenance, muscle gain).</p>
+            </div>
+        </div>
+        <!-- Interactive Instructions Box -->
+        <div class="mb-4">
+            <button id="instructionsToggleBtn" class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg mb-2">Instructions</button>
+            <div id="instructionsContent" class="block p-4 bg-gray-900 rounded-lg">
+                <p class="text-sm mb-2">1. Enter your age in years (1-100).</p>
+                <p class="text-sm mb-2">2. Enter your weight in kilograms (10-300).</p>
+                <p class="text-sm mb-2">3. Select your height measurement unit (cm or feet/inches).</p>
+                <p class="text-sm mb-2">4. Enter your height accordingly.</p>
+                <p class="text-sm mb-2">5. Select your activity level.</p>
+                <p class="text-sm mb-2">6. Select your goal (weight loss, maintenance, muscle gain).</p>
+                <p class="text-sm">7. Click "Calculate Daily Macros".</p>
+            </div>
+        </div>
+
+        <div>
+            <label class="block mb-2">Age (years)</label>
+            <div class="flex mb-4">
+                <input type="number" id="age" min="1" max="100" class="w-full px-3 py-2 bg-gray-700 rounded-lg text-white" placeholder="Enter your age">
+            </div>
+
+            <label class="block mb-2">Weight (kg)</label>
+            <div class="flex mb-4">
+                <input type="number" id="weight" min="10" max="300" class="w-full px-3 py-2 bg-gray-700 rounded-lg text-white" placeholder="Enter your weight">
+            </div>
+
+            <label class="block mb-2">Height</label>
+            <div class="flex mb-4">
+                <input type="number" id="height" min="50" max="250" class="w-2/3 px-3 py-2 bg-gray-700 rounded-lg text-white mr-2" placeholder="Enter your height">
+                <select id="heightUnit" class="w-1/3 px-3 py-2 bg-gray-700 rounded-lg text-white">
+                    <option value="cm">cm</option>
+                    <option value="feet">feet</option>
+                </select>
+            </div>
+
+            <!-- Activity Level Table -->
+            <table class="w-full mb-4 text-left text-gray-200 bg-gray-700 rounded-lg">
+                <thead>
+                    <tr>
+                        <th class="py-2 px-4">Activity Level</th>
+                        <th class="py-2 px-4">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="py-2 px-4">Sedentary</td>
+                        <td class="py-2 px-4">Little or no exercise</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4">Light</td>
+                        <td class="py-2 px-4">Light exercise/sports 1-3 days/week</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4">Moderate</td>
+                        <td class="py-2 px-4">Moderate exercise/sports 3-5 days/week</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4">Active</td>
+                        <td class="py-2 px-4">Hard exercise/sports 6-7 days a week</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4">Very Active</td>
+                        <td class="py-2 px-4">Very hard exercise/physical job</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4">Super Active</td>
+                        <td class="py-2 px-4">Professional athlete</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <label class="block mb-2">Activity Level</label>
+            <div class="flex mb-4">
+                <select id="activity" class="w-full px-3 py-2 bg-gray-700 rounded-lg text-white">
+                    <option value="sedentary">Sedentary (little or no exercise)</option>
+                    <option value="light">Light (light exercise/sports 1-3 days/week)</option>
+                    <option value="moderate">Moderate (moderate exercise/sports 3-5 days/week)</option>
+                    <option value="active">Active (hard exercise/sports 6-7 days a week)</option>
+                    <option value="very_active">Very Active (very hard exercise/physical job)</option>
+                    <option value="super_active">Super Active (professional athlete)</option>
+                </select>
+            </div>
+
+            <label class="block mb-2">Goal</label>
+            <div class="flex mb-4">
+                <select id="goal" class="w-full px-3 py-2 bg-gray-700 rounded-lg text-white">
+                    <option value="weight_loss">Weight Loss</option>
+                    <option value="maintenance">Maintenance</option>
+                    <option value="muscle_gain">Muscle Gain</option>
+                </select>
+            </div>
+
+            <button id="calculateBtn" class="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg mb-4">Calculate Daily Macros</button>
+            <div id="result" class="hidden p-4 bg-gray-900 rounded-lg"></div>
+        </div>
+        <div class="mb-4 mt-4 p-4 rounded-lg" style="background-color: rgba(255, 0, 0, 0.169);">
+            <h2 class="text-xl font-semibold mb-4"><span class="text-red-400">Note:</span> Beta Version Disclaimer</h2>
+            <p class="text-sm">This Macro Nutrient Calculator is currently in beta and may not provide 100% accurate measurements. Use it for general reference and consult professional advice for precise recommendations.</p>
+        </div>
+        <h6 class="text-center mt-4"><a href="./../index.html" class="text-purple-400 text-2xl font-bold">Home</a></h6>
+        <h5 class="text-center mt-8">Designed and Developed by Sourav Chhimpa</h5>
+        <h6 class="text-center mt-2">Insta: <a href="https://www.instagram.com/sourav-chhimpa/" target="_blank" class="text-purple-400">@sourav-chhimpa</a></h6> 
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const calculateBtn = document.getElementById('calculateBtn');
+    const resultDiv = document.getElementById('result');
+
+    calculateBtn.addEventListener('click', function() {
+        const age = parseInt(document.getElementById('age').value);
+        const weight = parseFloat(document.getElementById('weight').value);
+        let height = parseFloat(document.getElementById('height').value);
+        const heightUnit = document.getElementById('heightUnit').value;
+        const activity = document.getElementById('activity').value;
+        const goal = document.getElementById('goal').value;
+
+        if (isNaN(age) || age < 1 || age > 100) {
+            resultDiv.innerHTML = `<p class="text-red-500">Please enter a valid age (1-100).</p>`;
+            resultDiv.classList.remove('hidden');
+            return;
+        }
+
+        if (isNaN(weight) || weight < 10 || weight > 300) {
+            resultDiv.innerHTML = `<p class="text-red-500">Please enter a valid weight (10-300 kg).</p>`;
+            resultDiv.classList.remove('hidden');
+            return;
+        }
+
+        if (isNaN(height) || (heightUnit === 'cm' && (height < 50 || height > 250))) {
+            resultDiv.innerHTML = `<p class="text-red-500">Please enter a valid height in cm (50-250).</p>`;
+            resultDiv.classList.remove('hidden');
+            return;
+        } else if (heightUnit === 'feet' && (height < 3 || height > 8)) {
+            resultDiv.innerHTML = `<p class="text-red-500">Please enter a valid height in feet/inches (3-8).</p>`;
+            resultDiv.classList.remove('hidden');
+            return;
+        }
+
+        if (heightUnit === 'feet') {
+            height = convertFeetToCm(height);
+        }
+
+        const macros = calculateMacros(age, weight, height, activity, goal);
+        const dietSuggestion = getDietSuggestion(macros);
+
+        resultDiv.innerHTML = `
+            <p class="font-semibold">Daily Macro Nutrient Requirements:</p>
+            <ul class="list-disc pl-5">
+                <li>Proteins: <span class="text-green-500">${macros.protein.toFixed(1)}</span> grams</li>
+                <li>Fats: <span class="text-green-500">${macros.fat.toFixed(1)}</span> grams</li>
+                <li>Carbohydrates: <span class="text-green-500">${macros.carbs.toFixed(1)}</span> grams</li>
+            </ul>
+            <div class="mt-4">
+                <p class="font-semibold">Diet Suggestions:</p>
+                <p class="mb-2">For Vegetarians: ${dietSuggestion.vegetarian}</p>
+                <p>For Non-Vegetarians: ${dietSuggestion.nonVegetarian}</p>
+            </div>
+        `;
+        resultDiv.classList.remove('hidden');
+    });
+
+    function calculateMacros(age, weight, height, activity, goal) {
+        // Calculate Basal Metabolic Rate (BMR) using Mifflin-St Jeor Equation
+        const bmr = 10 * weight + 6.25 * height - 5 * age + 5; // For men; for women, subtract 161
+
+        let activityMultiplier;
+        switch (activity) {
+            case 'light':
+                activityMultiplier = 1.375;
+                break;
+            case 'moderate':
+                activityMultiplier = 1.55;
+                break;
+            case 'active':
+                activityMultiplier = 1.725;
+                break;
+            case 'very_active':
+                activityMultiplier = 1.9;
+                break;
+            case 'super_active':
+                activityMultiplier = 2.2;
+                break;
+            default:
+                activityMultiplier = 1.2; // Sedentary
+                break;
+        }
+
+        const tdee = bmr * activityMultiplier; // Total Daily Energy Expenditure
+
+        let calorieIntake;
+        switch (goal) {
+            case 'weight_loss':
+                calorieIntake = tdee - 500;
+                break;
+            case 'muscle_gain':
+                calorieIntake = tdee + 500;
+                break;
+            default:
+                calorieIntake = tdee; // Maintenance
+                break;
+        }
+
+        // Macronutrient distribution (assuming a balanced diet: 30% protein, 25% fat, 45% carbs)
+        const protein = (calorieIntake * 0.30) / 4;
+        const fat = (calorieIntake * 0.25) / 9;
+        const carbs = (calorieIntake * 0.45) / 4;
+
+        return { protein, fat, carbs };
+    }
+
+    function getDietSuggestion(macros) {
+        const proteinGrams = macros.protein.toFixed(1);
+        const fatGrams = macros.fat.toFixed(1);
+        const carbGrams = macros.carbs.toFixed(1);
+
+        // Example diet suggestions (replace with actual recommendations)
+        const vegetarianDiet = `
+            <span class="font-semibold">Proteins:</span> ${proteinGrams}g - Foods rich in protein like tofu, lentils, beans.<br>
+            <span class="font-semibold">Fats:</span> ${fatGrams}g - Healthy fats from nuts, avocado.<br>
+            <span class="font-semibold">Carbohydrates:</span> ${carbGrams}g - Whole grains, fruits, vegetables.
+        `;
+        const nonVegetarianDiet = `
+            <span class="font-semibold">Proteins:</span> ${proteinGrams}g - Lean meats like chicken breast, fish.<br>
+            <span class="font-semibold">Fats:</span> ${fatGrams}g - Omega-3 rich fats from fish, nuts.<br>
+            <span class="font-semibold">Carbohydrates:</span> ${carbGrams}g - Whole grains, fruits, vegetables.
+        `;
+
+        return { vegetarian: vegetarianDiet, nonVegetarian: nonVegetarianDiet };
+    }
+
+    function convertFeetToCm(feet) {
+        const inches = feet * 12;
+        return inches * 2.54; // 1 inch = 2.54 cm
+    }
+
+    // Toggle instructions visibility
+    const instructionsToggleBtn = document.getElementById('instructionsToggleBtn');
+    const instructionsContent = document.getElementById('instructionsContent');
+    instructionsToggleBtn.addEventListener('click', function() {
+        instructionsContent.classList.toggle('hidden');
+    });
+});
+
+    </script>
+</body>
+</html>
