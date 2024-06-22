@@ -47,7 +47,7 @@ function healthcalc(){
             buttonName: "Body Mass Index"
         },
         {
-            link: "./calhealth/calorieBurnCalculator.html",
+            link: "./calhealth/CalorieBurnCalculator.html",
             imageSrc: "https://img.icons8.com/color/800/treadmill-skin-type-3.png",
             imageAlt: "Calorie Burn Calculator",
             tagName: "Beta",
