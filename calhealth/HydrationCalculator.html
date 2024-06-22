@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hydration Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #111827; /* Black theme background */
+            color: #F3F4F6; /* Light text color */
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body class="flex flex-col justify-center items-center min-h-screen py-6">
+    <div class="w-full max-w-xl p-6 bg-gray-800 rounded-lg shadow-lg">
+        
+        <h2 class="text-2xl font-semibold mb-6 text-center">Hydration Calculator</h2>
+        <!-- Short Note on Use of the Calculator -->
+        <div class="mb-4">
+            <button id="noteToggleBtn" class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg mb-2">Use of this Calculator</button>
+            <div id="noteContent" class="block p-4 bg-gray-900 rounded-lg">
+                <p>This calculator helps determine your daily water intake requirements based on your age, weight, and activity level.</p>
+            </div>
+        </div>
+        <!-- Interactive Instructions Box -->
+        <div class="mb-4">
+            <button id="instructionsToggleBtn" class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg mb-2">Instructions</button>
+            <div id="instructionsContent" class="block p-4 bg-gray-900 rounded-lg">
+                <p class="text-sm mb-2">1. Enter your age in years.</p>
+                <p class="text-sm mb-2">2. Enter your weight in kilograms.</p>
+                <p class="text-sm mb-2">3. Select your activity level.</p>
+                <p class="text-sm mb-2">4. Click "Calculate Daily Water Intake".</p>
+            </div>
+        </div>
+        
+        <div>
+            <label class="block mb-2">Age (years)</label>
+            <div class="flex mb-4">
+                <input type="number" id="age" class="w-full px-3 py-2 bg-gray-700 rounded-lg text-white" placeholder="Enter your age">
+            </div>
+            <label class="block mb-2">Weight (kg)</label>
+            <div class="flex mb-4">
+                <input type="number" id="weight" class="w-full px-3 py-2 bg-gray-700 rounded-lg text-white" placeholder="Enter your weight">
+            </div>
+
+            <!-- Activity Level Table -->
+            <table class="w-full mb-4 text-left text-gray-200 bg-gray-700 rounded-lg">
+                <thead>
+                    <tr>
+                        <th class="py-2 px-4">Activity Level</th>
+                        <th class="py-2 px-4">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="py-2 px-4">Sedentary</td>
+                        <td class="py-2 px-4">Little or no exercise</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4">Light</td>
+                        <td class="py-2 px-4">Light exercise/sports 1-3 days/week</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4">Moderate</td>
+                        <td class="py-2 px-4">Moderate exercise/sports 3-5 days/week</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4">Active</td>
+                        <td class="py-2 px-4">Hard exercise/sports 6-7 days a week</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4">Very Active</td>
+                        <td class="py-2 px-4">Very hard exercise/physical job</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4">Super Active</td>
+                        <td class="py-2 px-4">Professional athlete</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <label class="block mb-2">Activity Level</label>
+            <div class="flex mb-4">
+                <select id="activity" class="w-full px-3 py-2 bg-gray-700 rounded-lg text-white">
+                    <option value="sedentary">Sedentary (little or no exercise)</option>
+                    <option value="light">Light (light exercise/sports 1-3 days/week)</option>
+                    <option value="moderate">Moderate (moderate exercise/sports 3-5 days/week)</option>
+                    <option value="active">Active (hard exercise/sports 6-7 days a week)</option>
+                    <option value="very_active">Very Active (very hard exercise/physical job)</option>
+                    <option value="super_active">Super Active (professional athlete)</option>
+                </select>
+            </div>
+            <button id="calculateBtn" class="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg mb-4">Calculate Daily Water Intake</button>
+            <div id="result" class="hidden p-4 bg-gray-900 rounded-lg"></div>
+        </div>
+        <div class="mb-4 mt-4 p-4 rounded-lg" style="background-color: rgba(255, 0, 0, 0.169);">
+            <h2 class="text-xl font-semibold mb-4"><span class="text-red-400">Note:</span> Beta Version Disclaimer</h2>
+            <p class="text-sm">This Hydration Calculator is currently in beta and may not provide 100% accurate measurements. Use it for general reference and consult professional advice for precise recommendations.</p>
+        </div>
+        <h6 class="text-center mt-4"><a href="./../index.html" class="text-purple-400 text-2xl font-bold">Home</a></h6>
+        <h5 class="text-center mt-8">Designed and Developed by Sourav Chhimpa</h5>
+        <h6 class="text-center mt-2">Insta: <a href="https://www.instagram.com/sourav-chhimpa/" target="_blank" class="text-purple-400">@sourav-chhimpa</a></h6> 
+    </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const calculateBtn = document.getElementById('calculateBtn');
+    const resultDiv = document.getElementById('result');
+
+    calculateBtn.addEventListener('click', function() {
+        const age = parseInt(document.getElementById('age').value);
+        const weight = parseFloat(document.getElementById('weight').value);
+        const activity = document.getElementById('activity').value;
+
+        if (isNaN(age) || age < 1 || age > 100) {
+            resultDiv.innerHTML = `<p class="text-red-500">Please enter a valid age (1-100).</p>`;
+            resultDiv.classList.remove('hidden');
+            return;
+        }
+
+        if (isNaN(weight) || weight < 10 || weight > 300) {
+            resultDiv.innerHTML = `<p class="text-red-500">Please enter a valid weight (10-300 kg).</p>`;
+            resultDiv.classList.remove('hidden');
+            return;
+        }
+
+        const waterIntake = calculateWaterIntake(age, weight, activity);
+        resultDiv.innerHTML = `<p class="font-semibold">Daily Water Intake: <span class="text-green-500">${waterIntake.toFixed(1)}</span> liters</p>`;
+        resultDiv.classList.remove('hidden');
+    });
+
+    function calculateWaterIntake(age, weight, activity) {
+        let baseWaterIntake = weight * 0.033; // Base water intake in liters
+
+        if (age < 30) {
+            baseWaterIntake *= 1.0;
+        } else if (age < 55) {
+            baseWaterIntake *= 0.95;
+        } else {
+            baseWaterIntake *= 0.9;
+        }
+
+        switch (activity) {
+            case 'light':
+                baseWaterIntake *= 1.2;
+                break;
+            case 'moderate':
+                baseWaterIntake *= 1.5;
+                break;
+            case 'active':
+                baseWaterIntake *= 1.8;
+                break;
+            case 'very_active':
+                baseWaterIntake *= 2.0;
+                break;
+            case 'super_active':
+                baseWaterIntake *= 2.2;
+                break;
+            default:
+                break;
+        }
+        return baseWaterIntake;
+    }
+
+    // Toggle note visibility
+    const noteToggleBtn = document.getElementById('noteToggleBtn');
+    const noteContent = document.getElementById('noteContent');
+    noteToggleBtn.addEventListener('click', function() {
+        noteContent.classList.toggle('hidden');
+    });
+
+    // Toggle instructions visibility
+    const instructionsToggleBtn = document.getElementById('instructionsToggleBtn');
+    const instructionsContent = document.getElementById('instructionsContent');
+    instructionsToggleBtn.addEventListener('click', function() {
+        instructionsContent.classList.toggle('hidden');
+    });
+});
+
+</script>
+</body>
+</html>

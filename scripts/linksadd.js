@@ -49,9 +49,16 @@ function healthcalc(){
         {
             link: "./calhealth/CalorieBurnCalculator.html",
             imageSrc: "https://img.icons8.com/color/800/treadmill-skin-type-3.png",
-            imageAlt: "Calorie Burn Calculator",
+            imageAlt: "Calorie Burn Cal",
             tagName: "Beta",
-            buttonName: "Calorie Burn Calculator"
+            buttonName: "Calorie Burn Cal"
+        },
+        {
+            link: "./calhealth/HydrationCalculator.html",
+            imageSrc: "https://img.icons8.com/external-flaticons-lineal-color-flat-icons/800/external-hydration-anatomy-flaticons-lineal-color-flat-icons-3.png",
+            imageAlt: "Hydration Calculator",
+            tagName: "Beta",
+            buttonName: "Hydration Calculator"
         },
     ]
     const healthcont = document.getElementById("HealthCal");
