@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Loan Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script defer src="loan-calculator.js"></script>
+</head>
+<body class="bg-gray-900 text-white font-sans leading-normal tracking-normal">
+    <div class="container mx-auto p-4">
+        <h1 class="text-4xl font-bold mb-4 text-center">Advanced Loan Calculator</h1>
+        <div class="mb-4">
+            <button id="noteToggleBtn" class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg mb-2">Use of this Calculator</button>
+            <div id="noteContent" class="block p-4 bg-gray-900 rounded-lg">
+                <p>Enter the loan amount, interest rate, loan tenure, and any additional fees to calculate your monthly payments, total interest, and view the detailed amortization schedule. This tool is designed for both common and professional use. For detailed financial advice, please consult with a financial expert.</p>
+            </div>
+        </div>
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+            <div class="mb-4">
+                <label for="loanAmount" class="block text-sm font-medium">Loan Amount (₹):</label>
+                <input type="number" id="loanAmount" class="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+            </div>
+            <div class="mb-4">
+                <label for="interestRate" class="block text-sm font-medium">Interest Rate (% per annum):</label>
+                <input type="number" step="0.01" id="interestRate" class="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+            </div>
+            <div class="mb-4">
+                <label for="loanTenure" class="block text-sm font-medium">Loan Tenure:</label>
+                <div class="flex">
+                    <input type="number" id="loanTenure" class="mt-1 block w-1/2 p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                    <select id="tenureType" class="mt-1 block w-1/2 ml-2 p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                        <option value="years">Years</option>
+                        <option value="months">Months</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mb-4">
+                <label for="additionalFees" class="block text-sm font-medium">Additional Fees (₹):</label>
+                <input type="number" id="additionalFees" class="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+            </div>
+            <button id="calculateBtn" class="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg">Calculate</button>
+        </div>
+
+        <div id="result" class="mt-6 p-4 bg-gray-800 rounded-lg shadow-lg hidden">
+            <h2 class="text-xl font-semibold mb-4">Loan Calculation Results:</h2>
+            <p id="monthlyPayment" class="mb-2"></p>
+            <p id="totalInterest" class="mb-2"></p>
+            <p id="totalPayment" class="mb-2"></p>
+            <div id="amortizationSchedule" class="mt-4 hidden">
+                <h3 class="text-lg font-semibold mb-2">Amortization Schedule:</h3>
+                <div class="overflow-x-auto">
+                    <table class="table-auto w-full">
+                        <thead>
+                            <tr>
+                                <th class="px-4 py-2">Month</th>
+                                <th class="px-4 py-2">Principal (₹)</th>
+                                <th class="px-4 py-2">Interest (₹)</th>
+                                <th class="px-4 py-2">Total Payment (₹)</th>
+                                <th class="px-4 py-2">Remaining Balance (₹)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="scheduleBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <canvas id="loanPieChart" class="mt-6"></canvas>
+        </div>
+        <h6 class="text-center mt-4"><a href="./../index.html" class="text-purple-400 text-2xl font-bold">Home</a></h6>
+        <h5 class="text-center mt-8">Designed and Developed by Sourav Chhimpa</h5>
+        <h6 class="text-center mt-2">Insta: <a href="https://www.instagram.com/sourav-chhimpa/" target="_blank" class="text-purple-400">@sourav-chhimpa</a></h6> 
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const calculateBtn = document.getElementById('calculateBtn');
+    const resultDiv = document.getElementById('result');
+    const monthlyPaymentEl = document.getElementById('monthlyPayment');
+    const totalInterestEl = document.getElementById('totalInterest');
+    const totalPaymentEl = document.getElementById('totalPayment');
+    const scheduleBody = document.getElementById('scheduleBody');
+    const loanPieChartEl = document.getElementById('loanPieChart');
+    const tenureTypeEl = document.getElementById('tenureType');
+    let loanPieChart;
+
+    calculateBtn.addEventListener('click', function() {
+        const loanAmount = parseFloat(document.getElementById('loanAmount').value);
+        const interestRate = parseFloat(document.getElementById('interestRate').value);
+        let loanTenure = parseInt(document.getElementById('loanTenure').value);
+        const additionalFees = parseFloat(document.getElementById('additionalFees').value) || 0;
+        const tenureType = tenureTypeEl.value;
+
+        if (tenureType === 'years') {
+            loanTenure *= 12; // Convert years to months
+        }
+
+        if (isNaN(loanAmount) || loanAmount <= 0) {
+            alert('Please enter a valid loan amount.');
+            return;
+        }
+
+        if (isNaN(interestRate) || interestRate <= 0) {
+            alert('Please enter a valid interest rate.');
+            return;
+        }
+
+        if (isNaN(loanTenure) || loanTenure <= 0) {
+            alert('Please enter a valid loan tenure.');
+            return;
+        }
+
+        const { monthlyPayment, totalInterest, totalPayment, schedule } = calculateLoan(loanAmount, interestRate, loanTenure, additionalFees);
+
+        monthlyPaymentEl.innerHTML = `<strong>Monthly Payment:</strong> ₹${monthlyPayment.toFixed(2)}`;
+        totalInterestEl.innerHTML = `<strong>Total Interest Paid:</strong> ₹${totalInterest.toFixed(2)}`;
+        totalPaymentEl.innerHTML = `<strong>Total Payment:</strong> ₹${totalPayment.toFixed(2)}`;
+
+        displayAmortizationSchedule(schedule);
+        displayLoanPieChart(loanAmount, totalInterest);
+
+        resultDiv.classList.remove('hidden');
+    });
+
+    function calculateLoan(amount, annualRate, months, fees) {
+        const monthlyRate = annualRate / 12 / 100;
+        const principal = amount + fees;
+        const monthlyPayment = (principal * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -months));
+        const totalPayment = monthlyPayment * months;
+        const totalInterest = totalPayment - amount;
+
+        let balance = principal;
+        const schedule = [];
+
+        for (let i = 1; i <= months; i++) {
+            const interestPayment = balance * monthlyRate;
+            const principalPayment = monthlyPayment - interestPayment;
+            balance -= principalPayment;
+            schedule.push({
+                month: i,
+                principal: principalPayment,
+                interest: interestPayment,
+                total: monthlyPayment,
+                balance: Math.max(balance, 0)
+            });
+        }
+
+        return { monthlyPayment, totalInterest, totalPayment, schedule };
+    }
+
+    function displayAmortizationSchedule(schedule) {
+        scheduleBody.innerHTML = '';
+        schedule.forEach(payment => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td class="border px-4 py-2">${payment.month}</td>
+                <td class="border px-4 py-2">₹${payment.principal.toFixed(2)}</td>
+                <td class="border px-4 py-2">₹${payment.interest.toFixed(2)}</td>
+                <td class="border px-4 py-2">₹${payment.total.toFixed(2)}</td>
+                <td class="border px-4 py-2">₹${payment.balance.toFixed(2)}</td>
+            `;
+            scheduleBody.appendChild(row);
+        });
+
+        document.getElementById('amortizationSchedule').classList.remove('hidden');
+    }
+
+    function displayLoanPieChart(principal, interest) {
+        if (loanPieChart) {
+            loanPieChart.destroy();
+        }
+
+        loanPieChart = new Chart(loanPieChartEl, {
+            type: 'pie',
+            data: {
+                labels: ['Principal', 'Interest'],
+                datasets: [{
+                    data: [principal, interest],
+                    backgroundColor: ['#4CAF50', '#FF6384'],
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ₹' + tooltipItem.raw.toFixed(2);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+});
+
+    </script>
+</body>
+</html>

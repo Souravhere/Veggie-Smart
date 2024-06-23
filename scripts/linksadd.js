@@ -88,3 +88,34 @@ function healthcalc(){
     });
 }
 healthcalc()
+// this data for the  FinanceCal Calculators 
+function FinanceCal(){
+    const Financecontainer = [
+        {
+            link: "./FinanceCal/LoanCal.html",
+            imageSrc: "https://img.icons8.com/external-nawicon-outline-color-nawicon/800/external-Loan-economy-nawicon-outline-color-nawicon.png",
+            imageAlt: "Loan Calculator",
+            tagName: "Free",
+            buttonName: "Loan Calculator"
+        },
+    ]
+    const FinanceCal = document.getElementById("FinanceCal");
+    FinanceCal.innerHTML = ''; 
+    
+    Financecontainer.forEach(item => {
+        FinanceCal.innerHTML += `
+            <a href="${item.link}">
+                <div class="calbtn">
+                    <div>
+                        <img src="${item.imageSrc}" alt="${item.imageAlt}" loading="lazy">
+                    </div>
+                    <div class="btnsecondsection">
+                        <span class="btn-tagname">${item.tagName}</span>
+                        <h4 class="btn-name">${item.buttonName}</h4>
+                    </div>
+                </div>
+            </a>
+        `;
+    });
+}
+FinanceCal()
