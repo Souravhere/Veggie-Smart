@@ -112,6 +112,13 @@ function FinanceCal(){
             tagName: "Free",
             buttonName: "Savings Goal"
         },
+        {
+            link: "./FinanceCal/BudgetPlanner.html",
+            imageSrc: "https://img.icons8.com/3d-fluency/800/accounting.png",
+            imageAlt: "Budget Planner",
+            tagName: "Free",
+            buttonName: "Budget Planner"
+        },
     ]
     const FinanceCal = document.getElementById("FinanceCal");
     FinanceCal.innerHTML = ''; 

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Planner</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white font-sans leading-normal tracking-normal">
+    <div class="container mx-auto p-4">
+        <h1 class="text-4xl font-bold mb-4 text-center">Budget Planner</h1>
+        
+        <div id="instructions" class="mb-6 p-4 bg-blue-100 text-blue-900 rounded-lg">
+            <h2 class="text-xl font-semibold mb-2">How to Use This Budget Planner</h2>
+            <p class="text-sm">Enter your monthly income and expenses to create a detailed budget. This tool will help you manage your finances by categorizing your expenses and calculating your savings. For detailed financial advice, please consult with a financial expert.</p>
+        </div>
+
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+            <div class="mb-4">
+                <label for="monthlyIncome" class="block text-sm font-medium">Monthly Income (₹):</label>
+                <input type="number" id="monthlyIncome" placeholder="Enter your monthly income" class="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+            </div>
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold mb-2">Monthly Expenses:</h3>
+                <div id="expensesContainer">
+                    <div class="expenseItem mb-2 flex">
+                        <input type="text" placeholder="Expense Description" class="expenseDescription mt-1 block w-1/2 p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 mr-2">
+                        <input type="number" placeholder="Amount (₹)" class="expenseAmount mt-1 block w-1/2 p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                    </div>
+                </div>
+                <button id="addExpenseBtn" class="mt-2 py-2 px-4 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg">Add Expense</button>
+            </div>
+            <button id="calculateBtn" class="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg">Calculate</button>
+        </div>
+
+        <div id="result" class="mt-6 p-4 bg-gray-800 rounded-lg shadow-lg hidden">
+            <h2 class="text-xl font-semibold mb-4">Budget Calculation Results:</h2>
+            <p id="totalIncome" class="mb-2"></p>
+            <p id="totalExpenses" class="mb-2"></p>
+            <p id="totalSavings" class="mb-2"></p>
+            <canvas id="budgetChart" class="mt-6"></canvas>
+        </div>
+        <h6 class="text-center mt-4"><a href="./../index.html" class="text-purple-400 text-2xl font-bold">Home</a></h6>
+        <h5 class="text-center mt-8">Designed and Developed by Sourav Chhimpa</h5>
+        <h6 class="text-center mt-2">Insta: <a href="https://www.instagram.com/sourav-chhimpa/" target="_blank" class="text-purple-400">@sourav-chhimpa</a></h6> 
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const addExpenseBtn = document.getElementById('addExpenseBtn');
+    const calculateBtn = document.getElementById('calculateBtn');
+    const resultDiv = document.getElementById('result');
+    const totalIncomeEl = document.getElementById('totalIncome');
+    const totalExpensesEl = document.getElementById('totalExpenses');
+    const totalSavingsEl = document.getElementById('totalSavings');
+    const budgetChartEl = document.getElementById('budgetChart');
+    const expensesContainer = document.getElementById('expensesContainer');
+    let budgetChart;
+
+    addExpenseBtn.addEventListener('click', function() {
+        const expenseItem = document.createElement('div');
+        expenseItem.className = 'expenseItem mb-2 flex';
+        expenseItem.innerHTML = `
+            <input type="text" placeholder="Expense Description" class="expenseDescription mt-1 block w-1/2 p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 mr-2">
+            <input type="number" placeholder="Amount (₹)" class="expenseAmount mt-1 block w-1/2 p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+        `;
+        expensesContainer.appendChild(expenseItem);
+    });
+
+    calculateBtn.addEventListener('click', function() {
+        const monthlyIncome = parseFloat(document.getElementById('monthlyIncome').value);
+        const expenseDescriptions = document.querySelectorAll('.expenseDescription');
+        const expenseAmounts = document.querySelectorAll('.expenseAmount');
+
+        if (isNaN(monthlyIncome) || monthlyIncome <= 0) {
+            alert('Please enter a valid monthly income.');
+            return;
+        }
+
+        let totalExpenses = 0;
+        expenseAmounts.forEach(amount => {
+            const value = parseFloat(amount.value);
+            if (!isNaN(value) && value > 0) {
+                totalExpenses += value;
+            }
+        });
+
+        const totalSavings = monthlyIncome - totalExpenses;
+
+        totalIncomeEl.innerHTML = `<strong>Total Income:</strong> ₹${monthlyIncome.toFixed(2)}`;
+        totalExpensesEl.innerHTML = `<strong>Total Expenses:</strong> ₹${totalExpenses.toFixed(2)}`;
+        totalSavingsEl.innerHTML = `<strong>Total Savings:</strong> ₹${totalSavings.toFixed(2)}`;
+
+        displayBudgetChart(monthlyIncome, totalExpenses, totalSavings);
+
+        resultDiv.classList.remove('hidden');
+    });
+
+    function displayBudgetChart(income, expenses, savings) {
+        if (budgetChart) {
+            budgetChart.destroy();
+        }
+
+        budgetChart = new Chart(budgetChartEl, {
+            type: 'pie',
+            data: {
+                labels: ['Income', 'Expenses', 'Savings'],
+                datasets: [{
+                    data: [income, expenses, savings],
+                    backgroundColor: ['#4CAF50', '#F44336', '#2196F3'],
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return `${tooltipItem.label}: ₹${tooltipItem.raw.toFixed(2)}`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+});
+
+    </script>
+</body>
+</html>
