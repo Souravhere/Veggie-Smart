@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Return Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white font-sans leading-normal tracking-normal">
+    <div class="container mx-auto p-4">
+        <h1 class="text-4xl font-bold mb-4 text-center">Investment Return Calculator</h1>
+        
+        <div id="instructions" class="mb-6 p-4 bg-blue-100 text-blue-900 rounded-lg">
+            <h2 class="text-xl font-semibold mb-2">How to Use This Calculator</h2>
+            <p class="text-sm">Enter your initial investment, annual interest rate, investment duration, and any additional monthly contributions to calculate your estimated returns over time. This tool is designed for professional use. For detailed financial advice, please consult with a financial expert.</p>
+        </div>
+
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+            <div class="mb-4">
+                <label for="investmentType" class="block text-sm font-medium">Investment Type:</label>
+                <select id="investmentType" class="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                    <option value="one-time">One-Time Investment</option>
+                    <option value="monthly">Monthly Contributions</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="initialInvestment" class="block text-sm font-medium">Initial Investment (₹):</label>
+                <input type="number" id="initialInvestment" placeholder="Enter initial investment amount" class="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+            </div>
+            <div id="monthlyContributionDiv" class="mb-4 hidden">
+                <label for="monthlyContribution" class="block text-sm font-medium">Monthly Contribution (₹):</label>
+                <input type="number" id="monthlyContribution" placeholder="Enter monthly contribution amount" class="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+            </div>
+            <div class="mb-4">
+                <label for="annualInterestRate" class="block text-sm font-medium">Annual Interest Rate (%):</label>
+                <input type="number" step="0.01" id="annualInterestRate" placeholder="Enter annual interest rate" class="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+            </div>
+            <div class="mb-4">
+                <label for="investmentDuration" class="block text-sm font-medium">Investment Duration (Years):</label>
+                <input type="number" id="investmentDuration" placeholder="Enter investment duration in years" class="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+            </div>
+            <button id="calculateBtn" class="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg">Calculate</button>
+        </div>
+
+        <div id="result" class="mt-6 p-4 bg-gray-800 rounded-lg shadow-lg hidden">
+            <h2 class="text-xl font-semibold mb-4">Investment Calculation Results:</h2>
+            <p id="finalAmount" class="mb-2"></p>
+            <p id="totalContributions" class="mb-2"></p>
+            <p id="totalInterestEarned" class="mb-2"></p>
+            <canvas id="investmentChart" class="mt-6"></canvas>
+        </div>
+        <h6 class="text-center mt-4"><a href="./../index.html" class="text-purple-400 text-2xl font-bold">Home</a></h6>
+        <h5 class="text-center mt-8">Designed and Developed by Sourav Chhimpa</h5>
+        <h6 class="text-center mt-2">Insta: <a href="https://www.instagram.com/sourav-chhimpa/" target="_blank" class="text-purple-400">@sourav-chhimpa</a></h6> 
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const calculateBtn = document.getElementById('calculateBtn');
+    const resultDiv = document.getElementById('result');
+    const finalAmountEl = document.getElementById('finalAmount');
+    const totalContributionsEl = document.getElementById('totalContributions');
+    const totalInterestEarnedEl = document.getElementById('totalInterestEarned');
+    const investmentChartEl = document.getElementById('investmentChart');
+    const investmentTypeSelect = document.getElementById('investmentType');
+    const monthlyContributionDiv = document.getElementById('monthlyContributionDiv');
+    let investmentChart;
+
+    investmentTypeSelect.addEventListener('change', function() {
+        if (investmentTypeSelect.value === 'monthly') {
+            monthlyContributionDiv.classList.remove('hidden');
+        } else {
+            monthlyContributionDiv.classList.add('hidden');
+        }
+    });
+
+    calculateBtn.addEventListener('click', function() {
+        const initialInvestment = parseFloat(document.getElementById('initialInvestment').value);
+        const annualInterestRate = parseFloat(document.getElementById('annualInterestRate').value);
+        const investmentDuration = parseInt(document.getElementById('investmentDuration').value);
+        const monthlyContribution = investmentTypeSelect.value === 'monthly' ? parseFloat(document.getElementById('monthlyContribution').value) || 0 : 0;
+
+        if (isNaN(initialInvestment) || initialInvestment <= 0) {
+            alert('Please enter a valid initial investment amount.');
+            return;
+        }
+
+        if (isNaN(annualInterestRate) || annualInterestRate <= 0) {
+            alert('Please enter a valid annual interest rate.');
+            return;
+        }
+
+        if (isNaN(investmentDuration) || investmentDuration <= 0) {
+            alert('Please enter a valid investment duration.');
+            return;
+        }
+
+        const { finalAmount, totalContributions, totalInterestEarned, values } = calculateInvestment(initialInvestment, annualInterestRate, investmentDuration, monthlyContribution);
+
+        finalAmountEl.innerHTML = `<strong>Final Amount:</strong> ₹${finalAmount.toFixed(2)}`;
+        totalContributionsEl.innerHTML = `<strong>Total Contributions:</strong> ₹${totalContributions.toFixed(2)}`;
+        totalInterestEarnedEl.innerHTML = `<strong>Total Interest Earned:</strong> ₹${totalInterestEarned.toFixed(2)}`;
+
+        displayInvestmentChart(values);
+
+        resultDiv.classList.remove('hidden');
+    });
+
+    function calculateInvestment(initial, annualRate, years, monthlyContribution) {
+        const monthlyRate = annualRate / 12 / 100;
+        const months = years * 12;
+        let finalAmount = initial;
+        let totalContributions = initial;
+        const values = [];
+
+        for (let i = 1; i <= months; i++) {
+            finalAmount = finalAmount * (1 + monthlyRate) + monthlyContribution;
+            totalContributions += monthlyContribution;
+            if (i % 12 === 0) {
+                values.push({ year: i / 12, amount: finalAmount });
+            }
+        }
+
+        const totalInterestEarned = finalAmount - totalContributions;
+
+        return { finalAmount, totalContributions, totalInterestEarned, values };
+    }
+
+    function displayInvestmentChart(values) {
+        if (investmentChart) {
+            investmentChart.destroy();
+        }
+
+        const labels = values.map(value => `Year ${value.year}`);
+        const data = values.map(value => value.amount);
+
+        investmentChart = new Chart(investmentChartEl, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Investment Value Over Time',
+                    data: data,
+                    borderColor: '#4CAF50',
+                    backgroundColor: 'rgba(76, 175, 80, 0.2)',
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return `₹${tooltipItem.raw.toFixed(2)}`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+});
+
+    </script>
+</body>
+</html>

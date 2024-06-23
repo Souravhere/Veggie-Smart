@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savings Goal Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white font-sans leading-normal tracking-normal">
+    <div class="container mx-auto p-4">
+        <h1 class="text-4xl font-bold mb-4 text-center">Savings Goal Calculator</h1>
+        
+        <div id="instructions" class="mb-6 p-4 bg-blue-100 text-blue-900 rounded-lg">
+            <h2 class="text-xl font-semibold mb-2">How to Use This Calculator</h2>
+            <p class="text-sm">Enter your savings goal, the duration in months or years, and the annual interest rate you expect to earn. This tool will help you determine how much you need to save each month to reach your financial goal. For personalized financial advice, consult with a financial advisor.</p>
+        </div>
+
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+            <div class="mb-4">
+                <label for="savingsGoal" class="block text-sm font-medium">Savings Goal (₹):</label>
+                <input type="number" id="savingsGoal" placeholder="Enter your savings goal" class="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+            </div>
+            <div class="mb-4">
+                <label for="savingsDuration" class="block text-sm font-medium">Duration:</label>
+                <div class="flex">
+                    <input type="number" id="savingsDuration" placeholder="Enter duration" class="mt-1 block w-1/2 p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                    <select id="durationType" class="ml-2 mt-1 block w-1/2 p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                        <option value="months">Months</option>
+                        <option value="years">Years</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mb-4">
+                <label for="annualInterestRate" class="block text-sm font-medium">Annual Interest Rate (%):</label>
+                <input type="number" step="0.01" id="annualInterestRate" placeholder="Enter annual interest rate" class="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+            </div>
+            <button id="calculateBtn" class="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg">Calculate</button>
+        </div>
+
+        <div id="result" class="mt-6 p-4 bg-gray-800 rounded-lg shadow-lg hidden">
+            <h2 class="text-xl font-semibold mb-4">Savings Calculation Results:</h2>
+            <p id="monthlySavings" class="mb-2"></p>
+            <canvas id="savingsChart" class="mt-6"></canvas>
+        </div>
+        <h6 class="text-center mt-4"><a href="./../index.html" class="text-purple-400 text-2xl font-bold">Home</a></h6>
+        <h5 class="text-center mt-8">Designed and Developed by Sourav Chhimpa</h5>
+        <h6 class="text-center mt-2">Insta: <a href="https://www.instagram.com/sourav-chhimpa/" target="_blank" class="text-purple-400">@sourav-chhimpa</a></h6> 
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const calculateBtn = document.getElementById('calculateBtn');
+    const resultDiv = document.getElementById('result');
+    const monthlySavingsEl = document.getElementById('monthlySavings');
+    const savingsChartEl = document.getElementById('savingsChart');
+    let savingsChart;
+
+    calculateBtn.addEventListener('click', function() {
+        const savingsGoal = parseFloat(document.getElementById('savingsGoal').value);
+        const savingsDuration = parseInt(document.getElementById('savingsDuration').value);
+        const durationType = document.getElementById('durationType').value;
+        const annualInterestRate = parseFloat(document.getElementById('annualInterestRate').value);
+
+        if (isNaN(savingsGoal) || savingsGoal <= 0) {
+            alert('Please enter a valid savings goal.');
+            return;
+        }
+
+        if (isNaN(savingsDuration) || savingsDuration <= 0) {
+            alert('Please enter a valid duration.');
+            return;
+        }
+
+        if (isNaN(annualInterestRate) || annualInterestRate < 0) {
+            alert('Please enter a valid annual interest rate.');
+            return;
+        }
+
+        const durationInMonths = durationType === 'years' ? savingsDuration * 12 : savingsDuration;
+        const { monthlySavings, values } = calculateMonthlySavings(savingsGoal, durationInMonths, annualInterestRate);
+
+        monthlySavingsEl.innerHTML = `<strong>Monthly Savings Required:</strong> ₹${monthlySavings.toFixed(2)}`;
+
+        displaySavingsChart(values);
+
+        resultDiv.classList.remove('hidden');
+    });
+
+    function calculateMonthlySavings(goal, months, annualRate) {
+        const monthlyRate = annualRate / 12 / 100;
+        const monthlySavings = goal / ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate);
+
+        const values = [];
+        let accumulatedSavings = 0;
+        for (let i = 1; i <= months; i++) {
+            accumulatedSavings = accumulatedSavings * (1 + monthlyRate) + monthlySavings;
+            if (i % 12 === 0) {
+                values.push({ year: i / 12, amount: accumulatedSavings });
+            }
+        }
+
+        return { monthlySavings, values };
+    }
+
+    function displaySavingsChart(values) {
+        if (savingsChart) {
+            savingsChart.destroy();
+        }
+
+        const labels = values.map(value => `Year ${value.year}`);
+        const data = values.map(value => value.amount);
+
+        savingsChart = new Chart(savingsChartEl, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Savings Growth Over Time',
+                    data: data,
+                    borderColor: '#4CAF50',
+                    backgroundColor: 'rgba(76, 175, 80, 0.2)',
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return `₹${tooltipItem.raw.toFixed(2)}`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+});
+
+    </script>
+</body>
+</html>

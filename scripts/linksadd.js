@@ -98,6 +98,20 @@ function FinanceCal(){
             tagName: "Free",
             buttonName: "Loan Calculator"
         },
+        {
+            link: "./FinanceCal/InvestmentReturn.html",
+            imageSrc: "https://img.icons8.com/isometric/800/economic-improvement--v1.png",
+            imageAlt: "Investment Return Cal",
+            tagName: "Free",
+            buttonName: "Investment Return"
+        },
+        {
+            link: "./FinanceCal/CalSavingsGoal.html",
+            imageSrc: "https://img.icons8.com/3d-fluency/800/money-box.png",
+            imageAlt: "Savings Goal ",
+            tagName: "Free",
+            buttonName: "Savings Goal"
+        },
     ]
     const FinanceCal = document.getElementById("FinanceCal");
     FinanceCal.innerHTML = ''; 
