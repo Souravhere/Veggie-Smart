@@ -19,16 +19,16 @@
         <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
             <div class="mb-4">
                 <label for="loanAmount" class="block text-sm font-medium">Loan Amount (₹):</label>
-                <input type="number" id="loanAmount" class="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                <input type="number" id="loanAmount" placeholder="Enter Loan Amount" class="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
             </div>
             <div class="mb-4">
                 <label for="interestRate" class="block text-sm font-medium">Interest Rate (% per annum):</label>
-                <input type="number" step="0.01" id="interestRate" class="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                <input type="number" step="0.01" id="interestRate" placeholder="Enter Interest Rate" class="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
             </div>
             <div class="mb-4">
                 <label for="loanTenure" class="block text-sm font-medium">Loan Tenure:</label>
                 <div class="flex">
-                    <input type="number" id="loanTenure" class="mt-1 block w-1/2 p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                    <input type="number" id="loanTenure" placeholder="Enter Loan Tenure" class="mt-1 block w-1/2 p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
                     <select id="tenureType" class="mt-1 block w-1/2 ml-2 p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
                         <option value="years">Years</option>
                         <option value="months">Months</option>
@@ -37,7 +37,7 @@
             </div>
             <div class="mb-4">
                 <label for="additionalFees" class="block text-sm font-medium">Additional Fees (₹):</label>
-                <input type="number" id="additionalFees" class="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                <input type="number" id="additionalFees" placeholder="Enter Additional fees" class="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
             </div>
             <button id="calculateBtn" class="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg">Calculate</button>
         </div>
