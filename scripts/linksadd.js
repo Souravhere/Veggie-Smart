@@ -108,7 +108,7 @@ function FinanceCal(){
         {
             link: "./FinanceCal/CalSavingsGoal.html",
             imageSrc: "https://img.icons8.com/3d-fluency/800/money-box.png",
-            imageAlt: "Savings Goal ",
+            imageAlt: "Savings Goal",
             tagName: "Free",
             buttonName: "Savings Goal"
         },
