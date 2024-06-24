@@ -119,6 +119,13 @@ function FinanceCal(){
             tagName: "Free",
             buttonName: "Budget Planner"
         },
+        {
+            link: "./FinanceCal/InterestCal.html",
+            imageSrc: "https://img.icons8.com/cute-clipart/800/percentage.png",
+            imageAlt: "Simple Interest",
+            tagName: "Free",
+            buttonName: "Simple Interest"
+        },
     ]
     const FinanceCal = document.getElementById("FinanceCal");
     FinanceCal.innerHTML = ''; 
