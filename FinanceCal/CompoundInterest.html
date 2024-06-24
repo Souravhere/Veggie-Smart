@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Compound Interest Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer src="compound-interest-calculator.js"></script>
+</head>
+<body class="bg-gray-900 text-white font-sans leading-normal tracking-normal">
+    <div class="container mx-auto p-4">
+        <h1 class="text-4xl font-bold mb-4 text-center">Advanced Compound Interest Calculator</h1>
+        
+        <div id="instructions" class="mb-6 p-4 bg-blue-100 text-blue-900 rounded-lg">
+            <h2 class="text-xl font-semibold mb-2">How to Use This Calculator</h2>
+            <p class="text-sm">Enter the principal amount, interest rate, compounding frequency, and time period to calculate the compound interest. Select whether the interest rate is per year or per month.</p>
+        </div>
+
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+            <div class="mb-4">
+                <label for="principal" class="block text-sm font-medium">Principal Amount (₹):</label>
+                <input type="number" id="principal" placeholder="Enter principal amount" class="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+            </div>
+            <div class="mb-4">
+                <label for="interestRate" class="block text-sm font-medium">Interest Rate (%):</label>
+                <input type="number" step="0.01" id="interestRate" placeholder="Enter interest rate" class="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+            </div>
+            <div class="mb-4">
+                <label for="compoundingFrequency" class="block text-sm font-medium">Compounding Frequency:</label>
+                <select id="compoundingFrequency" class="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                    <option value="annual">Annually</option>
+                    <option value="semi-annual">Semi-Annually</option>
+                    <option value="quarterly">Quarterly</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="daily">Daily</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="timePeriod" class="block text-sm font-medium">Time Period (Years):</label>
+                <input type="number" id="timePeriod" placeholder="Enter time period in years" class="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+            </div>
+            <button id="calculateBtn" class="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg">Calculate</button>
+        </div>
+
+        <div id="result" class="mt-6 p-4 bg-gray-800 rounded-lg shadow-lg hidden">
+            <h2 class="text-xl font-semibold mb-4">Compound Interest Calculation Results:</h2>
+            <p id="totalInterest" class="mb-2"></p>
+            <p id="totalAmount" class="mb-2"></p>
+            <canvas id="interestChart" class="mt-4"></canvas>
+        </div>
+
+        <div id="documentation" class="mt-6 p-4 bg-green-100 text-green-900 rounded-lg">
+            <h2 class="text-xl font-semibold mb-2">Understanding the Compound Interest Calculation</h2>
+            <p class="text-sm mb-2"><strong>Formula:</strong> The compound interest is calculated using the formula:</p>
+            <p class="text-sm mb-2"><strong>A = P (1 + r/n)^(nt)</strong></p>
+            <p class="text-sm mb-2"><strong>Where:</strong></p>
+            <ul class="list-disc list-inside text-sm">
+                <li><strong>P:</strong> The principal amount (initial investment).</li>
+                <li><strong>r:</strong> The annual interest rate (decimal).</li>
+                <li><strong>n:</strong> The number of times interest is compounded per year.</li>
+                <li><strong>t:</strong> The time the money is invested for in years.</li>
+                <li><strong>A:</strong> The amount of money accumulated after n years, including interest.</li>
+            </ul>
+            <p class="text-sm mt-2">The calculator adjusts the interest rate and compounding frequency based on the user's input to ensure accurate calculation. The total interest earned and the total amount after interest are displayed as the results.</p>
+        </div>
+        <h6 class="text-center mt-4"><a href="./../index.html" class="text-purple-400 text-2xl font-bold">Home</a></h6>
+        <h5 class="text-center mt-8">Designed and Developed by Sourav Chhimpa</h5>
+        <h6 class="text-center mt-2">Insta: <a href="https://www.instagram.com/sourav-chhimpa/" target="_blank" class="text-purple-400">@sourav-chhimpa</a></h6> 
+    </div>
+</body>
+</html>
