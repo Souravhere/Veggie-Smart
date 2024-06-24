@@ -121,10 +121,17 @@ function FinanceCal(){
         },
         {
             link: "./FinanceCal/InterestCal.html",
-            imageSrc: "https://img.icons8.com/cute-clipart/800/percentage.png",
+            imageSrc: "https://img.icons8.com/external-filled-color-icons-papa-vector/800/external-Interest-corporate-insurance-filled-color-icons-papa-vector.png",
             imageAlt: "Simple Interest",
             tagName: "Free",
             buttonName: "Simple Interest"
+        },
+        {
+            link: "./FinanceCal/InterestCal.html",
+            imageSrc: "https://img.icons8.com/fluency/800/credit-card-interest.png",
+            imageAlt: "Compound Interest",
+            tagName: "Free",
+            buttonName: "Compound Interest"
         },
     ]
     const FinanceCal = document.getElementById("FinanceCal");
