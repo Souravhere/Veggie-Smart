@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const calculateBtn = document.getElementById('calculateBtn');
     const resultDiv = document.getElementById('result');
     const totalAreaEl = document.getElementById('totalArea');
@@ -11,11 +11,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const paintCostInput = document.getElementById('paintCost');
     const laborCostInput = document.getElementById('laborCost');
     const colorOptionSelect = document.getElementById('colorOption');
-    const view3D = document.getElementById('3dView');
+    const renderCanvas = document.getElementById('renderCanvas');
 
-    let scene, camera, renderer, controls;
-
-    calculateBtn.addEventListener('click', function() {
+    calculateBtn.addEventListener('click', function () {
         const length = parseFloat(lengthInput.value);
         const width = parseFloat(widthInput.value);
         const height = parseFloat(heightInput.value);
@@ -53,15 +51,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const widthMeters = units === 'feet' ? width * 0.3048 : width;
         const heightMeters = units === 'feet' ? height * 0.3048 : height;
 
-        const wallArea = 2 * (lengthMeters * heightMeters + widthMeters * heightMeters);
-        const ceilingArea = lengthMeters * widthMeters;
-        const totalArea = wallArea + ceilingArea;
-        const paintNeeded = totalArea / 10; // Assuming 1 liter covers 10 square meters
+        const wallAreaMeters = 2 * (lengthMeters * heightMeters + widthMeters * heightMeters);
+        const ceilingAreaMeters = lengthMeters * widthMeters;
+        const totalAreaMeters = wallAreaMeters + ceilingAreaMeters;
+        const paintNeededLiters = totalAreaMeters / 10; // Assuming 1 liter covers 10 square meters
 
-        totalAreaEl.innerHTML = `<strong>Total Area to be Painted:</strong> ${totalArea.toFixed(2)} square meters`;
-        paintNeededEl.innerHTML = `<strong>Paint Needed:</strong> ${paintNeeded.toFixed(2)} liters`;
+        const totalArea = units === 'feet' ? (totalAreaMeters * 10.7639).toFixed(2) : totalAreaMeters.toFixed(2);
+        const paintNeeded = paintNeededLiters.toFixed(2);
 
-        let estimatedCost = paintCost * paintNeeded + laborCost * totalArea;
+        totalAreaEl.innerHTML = `<strong>Total Area to be Painted:</strong> ${totalArea} square ${units}`;
+        paintNeededEl.innerHTML = `<strong>Paint Needed:</strong> ${paintNeeded} liters`;
+
+        let estimatedCost = paintCost * paintNeededLiters + laborCost * (totalAreaMeters * 10.7639);
 
         if (colorOption === 'both-sides') {
             estimatedCost *= 2;
@@ -71,80 +72,40 @@ document.addEventListener('DOMContentLoaded', function() {
 
         resultDiv.classList.remove('hidden');
 
-        // Initialize 3D view
-        if (!scene) {
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, view3D.clientWidth / view3D.clientHeight, 0.1, 1000);
-            renderer = new THREE.WebGLRenderer({ antialias: true });
-            renderer.setSize(view3D.clientWidth, view3D.clientHeight);
-            view3D.appendChild(renderer.domElement);
+        // Initialize 3D view with Babylon.js
+        const engine = new BABYLON.Engine(renderCanvas, true);
+        const scene = new BABYLON.Scene(engine);
+        const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 4, 10, BABYLON.Vector3.Zero(), scene);
+        camera.attachControl(renderCanvas, true);
+        const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0), scene);
 
-            controls = new THREE.OrbitControls(camera, renderer.domElement);
-            controls.enableDamping = true;
-            controls.dampingFactor = 0.25;
-            controls.enableZoom = true;
+        // Create box for the room
+        const box = BABYLON.MeshBuilder.CreateBox("box", {
+            height: heightMeters,
+            width: lengthMeters,
+            depth: widthMeters
+        }, scene);
 
-            camera.position.z = 5;
-        }
+        box.material = new BABYLON.StandardMaterial("boxMat", scene);
+        box.material.diffuseColor = new BABYLON.Color3(0.4, 0.4, 0.4);
 
-        // Clear previous 3D objects
-        while (scene.children.length > 0) { 
-            scene.remove(scene.children[0]); 
-        }
+        // Add text labels
+        const dynamicTexture = new BABYLON.DynamicTexture("DynamicTexture", { width: 512, height: 256 }, scene, false);
+        dynamicTexture.drawText(`Height: ${height} ${units}`, null, 140, "bold 24px Arial", "white", "transparent", true);
+        dynamicTexture.drawText(`Width: ${width} ${units}`, null, 220, "bold 24px Arial", "white", "transparent", true);
+        dynamicTexture.drawText(`Length: ${length} ${units}`, null, 300, "bold 24px Arial", "white", "transparent", true);
 
-        // Create 3D room
-        const geometry = new THREE.BoxGeometry(lengthMeters, heightMeters, widthMeters);
-        const material = new THREE.MeshPhongMaterial({ color: 0x6e7f80 });
-        const cube = new THREE.Mesh(geometry, material);
-        scene.add(cube);
+        const labelPlane = BABYLON.MeshBuilder.CreatePlane("labelPlane", { width: 3, height: 1.5 }, scene);
+        labelPlane.material = new BABYLON.StandardMaterial("labelMat", scene);
+        labelPlane.material.diffuseTexture = dynamicTexture;
+        labelPlane.position.y = heightMeters / 2 + 0.1;
 
-        // Add text labels for dimensions
-        const loader = new THREE.FontLoader();
-        loader.load('https://cdn.jsdelivr.net/npm/three/examples/fonts/helvetiker_regular.typeface.json', function(font) {
-            const textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
-            const textOptions = {
-                font: font,
-                size: 0.1,
-                height: 0.01,
-                curveSegments: 12,
-                bevelEnabled: false
-            };
-
-            // Length
-            const lengthText = new THREE.TextGeometry(`Length: ${length} ${units}`, textOptions);
-            const lengthLabel = new THREE.Mesh(lengthText, textMaterial);
-            lengthLabel.position.set(-lengthMeters / 2, heightMeters / 2, widthMeters / 2 + 0.1);
-            scene.add(lengthLabel);
-
-            // Width
-            const widthText = new THREE.TextGeometry(`Width: ${width} ${units}`, textOptions);
-            const widthLabel = new THREE.Mesh(widthText, textMaterial);
-            widthLabel.position.set(lengthMeters / 2 + 0.1, heightMeters / 2, -widthMeters / 2);
-            widthLabel.rotation.y = Math.PI / 2;
-            scene.add(widthLabel);
-
-            // Height
-            const heightText = new THREE.TextGeometry(`Height: ${height} ${units}`, textOptions);
-            const heightLabel = new THREE.Mesh(heightText, textMaterial);
-            heightLabel.position.set(lengthMeters / 2 + 0.1, heightMeters, widthMeters / 2);
-            heightLabel.rotation.y = Math.PI / 2;
-            scene.add(heightLabel);
-
-            function animate() {
-                requestAnimationFrame(animate);
-                controls.update();
-                renderer.render(scene, camera);
-            }
-            animate();
+        engine.runRenderLoop(function () {
+            scene.render();
         });
-    });
 
-    // Resize the 3D view with window resizing
-    window.addEventListener('resize', function() {
-        const width = view3D.clientWidth;
-        const height = view3D.clientHeight;
-        renderer.setSize(width, height);
-        camera.aspect = width / height;
-        camera.updateProjectionMatrix();
+        window.addEventListener("resize", function () {
+            engine.resize();
+        });
     });
 });
