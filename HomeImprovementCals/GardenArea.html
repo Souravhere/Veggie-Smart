@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Garden Area Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        #renderCanvas {
+            width: 100%;
+            height: 400px;
+            margin-top: 20px;
+        }
+
+        .form-input,
+        .form-select {
+            background-color: #2d3748;
+            border-color: #4a5568;
+            color: white;
+        }
+
+        .form-input:disabled,
+        .form-select:disabled {
+            background-color: #4a5568;
+            cursor: not-allowed;
+        }
+
+        .calc-btn {
+            background-color: #2563eb;
+            border-color: #1d4ed8;
+        }
+
+        .calc-btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        .result {
+            background-color: #4a5568;
+        }
+
+        .loading-spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #ffffff;
+            width: 40px;
+            height: 40px;
+            -webkit-animation: spin 1s linear infinite;
+            animation: spin 1s linear infinite;
+        }
+
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .documentation-section {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .section-content {
+            padding: 10px;
+            background-color: #4a5568;
+            border-radius: 8px;
+        }
+
+        .formula {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-white">
+
+    <div class="container mx-auto p-4">
+        <h1 class="text-2xl font-bold mb-4 text-center">Advanced Garden Area Calculator</h1>
+
+        <div class="bg-gray-800 p-4 rounded-lg">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="gardenType" class="block text-sm font-medium">Garden Shape:</label>
+                    <select id="gardenType"
+                        class="form-select mt-1 block w-full p-2 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                        <option value="rectangle">Rectangle</option>
+                        <option value="triangle">Triangle</option>
+                        <option value="square">Square</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="units" class="block text-sm font-medium">Measurement Units:</label>
+                    <select id="units"
+                        class="form-select mt-1 block w-full p-2 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                        <option value="meters">Meters</option>
+                        <option value="feet">Feet</option>
+                    </select>
+                </div>
+                <div id="lengthContainer">
+                    <label for="length" class="block text-sm font-medium">Length (only for Rectangle/Triangle):</label>
+                    <input type="number" id="length"
+                        class="form-input mt-1 block w-full p-3 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                        placeholder="Enter length">
+                </div>
+                <div>
+                    <label for="width" class="block text-sm font-medium">Width:</label>
+                    <input type="number" id="width"
+                        class="form-input mt-1 block w-full p-3 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                        placeholder="Enter width">
+                </div>
+                <div id="heightContainer">
+                    <label for="height" class="block text-sm font-medium">Height (only for Triangle):</label>
+                    <input type="number" id="height"
+                        class="form-input mt-1 block w-full p-3 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                        placeholder="Enter height">
+                </div>
+            </div>
+            <button id="calculateBtn"
+                class="calc-btn mt-4 w-full text-white font-bold py-2 px-4 rounded-lg">Calculate</button>
+        </div>
+
+        <div id="result" class="result hidden bg-gray-800 p-4 mt-4 rounded-lg">
+            <p id="totalArea"></p>
+        </div>
+
+        <div id="loading" class="hidden flex justify-center items-center mt-4">
+            <div class="loading-spinner"></div>
+        </div>
+        <h4 class="text-center text-2xl mt-4 font-semibold">3D View</h4>
+        <canvas id="renderCanvas" class="bg-gray-700 rounded-lg mt-4"></canvas>
+    </div>
+    <div class="bg-gray-800 p-4 rounded-lg m-4">
+        <h1 class="text-3xl font-bold mb-6 text-center">Garden Area Calculator Documentation</h1>
+
+        <div class="documentation-section">
+            <div class="section-title">Overview</div>
+            <div class="section-content">
+                <p>This calculator estimates the area of garden spaces for landscaping purposes based on user-provided dimensions and shape type (rectangle, triangle, square).</p>
+            </div>
+        </div>
+
+        <div class="documentation-section">
+            <div class="section-title">Formulas Used</div>
+            <div class="section-content">
+                <p class="formula"><strong>Square:</strong> Area = Width × Width</p>
+                <p class="formula"><strong>Rectangle:</strong> Area = Length × Width</p>
+                <p class="formula"><strong>Triangle:</strong> Area = (Base × Height) / 2</p>
+            </div>
+        </div>
+
+        <div class="documentation-section">
+            <div class="section-title">Measurement Units</div>
+            <div class="section-content">
+                <p>The calculator supports measurement in either meters or feet, converting inputs as necessary.</p>
+            </div>
+        </div>
+
+        <div class="documentation-section">
+            <div class="section-title">How to Use</div>
+            <div class="section-content">
+                <ol class="list-decimal list-inside">
+                    <li>Choose the garden shape (rectangle, triangle, square).</li>
+                    <li>Select the measurement units (meters or feet).</li>
+                    <li>Enter the appropriate dimensions based on the selected shape.</li>
+                    <li>Click "Calculate" to see the total area and a 3D model representation.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="documentation-section">
+            <div class="section-title">Example</div>
+            <div class="section-content">
+                <p>For a rectangle with Length = 5 meters and Width = 3 meters:</p>
+                <p class="formula">Area = 5 × 3 = 15 square meters</p>
+            </div>
+        </div>
+    </div>
+    <h6 class="text-center mt-4"><a href="./../index.html" class="text-purple-400 text-2xl font-bold">Home</a></h6>
+        <h5 class="text-center mt-8">Designed and Developed by Sourav Chhimpa</h5>
+        <h6 class="text-center mt-2">Insta: <a href="https://www.instagram.com/sourav-chhimpa/" target="_blank" class="text-purple-400">@sourav-chhimpa</a></h6> 
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+
+    <script src="GardenArea.js"></script>
+</body>
+
+</html>

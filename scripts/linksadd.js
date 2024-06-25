@@ -164,6 +164,13 @@ function HomeMeasureCal(){
             tagName: "Beta",
             buttonName: "Paint Calculator"
         },
+        {
+            link: "./HomeImprovementCals/GardenArea.html",
+            imageSrc: "https://img.icons8.com/color/800/measurement-ui.png",
+            imageAlt: "Garden Area Cal",
+            tagName: "Beta",
+            buttonName: "Garden Area Cal"
+        },
     ]
     const HomeimpCal = document.getElementById("HomeimpCal");
     HomeimpCal.innerHTML = ''; 
