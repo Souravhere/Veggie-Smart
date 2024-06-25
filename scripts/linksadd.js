@@ -154,3 +154,34 @@ function FinanceCal(){
     });
 }
 FinanceCal()
+// this data for the Home Measurements Calculators 
+function HomeMeasureCal(){
+    const HomeMeasurecontainer = [
+        {
+            link: "./HomeImprovementCals/PaintCal.html",
+            imageSrc: "https://img.icons8.com/glassmorphism/800/fill-color.png",
+            imageAlt: "Paint Calculator",
+            tagName: "Beta",
+            buttonName: "Paint Calculator"
+        },
+    ]
+    const HomeimpCal = document.getElementById("HomeimpCal");
+    HomeimpCal.innerHTML = ''; 
+    
+    HomeMeasurecontainer.forEach(item => {
+        HomeimpCal.innerHTML += `
+            <a href="${item.link}">
+                <div class="calbtn">
+                    <div>
+                        <img src="${item.imageSrc}" alt="${item.imageAlt}" loading="lazy">
+                    </div>
+                    <div class="btnsecondsection">
+                        <span class="btn-tagname">${item.tagName}</span>
+                        <h4 class="btn-name">${item.buttonName}</h4>
+                    </div>
+                </div>
+            </a>
+        `;
+    });
+}
+HomeMeasureCal()
