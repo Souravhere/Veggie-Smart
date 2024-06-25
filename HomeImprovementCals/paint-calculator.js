@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         if (isNaN(laborCost) || laborCost <= 0) {
-            alert('Please enter a valid labor cost per square feet.');
+            alert('Please enter a valid labor cost per square foot.');
             return;
         }
 

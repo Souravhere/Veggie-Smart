@@ -1,83 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paint Calculator</title>
+    <title>Advanced Paint Calculator</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        #3dView {
+        #renderCanvas {
             width: 100%;
             height: 400px;
+            margin-top: 20px;
+        }
+
+        .form-input {
+            background-color: #2d3748;
+            border-color: #4a5568;
+        }
+
+        .form-select {
+            background-color: #2d3748;
+            border-color: #4a5568;
+        }
+
+        .calc-btn {
+            background-color: #2563eb;
+            border-color: #1d4ed8;
+        }
+
+        .calc-btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        .result {
+            background-color: #4a5568;
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.133.1/build/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.133.1/examples/js/controls/OrbitControls.js"></script>
-    <script defer src="paint-calculator.js"></script>
 </head>
-<body class="bg-gray-900 text-white font-sans leading-normal tracking-normal">
-    <div class="container mx-auto p-4">
-        <h1 class="text-4xl font-bold mb-4 text-center">Paint Calculator</h1>
 
-        <div id="instructions" class="mb-6 p-4 bg-blue-100 text-blue-900 rounded-lg">
-            <h2 class="text-xl font-semibold mb-2">How to Use This Calculator</h2>
-            <p class="text-sm">Enter the dimensions of the room or wall to calculate the amount of paint needed. You can input dimensions in feet or meters.</p>
+<body class="bg-gray-900 text-white">
+
+    <div class="container mx-auto p-4">
+        <h1 class="text-2xl font-bold mb-4">Advanced Paint Calculator</h1>
+
+        <div id="instructions" class="bg-red-100 text-red-700 p-4 mb-4 rounded-lg">
+            <h2 class="text-xl font-semibold mb-2">Note:</h2>
+            <p>This calculator helps you estimate the amount of paint needed for your project and the associated costs. Enter
+                the dimensions of the area to be painted, select measurement units, and provide paint and labor costs for
+                accurate results.</p>
         </div>
 
-        <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+        <div class="bg-gray-800 p-4 rounded-lg">
+            <img class="mx-auto" src="./../Source Images/paint-cal-img.png" alt="Paint Cal">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="mb-4">
-                    <label for="length" class="block text-sm font-medium">Length:</label>
-                    <input type="number" id="length" placeholder="Enter length" class="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
-                </div>
-                <div class="mb-4">
-                    <label for="width" class="block text-sm font-medium">Width:</label>
-                    <input type="number" id="width" placeholder="Enter width" class="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
-                </div>
-                <div class="mb-4">
-                    <label for="height" class="block text-sm font-medium">Height:</label>
-                    <input type="number" id="height" placeholder="Enter height" class="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
-                </div>
-                <div class="mb-4">
-                    <label for="units" class="block text-sm font-medium">Units:</label>
-                    <select id="units" class="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
-                        <option value="feet">Feet</option>
+                <div>
+                    <label for="units" class="block text-sm font-medium">Measurement Units:</label>
+                    <select id="units"
+                        class="form-select mt-1 block w-full p-2 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
                         <option value="meters">Meters</option>
+                        <option value="feet">Feet</option>
                     </select>
                 </div>
-                <div class="mb-4">
+                <div>
+                    <label for="length" class="block text-sm font-medium">Length:</label>
+                    <input type="number" id="length"
+                        class="form-input mt-1 block w-full p-3 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                        placeholder="Enter length">
+                </div>
+                <div>
+                    <label for="width" class="block text-sm font-medium">Width:</label>
+                    <input type="number" id="width"
+                        class="form-input mt-1 block w-full p-3 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                        placeholder="Enter width">
+                </div>
+                <div>
+                    <label for="height" class="block text-sm font-medium">Height:</label>
+                    <input type="number" id="height"
+                        class="form-input mt-1 block w-full p-3 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                        placeholder="Enter height">
+                </div>
+                <div>
                     <label for="paintCost" class="block text-sm font-medium">Paint Cost per Liter (₹):</label>
-                    <input type="number" id="paintCost" placeholder="Enter cost per liter" class="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                    <input type="number" id="paintCost"
+                        class="form-input mt-1 block w-full p-3 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                        placeholder="Enter paint cost">
                 </div>
-                <div class="mb-4">
-                    <label for="laborCost" class="block text-sm font-medium">Labor Cost per Square Feet (₹):</label>
-                    <input type="number" id="laborCost" placeholder="Enter labor cost per sq ft" class="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                <div>
+                    <label for="laborCost" class="block text-sm font-medium">Labor Cost per Square Foot (₹):</label>
+                    <input type="number" id="laborCost"
+                        class="form-input mt-1 block w-full p-3 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                        placeholder="Enter labor cost">
                 </div>
-                <div class="mb-4">
-                    <label for="colorOption" class="block text-sm font-medium">Color Application:</label>
-                    <select id="colorOption" class="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                <div>
+                    <label for="colorOption" class="block text-sm font-medium">Paint Application:</label>
+                    <select id="colorOption"
+                        class="form-select mt-1 block w-full p-2 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
                         <option value="one-side">One Side</option>
                         <option value="both-sides">Both Sides</option>
                     </select>
                 </div>
             </div>
-            <button id="calculateBtn" class="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg">Calculate</button>
+            <button id="calculateBtn"
+                class="calc-btn mt-4 w-full text-white font-bold py-2 px-4 rounded-lg">Calculate</button>
         </div>
 
-        <div id="result" class="mt-6 p-4 bg-gray-800 rounded-lg shadow-lg hidden">
-            <h2 class="text-xl font-semibold mb-4">Paint Calculation Results:</h2>
-            <p id="totalArea" class="mb-2"></p>
-            <p id="paintNeeded" class="mb-2"></p>
-            <p id="estimatedCost" class="mb-2"></p>
-            <div id="3dView" class="mt-4"></div>
+        <div id="result" class="result hidden bg-gray-800 p-4 mt-4 rounded-lg">
+            <p id="totalArea"></p>
+            <p id="paintNeeded"></p>
+            <p id="estimatedCost"></p>
         </div>
 
-        <div id="documentation" class="mt-6 p-4 bg-green-100 text-green-900 rounded-lg">
-            <h2 class="text-xl font-semibold mb-2">Understanding the Paint Calculation</h2>
-            <p class="text-sm mb-2"><strong>Formula:</strong> The total area to be painted is calculated using the formula:</p>
-            <p class="text-sm mb-2"><strong>Total Area = 2 × (Length × Height + Width × Height) + Length × Width</strong></p>
-            <p class="text-sm mb-2">This formula accounts for the walls and the ceiling of a rectangular room. The amount of paint needed is calculated based on an average paint coverage rate (typically 1 liter covers 10 square meters).</p>
-        </div>
+        <canvas id="renderCanvas" class="bg-gray-700 rounded-lg mt-4"></canvas>
     </div>
+
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const calculateBtn = document.getElementById('calculateBtn');
+            const resultDiv = document.getElementById('result');
+            const totalAreaEl = document.getElementById('totalArea');
+            const paintNeededEl = document.getElementById('paintNeeded');
+            const estimatedCostEl = document.getElementById('estimatedCost');
+            const unitsSelect = document.getElementById('units');
+            const lengthInput = document.getElementById('length');
+            const widthInput = document.getElementById('width');
+            const heightInput = document.getElementById('height');
+            const paintCostInput = document.getElementById('paintCost');
+            const laborCostInput = document.getElementById('laborCost');
+            const colorOptionSelect = document.getElementById('colorOption');
+            const renderCanvas = document.getElementById('renderCanvas');
+
+            calculateBtn.addEventListener('click', function () {
+                const length = parseFloat(lengthInput.value);
+                const width = parseFloat(widthInput.value);
+                const height = parseFloat(heightInput.value);
+                const units = unitsSelect.value;
+                const paintCost = parseFloat(paintCostInput.value);
+                const laborCost = parseFloat(laborCostInput.value);
+                const colorOption = colorOptionSelect.value;
+
+                if (isNaN(length) || length <= 0) {
+                    alert('Please enter a valid length.');
+                    return;
+                }
+
+                if (isNaN(width) || width <= 0) {
+                    alert('Please enter a valid width.');
+                    return;
+                }
+
+                if (isNaN(height) || height <= 0) {
+                    alert('Please enter a valid height.');
+                    return;
+                }
+
+                if (isNaN(paintCost) || paintCost <= 0) {
+                    alert('Please enter a valid paint cost per liter.');
+                    return;
+                }
+
+                if (isNaN(laborCost) || laborCost <= 0) {
+                    alert('Please enter a valid labor cost per square foot.');
+                    return;
+                }
+
+                const lengthMeters = units === 'feet' ? length * 0.3048 : length;
+                const widthMeters = units === 'feet' ? width * 0.3048 : width;
+                const heightMeters = units === 'feet' ? height * 0.3048 : height;
+
+                const wallAreaMeters = 2 * (lengthMeters * heightMeters + widthMeters * heightMeters);
+                const ceilingAreaMeters = lengthMeters * widthMeters;
+                const totalAreaMeters = wallAreaMeters + ceilingAreaMeters;
+                const paintNeededLiters = totalAreaMeters / 10; // Assuming 1 liter covers 10 square meters
+
+                const totalArea = units === 'feet' ? (totalAreaMeters * 10.7639).toFixed(2) : totalAreaMeters.toFixed(2);
+                const paintNeeded = paintNeededLiters.toFixed(2);
+
+                totalAreaEl.innerHTML = `<strong>Total Area to be Painted:</strong> ${totalArea} square ${units}`;
+                paintNeededEl.innerHTML = `<strong>Paint Needed:</strong> ${paintNeeded} liters`;
+
+                let estimatedCost = paintCost * paintNeededLiters + laborCost * (totalAreaMeters * 10.7639);
+
+                if (colorOption === 'both-sides') {
+                    estimatedCost *= 2;
+                }
+
+                estimatedCostEl.innerHTML = `<strong>Estimated Cost:</strong> ₹ ${estimatedCost.toFixed(2)}`;
+
+                resultDiv.classList.remove('hidden');
+
+                // Initialize 3D view with Babylon.js
+                const engine = new BABYLON.Engine(renderCanvas, true);
+                const scene = new BABYLON.Scene(engine);
+                const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 4, 10, BABYLON.Vector3.Zero(), scene);
+                camera.attachControl(renderCanvas, true);
+                const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0), scene);
+
+                // Create box for the room
+                const box = BABYLON.MeshBuilder.CreateBox("box", {
+                    height: heightMeters,
+                    width: lengthMeters,
+                    depth: widthMeters
+                }, scene);
+
+                box.material = new BABYLON.StandardMaterial("boxMat", scene);
+                box.material.diffuseColor = new BABYLON.Color3(0.4, 0.4, 0.4);
+
+                // Add text labels
+                const dynamicTexture = new BABYLON.DynamicTexture("DynamicTexture", { width: 512, height: 256 }, scene, false);
+                dynamicTexture.drawText(`Height: ${height} ${units}`, null, 140, "bold 24px Arial", "white", "transparent", true);
+                dynamicTexture.drawText(`Width: ${width} ${units}`, null, 220, "bold 24px Arial", "white", "transparent", true);
+                dynamicTexture.drawText(`Length: ${length} ${units}`, null, 300, "bold 24px Arial", "white", "transparent", true);
+
+                const labelPlane = BABYLON.MeshBuilder.CreatePlane("labelPlane", { width: 3, height: 1.5 }, scene);
+                labelPlane.material = new BABYLON.StandardMaterial("labelMat", scene);
+                labelPlane.material.diffuseTexture = dynamicTexture;
+                labelPlane.position.y = heightMeters / 2 + 0.1;
+
+                engine.runRenderLoop(function () {
+                    scene.render();
+                });
+
+                window.addEventListener("resize", function () {
+                    engine.resize();
+                });
+            });
+        });
+    </script>
 </body>
+
 </html>
