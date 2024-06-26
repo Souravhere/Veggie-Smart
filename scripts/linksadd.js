@@ -171,6 +171,13 @@ function HomeMeasureCal(){
             tagName: "Beta",
             buttonName: "Garden Area Cal"
         },
+        {
+            link: "./HomeImprovementCals/GardenArea.html",
+            imageSrc: "https://img.icons8.com/color/800/measurement-ui.png",
+            imageAlt: "Advanced Flooring Cal",
+            tagName: "Beta",
+            buttonName: "Advanced Flooring Cal"
+        },
     ]
     const HomeimpCal = document.getElementById("HomeimpCal");
     HomeimpCal.innerHTML = ''; 
