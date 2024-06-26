@@ -178,6 +178,13 @@ function HomeMeasureCal(){
             tagName: "Beta",
             buttonName: "Advanced Flooring"
         },
+        {
+            link: "./HomeImprovementCals/RenovationCostEstimator.html",
+            imageSrc: "https://img.icons8.com/color/800/drill.png",
+            imageAlt: "Renovation Cost Estimator",
+            tagName: "Beta",
+            buttonName: "Renovation Cost"
+        },
     ]
     const HomeimpCal = document.getElementById("HomeimpCal");
     HomeimpCal.innerHTML = ''; 
