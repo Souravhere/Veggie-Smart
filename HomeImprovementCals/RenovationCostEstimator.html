@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Renovation Cost Estimator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1a202c;
+        }
+
+        .form-input,
+        .form-select {
+            background-color: #2d3748;
+            border-color: #4a5568;
+            color: #e2e8f0;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            border-color: #63b3ed;
+            box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.5);
+        }
+
+        .calc-btn {
+            background-color: #3182ce;
+            border-color: #2b6cb0;
+            transition: background-color 0.3s;
+        }
+
+        .calc-btn:hover {
+            background-color: #2b6cb0;
+        }
+
+        .result {
+            background-color: #2d3748;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px solid #4a5568;
+        }
+
+        .info-card {
+            background-color: #2d3748;
+            border: 1px solid #4a5568;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .info-card h2 {
+            color: #63b3ed;
+        }
+
+        .info-card p,
+        .info-card ul,
+        .info-card ol {
+            color: #a0aec0;
+        }
+
+        .info-card ul li,
+        .info-card ol li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body class="text-white">
+
+    <div class="container mx-auto p-4">
+        <h1 class="text-4xl font-bold mb-8 text-center text-blue-400">Advanced Renovation Cost Estimator</h1>
+
+        <div id="documentation" class="info-card">
+            <h2 class="text-2xl font-semibold mb-4">Overview</h2>
+            <p>The Advanced Renovation Cost Estimator is designed to help users estimate the cost of home renovation projects. It considers various factors such as room dimensions, type of renovation, cost of materials, labor costs, and more. The tool supports measurements in both meters and feet and provides detailed results to help users plan their renovation budgets effectively.</p>
+
+            <h2 class="text-2xl font-semibold mb-4 mt-6">Features</h2>
+            <ul class="list-disc list-inside text-lg">
+                <li><strong>Measurement Units:</strong> Users can select the measurement units (meters or feet).</li>
+                <li><strong>Room Dimensions:</strong> Users can input the length, width, and height of the room.</li>
+                <li><strong>Renovation Type:</strong> Users can choose from different renovation types (Full, Partial, Cosmetic).</li>
+                <li><strong>Material Cost:</strong> Users can input the cost of materials per square meter/foot.</li>
+                <li><strong>Labor Cost:</strong> Users can input the labor cost per hour and the estimated hours of work.</li>
+                <li><strong>Additional Costs:</strong> Users can input any additional costs related to the renovation.</li>
+                <li><strong>Contingency Percentage:</strong> Users can specify a contingency percentage for unexpected costs.</li>
+                <li><strong>Total Cost Calculation:</strong> The tool calculates the total estimated cost of the renovation project.</li>
+            </ul>
+
+            <h2 class="text-2xl font-semibold mb-4 mt-6">User Guide</h2>
+            <ol class="list-decimal list-inside text-lg">
+                <li>Select Measurement Units: Choose either "Meters" or "Feet" from the dropdown menu.</li>
+                <li>Enter Room Dimensions: Provide the length, width, and height of the room in the selected units.</li>
+                <li>Choose Renovation Type: Select the type of renovation from the dropdown menu.</li>
+                <li>Input Material Cost: Enter the cost of materials per square meter/foot.</li>
+                <li>Input Labor Cost: Enter the labor cost per hour and the estimated hours of work.</li>
+                <li>Input Additional Costs: Enter any additional costs related to the renovation project.</li>
+                <li>Specify Contingency Percentage: Enter the percentage of contingency for unexpected costs.</li>
+                <li>Calculate: Click the "Calculate" button to get the estimated total cost.</li>
+            </ol>
+
+            <h2 class="text-2xl font-semibold mb-4 mt-6">Formulas Used</h2>
+            <ul class="list-disc list-inside text-lg">
+                <li><strong>Total Area:</strong> <br>
+                    \(\text{Total Area} = \text{Length} \times \text{Width}\)
+                    <br> This calculates the total floor area of the room.
+                </li>
+                <li><strong>Material Cost:</strong> <br>
+                    \(\text{Material Cost} = \text{Total Area} \times \text{Cost per Unit Area}\)
+                    <br> This calculates the total cost of materials needed for the renovation.
+                </li>
+                <li><strong>Labor Cost:</strong> <br>
+                    \(\text{Labor Cost} = \text{Labor Cost per Hour} \times \text{Estimated Hours}\)
+                    <br> This calculates the total labor cost based on hourly rate and estimated hours.
+                </li>
+                <li><strong>Contingency Cost:</strong> <br>
+                    \(\text{Contingency Cost} = (\text{Material Cost} + \text{Labor Cost} + \text{Additional Costs}) \times \frac{\text{Contingency Percentage}}{100}\)
+                    <br> This calculates the contingency cost to cover unexpected expenses.
+                </li>
+                <li><strong>Total Estimated Cost:</strong> <br>
+                    \(\text{Total Estimated Cost} = \text{Material Cost} + \text{Labor Cost} + \text{Additional Costs} + \text{Contingency Cost}\)
+                    <br> This calculates the total estimated cost of the renovation project.
+                </li>
+            </ul>
+        </div>
+
+        <div class="info-card">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="units" class="block text-sm font-medium mb-1">Measurement Units:</label>
+                    <select id="units" class="form-select mt-1 block w-full p-2 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                        <option value="meters">Meters</option>
+                        <option value="feet">Feet</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="length" class="block text-sm font-medium mb-1">Length:</label>
+                    <input type="number" id="length" class="form-input mt-1 block w-full p-3 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" placeholder="Enter length">
+                </div>
+                <div>
+                    <label for="width" class="block text-sm font-medium mb-1">Width:</label>
+                    <input type="number" id="width" class="form-input mt-1 block w-full p-3 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" placeholder="Enter width">
+                </div>
+                <div>
+                    <label for="height" class="block text-sm font-medium mb-1">Height:</label>
+                    <input type="number" id="height" class="form-input mt-1 block w-full p-3 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" placeholder="Enter height">
+                </div>
+                <div>
+                    <label for="renovationType" class="block text-sm font-medium mb-1">Renovation Type:</label>
+                    <select id="renovationType" class="form-select mt-1 block w-full p-2 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                        <option value="full">Full</option>
+                        <option value="partial">Partial</
+                            <option value="cosmetic">Cosmetic</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="materialCost" class="block text-sm font-medium mb-1">Material Cost per Unit Area:</label>
+                        <input type="number" id="materialCost" class="form-input mt-1 block w-full p-3 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" placeholder="Enter material cost">
+                    </div>
+                    <div>
+                        <label for="laborCost" class="block text-sm font-medium mb-1">Labor Cost per Hour:</label>
+                        <input type="number" id="laborCost" class="form-input mt-1 block w-full p-3 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" placeholder="Enter labor cost per hour">
+                    </div>
+                    <div>
+                        <label for="estimatedHours" class="block text-sm font-medium mb-1">Estimated Hours of Work:</label>
+                        <input type="number" id="estimatedHours" class="form-input mt-1 block w-full p-3 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" placeholder="Enter estimated hours">
+                    </div>
+                    <div>
+                        <label for="additionalCosts" class="block text-sm font-medium mb-1">Additional Costs:</label>
+                        <input type="number" id="additionalCosts" class="form-input mt-1 block w-full p-3 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" placeholder="Enter additional costs">
+                    </div>
+                    <div>
+                        <label for="contingencyPercentage" class="block text-sm font-medium mb-1">Contingency Percentage:</label>
+                        <input type="number" id="contingencyPercentage" class="form-input mt-1 block w-full p-3 rounded-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" placeholder="Enter contingency percentage">
+                    </div>
+                </div>
+                <button id="calculateBtn" class="calc-btn mt-4 w-full text-white font-bold py-2 px-4 rounded-lg">Calculate</button>
+            </div>
+    
+            <div id="result" class="result hidden">
+                <p id="totalArea" class="text-lg"></p>
+                <p id="materialCostResult" class="text-lg"></p>
+                <p id="laborCostResult" class="text-lg"></p>
+                <p id="additionalCostsResult" class="text-lg"></p>
+                <p id="contingencyCost" class="text-lg"></p>
+                <p id="totalEstimatedCost" class="text-lg"></p>
+            </div>
+    
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const calculateBtn = document.getElementById('calculateBtn');
+                    const resultDiv = document.getElementById('result');
+                    const totalAreaEl = document.getElementById('totalArea');
+                    const materialCostResultEl = document.getElementById('materialCostResult');
+                    const laborCostResultEl = document.getElementById('laborCostResult');
+                    const additionalCostsResultEl = document.getElementById('additionalCostsResult');
+                    const contingencyCostEl = document.getElementById('contingencyCost');
+                    const totalEstimatedCostEl = document.getElementById('totalEstimatedCost');
+    
+                    calculateBtn.addEventListener('click', function () {
+                        const units = document.getElementById('units').value;
+                        const length = parseFloat(document.getElementById('length').value);
+                        const width = parseFloat(document.getElementById('width').value);
+                        const height = parseFloat(document.getElementById('height').value);
+                        const renovationType = document.getElementById('renovationType').value;
+                        const materialCost = parseFloat(document.getElementById('materialCost').value);
+                        const laborCost = parseFloat(document.getElementById('laborCost').value);
+                        const estimatedHours = parseFloat(document.getElementById('estimatedHours').value);
+                        const additionalCosts = parseFloat(document.getElementById('additionalCosts').value);
+                        const contingencyPercentage = parseFloat(document.getElementById('contingencyPercentage').value);
+    
+                        const totalArea = length * width;
+                        const totalMaterialCost = totalArea * materialCost;
+                        const totalLaborCost = laborCost * estimatedHours;
+                        const contingencyCost = (totalMaterialCost + totalLaborCost + additionalCosts) * (contingencyPercentage / 100);
+                        const totalEstimatedCost = totalMaterialCost + totalLaborCost + additionalCosts + contingencyCost;
+    
+                        resultDiv.classList.remove('hidden');
+                        totalAreaEl.textContent = `Total Area: ${totalArea.toFixed(2)} ${units === 'meters' ? 'm²' : 'ft²'}`;
+                        materialCostResultEl.textContent = `Material Cost: ₹${totalMaterialCost.toFixed(2)}`;
+                        laborCostResultEl.textContent = `Labor Cost: ₹${totalLaborCost.toFixed(2)}`;
+                        additionalCostsResultEl.textContent = `Additional Costs: ₹${additionalCosts.toFixed(2)}`;
+                        contingencyCostEl.textContent = `Contingency Cost: ₹${contingencyCost.toFixed(2)}`;
+                        totalEstimatedCostEl.textContent = `Total Estimated Cost: ₹${totalEstimatedCost.toFixed(2)}`;
+                    });
+                });
+            </script>
+        </div>
+    </body>
+    
+    </html>
+    
