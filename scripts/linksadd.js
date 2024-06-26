@@ -216,6 +216,13 @@ function EducationCal(){
             tagName: "Free",
             buttonName: "Percentage Cal"
         },
+        {
+            link: "./EducationCalculators/GradeCalculator.html",
+            imageSrc: "https://img.icons8.com/fluency/800/grades.png",
+            imageAlt: "Advanced Grade Calculator",
+            tagName: "Free",
+            buttonName: "Advanced Grade"
+        },
     ]
     const educationCalContainer = document.getElementById("EducationCal");
     educationCalContainer.innerHTML = ''; 
