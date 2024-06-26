@@ -172,11 +172,11 @@ function HomeMeasureCal(){
             buttonName: "Garden Area Cal"
         },
         {
-            link: "./HomeImprovementCals/GardenArea.html",
-            imageSrc: "https://img.icons8.com/color/800/measurement-ui.png",
-            imageAlt: "Advanced Flooring Cal",
+            link: "./HomeImprovementCals/FlooringCalculator.html",
+            imageSrc: "https://img.icons8.com/stickers/800/wooden-floor.png",
+            imageAlt: "Advanced Flooring",
             tagName: "Beta",
-            buttonName: "Advanced Flooring Cal"
+            buttonName: "Advanced Flooring"
         },
     ]
     const HomeimpCal = document.getElementById("HomeimpCal");
