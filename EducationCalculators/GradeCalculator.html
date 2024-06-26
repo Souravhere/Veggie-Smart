@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Grade Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1a1a2e;
+            color: #e94560;
+        }
+        .card {
+            background-color: #0f3460;
+        }
+        .btn {
+            background-color: #e94560;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center">
+    <div class="container mx-auto px-4 py-6">
+        <div class="card p-6 rounded-lg shadow-lg text-white w-full">
+            <h1 class="text-3xl font-bold mb-4 text-center">Advanced Grade Calculator</h1>
+            <div class="mb-6 bg-blue-200 text-blue-900 p-4 rounded-lg">
+                <h2 class="text-lg font-bold mb-2">How to Use This Calculator</h2>
+                <p>
+                    Enter your assignment scores and their respective weights to calculate your final grade. Use the "Add Assignment" button to include more assignments.
+                </p>
+            </div>
+            <form id="gradeForm">
+                <div id="assignments">
+                    <div class="mb-4">
+                        <label class="block text-sm font-bold mb-2">Assignment 1</label>
+                        <input type="number" step="0.01" placeholder="Score" class="form-input mt-1 block w-full p-2 rounded-lg text-black font-semibold" required>
+                        <input type="number" step="0.01" placeholder="Weight (%)" class="form-input mt-1 block w-full p-2 rounded-lg text-black font-semibold mt-2" required>
+                    </div>
+                </div>
+                <button type="button" id="addAssignment" class="btn w-full mt-4 py-2 rounded text-white">Add Assignment</button>
+                <button type="submit" class="btn w-full mt-4 py-2 rounded text-white">Calculate Final Grade</button>
+            </form>
+            <div id="result" class="mt-6 text-xl text-center hidden"> <span id="finalGrade"></span></div>
+        </div>
+        <div class="card p-6 rounded-lg shadow-lg text-white mt-6 w-full">
+            <h2 class="text-2xl font-bold mb-4 text-center">Understanding the Grade Calculation</h2>
+            <div class="bg-green-200 text-green-900 p-4 rounded-lg">
+                <h3 class="text-xl font-bold mt-4">Formulas and Logic</h3>
+                <p>
+                    The final grade is calculated using the weighted average formula:
+                </p>
+                <p class="bg-gray-800 p-4 rounded mt-2 text-sm">
+finalGrade = (score1 * weight1 + score2 * weight2 + ... + scoreN * weightN) / (weight1 + weight2 + ... + weightN)
+                </p>
+                <p>
+                    Each score is multiplied by its weight, and the sum of these products is divided by the sum of the weights.
+                </p>
+            </div>
+        </div>
+        <h6 class="text-center mt-4"><a href="./../index.html" class="text-purple-400 text-2xl font-bold">Home</a></h6>
+        <h5 class="text-center mt-8">Designed and Developed by Sourav Chhimpa</h5>
+        <h6 class="text-center mt-2">Insta: <a href="https://www.instagram.com/sourav-chhimpa/" target="_blank" class="text-purple-400">@sourav-chhimpa</a></h6>
+    </div>
+    <script src="GradeCalculator.js"></script>
+</body>
+</html>

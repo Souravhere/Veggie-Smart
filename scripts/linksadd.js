@@ -206,3 +206,34 @@ function HomeMeasureCal(){
     });
 }
 HomeMeasureCal()
+// this data for the Education Calculators
+function EducationCal(){
+    const Educationdatacontainer = [
+        {
+            link: "./EducationCalculators/PercentageCalculator.html",
+            imageSrc: "https://img.icons8.com/color/800/report-card.png",
+            imageAlt: "Percentage Calculator",
+            tagName: "Free",
+            buttonName: "Percentage Cal"
+        },
+    ]
+    const educationCalContainer = document.getElementById("EducationCal");
+    educationCalContainer.innerHTML = ''; 
+    
+    Educationdatacontainer.forEach(item => {
+        educationCalContainer.innerHTML += `
+            <a href="${item.link}">
+                <div class="calbtn">
+                    <div>
+                        <img src="${item.imageSrc}" alt="${item.imageAlt}" loading="lazy">
+                    </div>
+                    <div class="btnsecondsection">
+                        <span class="btn-tagname">${item.tagName}</span>
+                        <h4 class="btn-name">${item.buttonName}</h4>
+                    </div>
+                </div>
+            </a>
+        `;
+    });
+}
+EducationCal()

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Percentage Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Optional custom styles */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        #calculator {
+            background-color: #1a202c;
+            color: #cbd5e0;
+        }
+
+        #subject-list input[type="text"],
+        #subject-list input[type="number"] {
+            background-color: #2d3748;
+            color: #cbd5e0;
+            border-color: #4a5568;
+        }
+
+        #results {
+            background-color: #2d3748;
+        }
+
+        #results-list div {
+            border-bottom: 1px solid #4a5568;
+        }
+
+        #chart {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900">
+
+    <div class="container mx-auto p-4">
+
+        <h1 class="text-3xl font-bold text-white mb-4 text-center">Percentage Calculator</h1>
+
+        <div id="calculator" class="rounded-lg p-4">
+
+            <div id="subject-list">
+                <!-- Subject inputs will be dynamically added here -->
+            </div>
+
+            <button id="add-subject-btn"
+                class="bg-green-400 block w-full hover:bg-green-500 text-white px-4 py-2 rounded-md mb-4">Add
+                Subject</button>
+
+            <button id="calculate-btn"
+                class="bg-blue-500 block w-full hover:bg-blue-600 text-white px-4 py-2 rounded-md mb-4">Calculate</button>
+
+            <div id="results" class="hidden rounded-lg">
+                <h2 class="text-xl font-semibold mb-2 text-center">Results</h2>
+                <div id="results-list" class="mb-4">
+                    <!-- Results will be displayed here -->
+                </div>
+                <canvas id="chart" width="400" height="200"></canvas>
+            </div>
+        </div>
+
+        <div class="card p-2 rounded-lg shadow-lg text-white mt-6 w-full">
+            <h2 class="text-2xl font-bold mb-4 text-center">Documentation:</h2>
+            <div class="bg-green-200 text-green-900 p-4 rounded-lg">
+                <h3 class="text-xl font-bold mt-4">Formulas and Logic</h3>
+                <p>
+                    This calculator computes the overall percentage grade based on the entered subject scores and
+                weights.
+                </p>
+                <p class="bg-gray-800 p-4 rounded mt-2 text-sm">
+                    Total Percentage = (Total Gain Marks / Total Maximum Marks) * 100
+                </p>
+                <p>
+                    Logic: The calculator iterates through each subject, computes the weighted scores, and displays the
+                overall percentage along with a graphical representation using Chart.js.
+                </p>
+            </div>
+        </div>
+        <h6 class="text-center mt-4"><a href="./../index.html" class="text-purple-400 text-2xl font-bold">Home</a></h6>
+        <h5 class="text-center mt-8 text-white">Designed and Developed by Sourav Chhimpa</h5>
+        <h6 class="text-center mt-2 text-white">Insta: <a href="https://www.instagram.com/sourav-chhimpa/" target="_blank" class="text-purple-400">@sourav-chhimpa</a></h6>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="PercentageCalculator.js"></script>
+</body>
+
+</html>
