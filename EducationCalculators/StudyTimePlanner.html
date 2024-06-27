@@ -12,212 +12,148 @@
     <h1 class="text-3xl font-bold mb-4 text-center">Study Time Planner</h1>
     
     <div class="mb-8">
-      <h2 class="text-xl font-bold mb-2">Create Timetable</h2>
+      <h2 class="text-xl font-bold mb-2 text-center">Create Timetable</h2>
       <form id="timetable-form" class="bg-gray-800 p-6 rounded-lg shadow-lg">
         <div class="mb-4">
+          <label for="day" class="block text-gray-300">Day</label>
+          <select id="day" class="w-full p-2 bg-gray-700 border border-gray-600 rounded mt-1 focus:outline-none focus:border-blue-500">
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
+          </select>
+        </div>
+        <div class="mb-4">
           <label for="subject" class="block text-gray-300">Subject</label>
-          <input type="text" id="subject" placeholder="Enter Subject Name" class="w-full bg-gray-600 ring p-2 border border-gray-600 rounded mt-1 focus:outline-none focus:border-blue-500">
+          <input type="text" id="subject" class="w-full p-2 bg-gray-700 font-semibold border border-gray-600 rounded mt-1 focus:outline-none focus:border-blue-500">
         </div>
         <div class="flex gap-3">
-            <div class="mb-4 w-1/2 inline-block">
+            <div class="mb-4 w-1/2">
                 <label for="start-time" class="block text-gray-300">Start Time</label>
-                <input type="text" id="start-time" class="w-full bg-gray-600 ring w-1/2 p-2 border border-gray-600 rounded mt-1 focus:outline-none focus:border-blue-500">
+                <input type="text" id="start-time" class="bg-gray-700 w-full p-2 border border-gray-600 rounded mt-1 focus:outline-none focus:border-blue-500">
               </div>
-              <div class="mb-4 w-1/2 inline-block">
+              <div class="mb-4 w-1/2">
                 <label for="end-time" class="block text-gray-300">End Time</label>
-                <input type="text" id="end-time" class="w-full bg-gray-600 ring p-2 border border-gray-600 rounded mt-1 focus:outline-none focus:border-blue-500">
+                <input type="text" id="end-time" class="bg-gray-700 w-full p-2 border border-gray-600 rounded mt-1 focus:outline-none focus:border-blue-500">
               </div>
         </div>
-        <div class="sm:flex justify-between gap-3">
-          <button type="button" onclick="addStudySession()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded sm:w-1/2 w-full">Add Study Session</button>
-          <button type="button" onclick="finalizeTimetable()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded sm:w-1/2 w-full sm:mt-0 mt-4">Make Timetable</button>
+        <div class="sm:flex justify-between w-full gap-3">
+          <button type="button" onclick="addStudySession()" class="sm:w-1/2 w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Add Study Session</button>
+          <button type="button" onclick="finalizeTimetable()" class="sm:w-1/2 w-full sm:mt-0 mt-4 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">Make Timetable</button>
         </div>
       </form>
     </div>
     
     <div class="mb-8">
-      <h2 class="text-xl font-bold mb-2">Timetable</h2>
-      <div id="timetable-display" class="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <table id="timetable" class="min-w-full text-gray-200 text-center">
+      <h2 class="text-xl font-bold mb-2 text-center text-center">Timetable</h2>
+      <div id="timetable-display" class="bg-gray-800 p-6 rounded-lg shadow-lg relative sm:overflow-hidden overflow-scroll">
+        <table id="timetable" class="min-w-full text-gray-200">
           <thead>
             <tr>
+              <th class="py-2 px-4 bg-gray-700 border-b">Day</th>
               <th class="py-2 px-4 bg-gray-700 border-b">Subject</th>
               <th class="py-2 px-4 bg-gray-700 border-b">Start Time</th>
               <th class="py-2 px-4 bg-gray-700 border-b">End Time</th>
+              <th class="py-2 px-4 bg-gray-700 border-b">Hours</th>
             </tr>
           </thead>
           <tbody></tbody>
         </table>
         <p id="no-sessions" class="text-gray-400 text-center mt-4">No study sessions added yet.</p>
-        <button onclick="downloadTimetable()" class="absolute bottom-4 right-4 bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600">Download as PDF</button>
+        <button onclick="downloadTimetable()" class="mt-4 mx-auto bg-green-700 text-white px-4 py-2 rounded hover:bg-green-600">Download as PDF</button>
       </div>
     </div>
     
     <div class="mb-8">
-      <h2 class="text-xl font-bold mb-2">Performance Analytics</h2>
+      <h2 class="text-xl font-bold mb-2 text-center">Performance Analytics</h2>
       <div id="chart-container" class="bg-gray-800 p-6 rounded-lg shadow-lg">
         <canvas id="studyChart"></canvas>
       </div>
     </div>
   </div>
 
+  <div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-4 text-center">Study Time Planner Documentation</h1>
+    <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+      <h2 class="text-xl font-bold mb-2">Introduction</h2>
+      <p class="mb-4">The Study Time Planner is a web application designed to help students create an organized study schedule for the week. This planner allows users to input their study sessions, visualize their study time distribution, and generate a detailed timetable in PDF format.</p>
+      
+      <h2 class="text-xl font-bold mb-2">Features</h2>
+      <ul class="list-disc list-inside ml-4 mb-4">
+        <li>Weekday Selection: Users can select the day of the week for each study session.</li>
+        <li>Time Input: Start and end times can be set using a 12-hour format.</li>
+        <li>Study Session Management: Add and visualize study sessions in a table format.</li>
+        <li>PDF Generation: Generate a detailed timetable in PDF format with motivational quotes and total study hours.</li>
+        <li>Data Visualization: View a pie chart of study time distribution across different subjects.</li>
+      </ul>
+      
+      <h2 id="technology-stack" class="text-xl font-bold mb-2">Technology Stack</h2>
+      <ul class="list-disc list-inside ml-4 mb-4">
+        <li>HTML</li>
+        <li>Tailwind CSS</li>
+        <li>JavaScript</li>
+        <li>Chart.js</li>
+        <li>pdfmake</li>
+        <li>Flatpickr</li>
+      </ul>
+      
+      <h2 id="installation" class="text-xl font-bold mb-2">Installation</h2>
+      <p class="mb-4">To set up the Study Time Planner, follow these steps:</p>
+      <ol class="list-decimal list-inside ml-4 mb-4">
+        <li>Download or clone the repository.</li>
+        <li>Open the project folder and ensure you have internet access for CDN links.</li>
+        <li>Open the `index.html` file in a web browser.</li>
+      </ol>
+      
+      <h2 id="usage" class="text-xl font-bold mb-2">Usage</h2>
+      <p class="mb-4">To use the Study Time Planner, follow these steps:</p>
+      <ol class="list-decimal list-inside ml-4 mb-4">
+        <li>Select the day of the week for your study session.</li>
+        <li>Enter the subject name.</li>
+        <li>Set the start and end times using the time picker.</li>
+        <li>Click "Add Study Session" to add the session to your timetable.</li>
+        <li>Click "Make Timetable" to visualize your study sessions in a pie chart.</li>
+        <li>Click "Download as PDF" to generate a PDF of your timetable.</li>
+      </ol>
+      
+      <h2 id="code-structure" class="text-xl font-bold mb-2">Code Structure</h2>
+      <p class="mb-4">The project structure is as follows:</p>
+      <pre class="bg-gray-700 p-4 rounded mb-4 sm:overflow-hidden overflow-scroll"><code>
+index.html    - Main HTML file
+app.js        - JavaScript file for functionality
+styles.css    - Custom CSS file (optional)
+</code></pre>
+      
+      <h2 id="customization" class="text-xl font-bold mb-2">Customization</h2>
+      <p class="mb-4">You can customize the Study Time Planner by modifying the following files:</p>
+      <ul class="list-disc list-inside ml-4 mb-4">
+        <li><strong>HTML:</strong> Modify the structure and content in `index.html`.</li>
+        <li><strong>CSS:</strong> Update styles in `styles.css` or add custom Tailwind CSS classes.</li>
+        <li><strong>JavaScript:</strong> Enhance functionality in `app.js`.</li>
+      </ul>
+      
+      <h2 id="troubleshooting" class="text-xl font-bold mb-2">Troubleshooting</h2>
+      <p class="mb-4">If you encounter issues, consider the following solutions:</p>
+      <ul class="list-disc list-inside ml-4 mb-4">
+        <li>Ensure all required libraries are included via CDN links.</li>
+        <li>Check the browser console for error messages and debug accordingly.</li>
+        <li>Verify that the time inputs are correctly formatted and validate time logic.</li>
+      </ul>
+      
+      <h2 id="license" class="text-xl font-bold mb-2">License</h2>
+      <p class="mb-4">This project is licensed under the MIT License. You are free to use, modify, and distribute this software as long as the original license is included.</p>
+    </div>
+  </div>
+  <h6 class="text-center mt-4"><a href="./../index.html" class="text-purple-400 text-2xl font-bold">Home</a></h6>
+        <h5 class="text-center mt-8">Designed and Developed by Sourav Chhimpa</h5>
+        <h6 class="text-center mt-2 mb-4">Insta: <a href="https://www.instagram.com/sourav-chhimpa/" target="_blank" class="text-purple-400">@sourav-chhimpa</a></h6>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
-  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-  <script>
-    // app.js
-
-document.addEventListener('DOMContentLoaded', () => {
-  const timetableForm = document.getElementById('timetable-form');
-  const timetableTable = document.getElementById('timetable').getElementsByTagName('tbody')[0];
-  const studyChartCanvas = document.getElementById('studyChart');
-  const timetableDisplay = document.getElementById('timetable-display');
-  const noSessionsMessage = document.getElementById('no-sessions');
-
-  // Initialize Flatpickr for start and end time inputs
-  const flatpickrOptions = {
-    enableTime: true,
-    noCalendar: true,
-    dateFormat: "H:i",
-    time_24hr: false, // 12-hour time format
-    defaultHour: 8, // Default start time hour (e.g., 8 AM)
-    onClose: () => {
-      validateTimeInputs();
-    }
-  };
-
-  flatpickr('#start-time', flatpickrOptions);
-  flatpickr('#end-time', flatpickrOptions);
-
-  let studySessions = [];
-
-  window.addStudySession = function() {
-    const subject = document.getElementById('subject').value;
-    const startTime = document.getElementById('start-time').value;
-    const endTime = document.getElementById('end-time').value;
-
-    if (subject && startTime && endTime) {
-      const session = { subject, startTime, endTime };
-      studySessions.push(session);
-      addRowToTimetable(session);
-      clearFormInputs();
-      updateTimetableDisplay();
-    } else {
-      alert('Please fill out all fields.');
-    }
-  };
-
-  window.finalizeTimetable = function() {
-    updateStudyChart();
-  };
-
-  window.downloadTimetable = function() {
-    if (studySessions.length === 0) {
-      alert('No study sessions added yet.');
-      return;
-    }
-
-    const pdf = new jsPDF();
-    const timetableContent = document.getElementById('timetable-display');
-
-    html2canvas(timetableContent).then(canvas => {
-      const imgData = canvas.toDataURL('image/png');
-      const imgWidth = pdf.internal.pageSize.getWidth();
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-      pdf.addImage(imgData, 'PNG', 10, 10, imgWidth - 20, imgHeight - 10);
-      pdf.save('study_timetable.pdf');
-    });
-  };
-
-  function addRowToTimetable(session) {
-    const row = timetableTable.insertRow();
-    row.insertCell(0).innerText = session.subject;
-    row.insertCell(1).innerText = formatTime(session.startTime);
-    row.insertCell(2).innerText = formatTime(session.endTime);
-  }
-
-  function formatTime(time) {
-    const [hour, minute] = time.split(':');
-    const ampm = hour >= 12 ? 'PM' : 'AM';
-    const formattedHour = hour % 12 || 12;
-    return `${formattedHour}:${minute} ${ampm}`;
-  }
-
-  function updateStudyChart() {
-    const subjects = studySessions.map(session => session.subject);
-    const studyDurations = studySessions.map(session => {
-      const start = new Date(`1970-01-01T${session.startTime}Z`);
-      const end = new Date(`1970-01-01T${session.endTime}Z`);
-      return (end - start) / (1000 * 60); // convert to minutes
-    });
-
-    const chartData = {
-      labels: subjects,
-      datasets: [{
-        data: studyDurations,
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
-        ],
-        borderWidth: 1
-      }]
-    };
-
-    new Chart(studyChartCanvas, {
-      type: 'pie',
-      data: chartData,
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'top',
-            labels: {
-              color: '#4a5568' // Set legend text color
-            }
-          }
-        }
-      }
-    });
-  }
-
-  function validateTimeInputs() {
-    const startTime = document.getElementById('start-time').value;
-    const endTime = document.getElementById('end-time').value;
-
-    if (startTime && endTime) {
-      if (startTime >= endTime) {
-        alert('End time must be after start time.');
-        document.getElementById('end-time').value = '';
-      }
-    }
-  }
-
-  function clearFormInputs() {
-    document.getElementById('subject').value = '';
-    document.getElementById('start-time').value = '';
-    document.getElementById('end-time').value = '';
-  }
-
-  function updateTimetableDisplay() {
-    const displayMessage = studySessions.length === 0 ? 'block' : 'none';
-    noSessionsMessage.style.display = displayMessage;
-  }
-});
-
-  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
+  <script src="StudyTimePlanner.js"></script>
 </body>
 </html>
