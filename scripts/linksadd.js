@@ -230,6 +230,13 @@ function EducationCal(){
             tagName: "Free",
             buttonName: "Study Time Planner"
         },
+        {
+            link: "./EducationCalculators/TuitionFeeCal.html",
+            imageSrc: "https://img.icons8.com/external-smashingstocks-flat-smashing-stocks/800/external-Tuition-Fee-school-smashingstocks-flat-smashing-stocks.png",
+            imageAlt: "Tuition Fee Calculator",
+            tagName: "Free",
+            buttonName: "Tuition Fee Cal"
+        },
     ]
     const educationCalContainer = document.getElementById("EducationCal");
     educationCalContainer.innerHTML = ''; 
