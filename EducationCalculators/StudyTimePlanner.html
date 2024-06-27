@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Time Planner</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-gray-200">
+  <div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-4 text-center">Study Time Planner</h1>
+    
+    <div class="mb-8">
+      <h2 class="text-xl font-bold mb-2">Create Timetable</h2>
+      <form id="timetable-form" class="bg-gray-800 p-6 rounded-lg shadow-lg">
+        <div class="mb-4">
+          <label for="subject" class="block text-gray-300">Subject</label>
+          <input type="text" id="subject" placeholder="Enter Subject Name" class="w-full bg-gray-600 ring p-2 border border-gray-600 rounded mt-1 focus:outline-none focus:border-blue-500">
+        </div>
+        <div class="flex gap-3">
+            <div class="mb-4 w-1/2 inline-block">
+                <label for="start-time" class="block text-gray-300">Start Time</label>
+                <input type="text" id="start-time" class="w-full bg-gray-600 ring w-1/2 p-2 border border-gray-600 rounded mt-1 focus:outline-none focus:border-blue-500">
+              </div>
+              <div class="mb-4 w-1/2 inline-block">
+                <label for="end-time" class="block text-gray-300">End Time</label>
+                <input type="text" id="end-time" class="w-full bg-gray-600 ring p-2 border border-gray-600 rounded mt-1 focus:outline-none focus:border-blue-500">
+              </div>
+        </div>
+        <div class="sm:flex justify-between gap-3">
+          <button type="button" onclick="addStudySession()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded sm:w-1/2 w-full">Add Study Session</button>
+          <button type="button" onclick="finalizeTimetable()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded sm:w-1/2 w-full sm:mt-0 mt-4">Make Timetable</button>
+        </div>
+      </form>
+    </div>
+    
+    <div class="mb-8">
+      <h2 class="text-xl font-bold mb-2">Timetable</h2>
+      <div id="timetable-display" class="bg-gray-800 p-6 rounded-lg shadow-lg">
+        <table id="timetable" class="min-w-full text-gray-200 text-center">
+          <thead>
+            <tr>
+              <th class="py-2 px-4 bg-gray-700 border-b">Subject</th>
+              <th class="py-2 px-4 bg-gray-700 border-b">Start Time</th>
+              <th class="py-2 px-4 bg-gray-700 border-b">End Time</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <p id="no-sessions" class="text-gray-400 text-center mt-4">No study sessions added yet.</p>
+        <button onclick="downloadTimetable()" class="absolute bottom-4 right-4 bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600">Download as PDF</button>
+      </div>
+    </div>
+    
+    <div class="mb-8">
+      <h2 class="text-xl font-bold mb-2">Performance Analytics</h2>
+      <div id="chart-container" class="bg-gray-800 p-6 rounded-lg shadow-lg">
+        <canvas id="studyChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <script>
+    // app.js
+
+document.addEventListener('DOMContentLoaded', () => {
+  const timetableForm = document.getElementById('timetable-form');
+  const timetableTable = document.getElementById('timetable').getElementsByTagName('tbody')[0];
+  const studyChartCanvas = document.getElementById('studyChart');
+  const timetableDisplay = document.getElementById('timetable-display');
+  const noSessionsMessage = document.getElementById('no-sessions');
+
+  // Initialize Flatpickr for start and end time inputs
+  const flatpickrOptions = {
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "H:i",
+    time_24hr: false, // 12-hour time format
+    defaultHour: 8, // Default start time hour (e.g., 8 AM)
+    onClose: () => {
+      validateTimeInputs();
+    }
+  };
+
+  flatpickr('#start-time', flatpickrOptions);
+  flatpickr('#end-time', flatpickrOptions);
+
+  let studySessions = [];
+
+  window.addStudySession = function() {
+    const subject = document.getElementById('subject').value;
+    const startTime = document.getElementById('start-time').value;
+    const endTime = document.getElementById('end-time').value;
+
+    if (subject && startTime && endTime) {
+      const session = { subject, startTime, endTime };
+      studySessions.push(session);
+      addRowToTimetable(session);
+      clearFormInputs();
+      updateTimetableDisplay();
+    } else {
+      alert('Please fill out all fields.');
+    }
+  };
+
+  window.finalizeTimetable = function() {
+    updateStudyChart();
+  };
+
+  window.downloadTimetable = function() {
+    if (studySessions.length === 0) {
+      alert('No study sessions added yet.');
+      return;
+    }
+
+    const pdf = new jsPDF();
+    const timetableContent = document.getElementById('timetable-display');
+
+    html2canvas(timetableContent).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const imgWidth = pdf.internal.pageSize.getWidth();
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+      pdf.addImage(imgData, 'PNG', 10, 10, imgWidth - 20, imgHeight - 10);
+      pdf.save('study_timetable.pdf');
+    });
+  };
+
+  function addRowToTimetable(session) {
+    const row = timetableTable.insertRow();
+    row.insertCell(0).innerText = session.subject;
+    row.insertCell(1).innerText = formatTime(session.startTime);
+    row.insertCell(2).innerText = formatTime(session.endTime);
+  }
+
+  function formatTime(time) {
+    const [hour, minute] = time.split(':');
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+    const formattedHour = hour % 12 || 12;
+    return `${formattedHour}:${minute} ${ampm}`;
+  }
+
+  function updateStudyChart() {
+    const subjects = studySessions.map(session => session.subject);
+    const studyDurations = studySessions.map(session => {
+      const start = new Date(`1970-01-01T${session.startTime}Z`);
+      const end = new Date(`1970-01-01T${session.endTime}Z`);
+      return (end - start) / (1000 * 60); // convert to minutes
+    });
+
+    const chartData = {
+      labels: subjects,
+      datasets: [{
+        data: studyDurations,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    };
+
+    new Chart(studyChartCanvas, {
+      type: 'pie',
+      data: chartData,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: {
+              color: '#4a5568' // Set legend text color
+            }
+          }
+        }
+      }
+    });
+  }
+
+  function validateTimeInputs() {
+    const startTime = document.getElementById('start-time').value;
+    const endTime = document.getElementById('end-time').value;
+
+    if (startTime && endTime) {
+      if (startTime >= endTime) {
+        alert('End time must be after start time.');
+        document.getElementById('end-time').value = '';
+      }
+    }
+  }
+
+  function clearFormInputs() {
+    document.getElementById('subject').value = '';
+    document.getElementById('start-time').value = '';
+    document.getElementById('end-time').value = '';
+  }
+
+  function updateTimetableDisplay() {
+    const displayMessage = studySessions.length === 0 ? 'block' : 'none';
+    noSessionsMessage.style.display = displayMessage;
+  }
+});
+
+  </script>
+</body>
+</html>
