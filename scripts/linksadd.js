@@ -223,6 +223,13 @@ function EducationCal(){
             tagName: "Free",
             buttonName: "Advanced Grade"
         },
+        {
+            link: "./EducationCalculators/StudyTimePlanner.html",
+            imageSrc: "https://img.icons8.com/external-smashingstocks-isometric-smashing-stocks/800/external-Study-Time-business-smashingstocks-isometric-smashing-stocks.png",
+            imageAlt: "Study Time Planner",
+            tagName: "Free",
+            buttonName: "Study Time Planner"
+        },
     ]
     const educationCalContainer = document.getElementById("EducationCal");
     educationCalContainer.innerHTML = ''; 
