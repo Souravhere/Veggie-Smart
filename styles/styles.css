@@ -1,6 +1,7 @@
 body {
     font-family: 'Arial', sans-serif;
     color: #f4f4f4;
+    background-color: #1e1e1e;
     margin: 0;
     padding: 0;
 }
@@ -8,9 +9,8 @@ body {
 .container {
     max-width: 100%;
     margin: 0px auto;
-    padding: 20px;
+    padding: 20px 40px 20px 40px;
     background-color: #1e1e1e;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     border-radius: 8px;
     overflow: hidden;
     animation: fadeIn 1s ease-in-out;
