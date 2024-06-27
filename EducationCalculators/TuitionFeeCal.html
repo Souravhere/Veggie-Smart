@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tuition Fee Calculator</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdfmake/build/pdfmake.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdfmake/build/vfs_fonts.js"></script>
+</head>
+<body class="bg-gray-900 text-gray-200">
+  <div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-4 text-center">Tuition Fee Calculator</h1>
+    <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+      <form id="fee-form" class="mb-6">
+        <div class="mb-4">
+          <label for="category" class="block text-gray-400">Category</label>
+          <select id="category" class="w-full p-2 rounded bg-gray-700 text-gray-200">
+            <option value="Tuition">Tuition</option>
+            <option value="Books">Books</option>
+            <option value="Other Fees">Other Fees</option>
+            <option value="Transportation">Transportation</option>
+            <option value="Hostel">Hostel</option>
+            <option value="Meals">Meals</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label for="description" class="block text-gray-400">Description</label>
+          <input type="text" id="description" class="w-full p-2 rounded bg-gray-700 text-gray-200" placeholder="e.g., Semester 1 Tuition">
+        </div>
+        <div class="flex w-full gap-3">
+            <div class="mb-4 w-1/2">
+                <label for="amount" class="block text-gray-400">Amount (₹)</label>
+                <input type="number" id="amount" class="w-full p-2 rounded bg-gray-700 text-gray-200" placeholder="e.g., 5000">
+              </div>
+              <div class="mb-4 w-1/2">
+                <label for="date" class="block text-gray-400">Date of Payment</label>
+                <input type="date" id="date" class="w-full p-2 rounded bg-gray-700 text-gray-200">
+              </div>
+        </div>
+        <button type="button" onclick="addFee()" class="w-full p-2 bg-blue-500 rounded text-white hover:bg-blue-600">Add Fee</button>
+      </form>
+      <div id="fee-table-container" class="hidden">
+        <h2 class="text-2xl font-bold mb-4">Fee Details</h2>
+        <table class="w-full bg-gray-700 rounded-lg mb-4">
+          <thead>
+            <tr class="bg-gray-600">
+              <th class="p-2 text-left">Category</th>
+              <th class="p-2 text-left">Description</th>
+              <th class="p-2 text-left">Amount (₹)</th>
+              <th class="p-2 text-left">Date of Payment</th>
+            </tr>
+          </thead>
+          <tbody id="fee-table" class="divide-y divide-gray-600"></tbody>
+        </table>
+        <button onclick="generatePDF()" class="w-full p-2 bg-green-500 rounded text-white hover:bg-green-600">Download as PDF</button>
+      </div>
+      <canvas id="feeChart" class="w-full mt-6"></canvas>
+    </div>
+  </div>
+  <div class="container mx-auto p-4">
+    <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+      <h1 class="text-3xl font-bold mb-8 text-center text-blue-500">Tuition Fee Calculator Documentation</h1>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-bold mb-4 text-yellow-500">Features</h2>
+        <ul class="list-disc list-inside">
+          <li>Add various categories of fees such as tuition, books, transportation, hostel, and meals.</li>
+          <li>Input fields for description, amount (in Indian Rupees ₹), and date of payment.</li>
+          <li>Displays fee details in a table with options to add, edit, and delete entries.</li>
+          <li>Generates a PDF report with a summary of fee details, including a random motivational quote and copyright information.</li>
+          <li>Responsive design and dark theme interface for improved user experience.</li>
+        </ul>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-bold mb-4 text-yellow-500">Usage Instructions</h2>
+        <ol class="list-decimal list-inside">
+          <li>Fill out the Category, Description, Amount (₹), and Date of Payment fields.</li>
+          <li>Click on the "Add Fee" button to add the fee entry to the table and chart.</li>
+          <li>Repeat step 1 and 2 for additional fee entries.</li>
+          <li>View the fee details in the table and pie chart visualization.</li>
+          <li>To generate a PDF report, click on the "Download as PDF" button.</li>
+        </ol>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-bold mb-4 text-yellow-500">Developer Information</h2>
+        <p>Developed by <strong class="text-blue-500">Sourav Chhimpa</strong></p>
+        <p>Contact: <a href="mailto:example@example.com" class="text-blue-500">souravchhimpa1@gmail.com</a></p>
+        <p>GitHub: <a href="https://github.com/souravhere" class="text-blue-500">https://github.com/souravhere</a></p>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-bold mb-4 text-yellow-500">Acknowledgments</h2>
+        <ul class="list-disc list-inside">
+          <li>Chart.js - for interactive chart visualizations.</li>
+          <li>pdfmake - for generating PDF documents from HTML content.</li>
+          <li>Tailwind CSS - for responsive and customizable UI components.</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+  <h6 class="text-center mt-4"><a href="./../index.html" class="text-purple-400 text-2xl font-bold">Home</a></h6>
+  <h5 class="text-center mt-8">Designed and Developed by Sourav Chhimpa</h5>
+  <h6 class="text-center mt-2 mb-4">Insta: <a href="https://www.instagram.com/sourav-chhimpa/" target="_blank" class="text-purple-400">@sourav-chhimpa</a></h6>
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const feeForm = document.getElementById('fee-form');
+  const feeTable = document.getElementById('fee-table');
+  const feeTableContainer = document.getElementById('fee-table-container');
+  const feeChartCanvas = document.getElementById('feeChart');
+  let chartInstance = null;
+
+  let fees = [];
+
+  window.addFee = function() {
+    const category = document.getElementById('category').value;
+    const description = document.getElementById('description').value;
+    const amount = parseFloat(document.getElementById('amount').value);
+    const date = document.getElementById('date').value;
+
+    if (description && amount && date) {
+      const fee = { category, description, amount, date };
+      fees.push(fee);
+      addRowToFeeTable(fee);
+      updateFeeChart();
+      clearFormInputs();
+      feeTableContainer.style.display = 'block';
+    } else {
+      alert('Please fill out all fields.');
+    }
+  };
+
+  function addRowToFeeTable(fee) {
+    const row = feeTable.insertRow();
+    row.insertCell(0).innerText = fee.category;
+    row.insertCell(1).innerText = fee.description;
+    row.insertCell(2).innerText = `₹${fee.amount.toFixed(2)}`;
+    row.insertCell(3).innerText = fee.date;
+  }
+
+  function updateFeeChart() {
+    if (chartInstance) {
+      chartInstance.destroy();
+    }
+
+    const categories = fees.map(fee => fee.category);
+    const amounts = fees.map(fee => fee.amount);
+
+    const chartData = {
+      labels: categories,
+      datasets: [{
+        data: amounts,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    };
+
+    chartInstance = new Chart(feeChartCanvas, {
+      type: 'pie',
+      data: chartData,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: {
+              color: '#4a5568' // Set legend text color
+            }
+          }
+        }
+      }
+    });
+  }
+
+  function clearFormInputs() {
+    document.getElementById('description').value = '';
+    document.getElementById('amount').value = '';
+    document.getElementById('date').value = '';
+  }
+
+  window.generatePDF = function() {
+    const totalAmount = fees.reduce((sum, fee) => sum + fee.amount, 0);
+
+    const docDefinition = {
+      content: [
+        {
+          text: 'Tuition Fee Calculator',
+          style: 'header'
+        },
+        {
+          text: 'Fee Details',
+          style: 'subheader'
+        },
+        {
+          table: {
+            headerRows: 1,
+            widths: ['*', '*', '*', '*'],
+            body: [
+              ['Category', 'Description', 'Amount (₹)', 'Date of Payment'],
+              ...fees.map(fee => [fee.category, fee.description, `₹${fee.amount.toFixed(2)}`, fee.date]),
+              [{ text: 'Total', colSpan: 2 }, {}, `₹${totalAmount.toFixed(2)}`, {}]
+            ]
+          }
+        },
+        {
+          text: '© 2024 Tuition Fee Calculator By Veggie Smart',
+          style: 'footer'
+        }
+      ],
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+          alignment: 'center',
+          margin: [0, 0, 0, 20]
+        },
+        subheader: {
+          fontSize: 14,
+          bold: true,
+          margin: [0, 20, 0, 10]
+        },
+        quote: {
+          fontSize: 14,
+          italics: true,
+          margin: [0, 20, 0, 20]
+        },
+        footer: {
+          fontSize: 12,
+          italics: true,
+          alignment: 'center',
+          margin: [0, 20, 0, 0]
+        }
+      }
+    };
+
+    pdfMake.createPdf(docDefinition).download('tuition_fee.pdf');
+  };
+});
+
+  </script>
+</body>
+</html>
