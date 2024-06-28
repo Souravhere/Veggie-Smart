@@ -258,3 +258,42 @@ function EducationCal(){
     });
 }
 EducationCal()
+
+// this data for the Fitness Calculators
+function FitnessCal(){
+    const Fintnesscontainer = [
+        {
+            link: "./FitnessCalculators/WorkoutPlanGenerator.html",
+            imageSrc: "https://img.icons8.com/external-smashingstocks-flat-smashing-stocks/800/external-Workout-Plan-sports-smashingstocks-flat-smashing-stocks.png",
+            imageAlt: "Workout Plan Generator",
+            tagName: "Free",
+            buttonName: "Workout Plan Gen"
+        },
+        {
+            link: "./FitnessCalculators/BodyFatPercentage.html",
+            imageSrc: "https://img.icons8.com/external-flaticons-flat-flat-icons/800/external-body-fat-fitness-at-home-flaticons-flat-flat-icons-2.png",
+            imageAlt: "Body Fat Percentage",
+            tagName: "Free",
+            buttonName: "Body Fat Percentage"
+        },
+    ]
+    const FitnessCalContainer = document.getElementById("FitnessCal");
+    FitnessCalContainer.innerHTML = ''; 
+    
+    Fintnesscontainer.forEach(item => {
+        FitnessCalContainer.innerHTML += `
+            <a href="${item.link}">
+                <div class="calbtn">
+                    <div>
+                        <img src="${item.imageSrc}" alt="${item.imageAlt}" loading="lazy">
+                    </div>
+                    <div class="btnsecondsection">
+                        <span class="btn-tagname">${item.tagName}</span>
+                        <h4 class="btn-name">${item.buttonName}</h4>
+                    </div>
+                </div>
+            </a>
+        `;
+    });
+}
+FitnessCal()
