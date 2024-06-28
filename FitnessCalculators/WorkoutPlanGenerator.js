@@ -20,7 +20,7 @@ const exercises = [];
 
     function renderTable() {
       const tableBody = document.querySelector('#exerciseTable tbody');
-      tableBody.innerHTML = '';
+      tableBody.innerHTML = ''; 
 
       exercises.forEach((exercise, index) => {
         const row = document.createElement('tr');

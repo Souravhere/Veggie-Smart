@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body Fat Percentage Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
+</head>
+<body class="bg-gray-900 text-white p-8">
+
+    <div class="max-w-3xl mx-auto">
+        <h1 class="text-3xl font-bold mb-4">Body Fat Percentage Calculator</h1>
+
+        <div class="mb-8">
+            <label for="gender" class="block mb-2">Gender:</label>
+            <select id="gender" class="block w-full px-3 py-2 rounded bg-gray-800">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
+
+        <div class="mb-8">
+            <label for="age" class="block mb-2">Age (years):</label>
+            <input type="number" id="age" class="block w-full px-3 py-2 rounded bg-gray-800" placeholder="Enter age">
+        </div>
+
+        <div class="mb-8">
+            <label for="weight" class="block mb-2">Weight (kg):</label>
+            <input type="number" id="weight" class="block w-full px-3 py-2 rounded bg-gray-800" placeholder="Enter weight">
+        </div>
+
+        <div class="mb-8">
+            <label for="waist" class="block mb-2">Waist Circumference (cm):</label>
+            <input type="number" id="waist" class="block w-full px-3 py-2 rounded bg-gray-800" placeholder="Enter waist circumference">
+        </div>
+
+        <div class="mb-8">
+            <label for="neck" class="block mb-2">Neck Circumference (cm):</label>
+            <input type="number" id="neck" class="block w-full px-3 py-2 rounded bg-gray-800" placeholder="Enter neck circumference">
+        </div>
+
+        <div class="mb-8">
+            <button onclick="calculateBodyFat()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Calculate Body Fat Percentage</button>
+        </div>
+
+        <p id="bodyFatResult" class="text-xl font-semibold mb-4"></p>
+
+        <div id="bodyFatCategories" class="mb-4"></div>
+        <div id="bodyFatDescription" class="mb-8">
+            <h2 class="text-xl font-semibold mb-2">Body Fat Percentage Categories</h2>
+            <table class="w-full bg-gray-800 rounded-lg overflow-hidden mb-4">
+                <thead>
+                    <tr class="bg-gray-700 text-gray-300">
+                        <th class="px-4 py-2">Description</th>
+                        <th class="px-4 py-2">Women</th>
+                        <th class="px-4 py-2">Men</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="bg-gray-700 text-gray-300">
+                        <td class="px-4 py-2">Essential fat</td>
+                        <td class="px-4 py-2">10-13%</td>
+                        <td class="px-4 py-2">2-5%</td>
+                    </tr>
+                    <tr class="bg-gray-800 text-gray-300">
+                        <td class="px-4 py-2">Athletes</td>
+                        <td class="px-4 py-2">14-20%</td>
+                        <td class="px-4 py-2">6-13%</td>
+                    </tr>
+                    <tr class="bg-gray-700 text-gray-300">
+                        <td class="px-4 py-2">Fitness</td>
+                        <td class="px-4 py-2">21-24%</td>
+                        <td class="px-4 py-2">14-17%</td>
+                    </tr>
+                    <tr class="bg-gray-800 text-gray-300">
+                        <td class="px-4 py-2">Average</td>
+                        <td class="px-4 py-2">25-31%</td>
+                        <td class="px-4 py-2">18-24%</td>
+                    </tr>
+                    <tr class="bg-gray-700 text-gray-300">
+                        <td class="px-4 py-2">Obese</td>
+                        <td class="px-4 py-2">32+%</td>
+                        <td class="px-4 py-2">25+%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="sm:overflow-hidden overflow-scroll">
+            <table id="bodyFatTable" class="w-full bg-gray-800 rounded-lg overflow-hidden mb-4">
+                <thead>
+                    <tr class="bg-gray-700 text-gray-300">
+                        <th class="px-4 py-2">Gender</th>
+                        <th class="px-4 py-2">Age</th>
+                        <th class="px-4 py-2">Weight (kg)</th>
+                        <th class="px-4 py-2">Waist (cm)</th>
+                        <th class="px-4 py-2">Neck (cm)</th>
+                        <th class="px-4 py-2">Body Fat Percentage</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-700" id="tableBody">
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mt-8">
+            <button onclick="downloadPDF()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Download PDF Report</button>
+        </div>
+    </div>
+    <div class="max-w-3xl mx-auto mt-6">
+        <h1 class="text-3xl font-bold mb-4">Body Fat Percentage Calculator Documentation</h1>
+
+        <!-- Introduction -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold mb-2">Introduction</h2>
+            <p class="mb-4">The Body Fat Percentage Calculator estimates body fat percentage based on gender, age, weight, waist circumference, and neck circumference. It uses established formulas and categorizes body fat into industry-standard categories.</p>
+            <p class="mb-4">This calculator is designed to provide accurate estimates of body fat percentage for health and fitness assessment purposes. It generates informative reports and includes educational content on body fat categories.</p>
+        </div>
+
+        <!-- Features -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold mb-2">Features</h2>
+            <ul class="list-disc pl-6">
+                <li class="mb-2">Input fields for gender, age, weight, waist circumference, and neck circumference.</li>
+                <li class="mb-2">Calculates body fat percentage using gender-specific equations.</li>
+                <li class="mb-2">Displays body fat category (Essential fat, Athletes, Fitness, Average, Obese) based on calculated percentage.</li>
+                <li class="mb-2">Generates a downloadable PDF report summarizing results and providing educational content.</li>
+                <li class="mb-2">Includes a table of body fat categories for reference and additional information on body fat percentage implications.</li>
+            </ul>
+        </div>
+
+        <!-- Usage -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold mb-2">Usage</h2>
+            <ol class="list-decimal pl-6">
+                <li class="mb-2">Fill in the required fields (gender, age, weight, waist circumference, neck circumference).</li>
+                <li class="mb-2">Click "Calculate Body Fat Percentage" to obtain results.</li>
+                <li class="mb-2">View the calculated body fat percentage, category, and detailed information.</li>
+                <li class="mb-2">Optionally, download a PDF report for comprehensive record-keeping and analysis.</li>
+            </ol>
+        </div>
+
+        <!-- Formulas -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold mb-2">Formulas</h2>
+            <p class="mb-4"><strong>Body Fat Percentage (BFP) formula for males:</strong></p>
+            <p class="mb-2"><em>USC Units:</em> BFP = 86.010 × log10(waist - neck) - 70.041 × log10(weight) + 36.76</p>
+            <p class="mb-4"><em>SI, Metric Units:</em> BFP = 495 / (1.0324 - 0.19077 × log10(waist - neck) + 0.15456 × log10(height)) - 450</p>
+            <p class="mb-4"><strong>Body Fat Percentage (BFP) formula for females:</strong></p>
+            <p class="mb-2"><em>USC Units:</em> BFP = 163.205 × log10(waist - neck + hip) - 97.684 × log10(weight) - 78.387</p>
+            <p class="mb-4"><em>SI, Metric Units:</em> BFP = 495 / (1.29579 - 0.35004 × log10(waist - neck + hip) + 0.22100 × log10(height)) - 450</p>
+        </div>
+
+        <!-- Educational Content -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold mb-2">Educational Content</h2>
+            <p class="mb-4">The Body Fat Percentage Calculator provides insights into body fat categories and their implications for health and fitness. It includes educational content on:</p>
+            <ul class="list-disc pl-6">
+                <li class="mb-2">American Council on Exercise Body Fat Categorization</li>
+                <li class="mb-2">Jackson & Pollock Ideal Body Fat Percentages</li>
+                <li class="mb-2">Body Fat, Overweight, and Obesity</li>
+                <li class="mb-2">Measuring Body Fat Percentage</li>
+                <li class="mb-2">Potential Complications of Excess Body Fat</li>
+            </ul>
+        </div>
+
+        <!-- References -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold mb-2">References</h2>
+            <ul class="list-disc pl-6">
+                <li class="mb-2">American Council on Exercise</li>
+                <li class="mb-2">Jackson & Pollock</li>
+                <li class="mb-2">World Health Organization (WHO)</li>
+                <li class="mb-2">Centers for Disease Control and Prevention (CDC)</li>
+                <li class="mb-2">U.S. Navy Method</li>
+            </ul>
+        </div>
+    </div>
+    <script src="BodyFatPercentage.js"></script>
+</body>
+</html>
