@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workout Plan Generator</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
+  <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+</head>
+<body class="bg-gray-900 text-gray-200">
+  <div class="container mx-auto p-4">
+    <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+      <h1 class="text-3xl font-bold mb-8 text-center text-blue-500">Workout Plan Generator</h1>
+      <form class="space-y-4">
+        <div class="flex flex-col">
+          <label for="category" class="mb-2 text-yellow-500">Category</label>
+          <select id="category" class="p-2 rounded bg-gray-700 text-gray-200">
+            <option value="Strength Training">Strength Training</option>
+            <option value="Cardio">Cardio</option>
+            <option value="Flexibility">Flexibility</option>
+            <option value="Balance">Balance</option>
+            <option value="Endurance">Endurance</option>
+            <option value="HIIT">HIIT</option>
+          </select>
+        </div>
+        <div class="flex flex-col">
+          <label for="exercise" class="mb-2 text-yellow-500">Exercise</label>
+          <input type="text" id="exercise" class="p-2 rounded bg-gray-700 text-gray-200" list="exerciseSuggestions" placeholder="Exercise Name">
+          <datalist id="exerciseSuggestions">
+            <option value="Push-ups">
+            <option value="Squats">
+            <option value="Planks">
+            <option value="Running">
+            <option value="Cycling">
+            <option value="Yoga">
+            <option value="Jump Rope">
+            <option value="Burpees">
+          </datalist>
+        </div>
+        <div class="flex flex-col">
+          <label for="duration" class="mb-2 text-yellow-500">Duration (minutes)</label>
+          <input type="number" id="duration" class="p-2 rounded bg-gray-700 text-gray-200" placeholder="Duration">
+        </div>
+        <div class="flex flex-col">
+          <label for="date" class="mb-2 text-yellow-500">Date</label>
+          <input type="date" id="date" class="p-2 rounded bg-gray-700 text-gray-200">
+        </div>
+        <button type="button" onclick="addExercise()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add Exercise</button>
+      </form>
+      <div class="mt-8">
+        <h2 class="text-2xl font-bold mb-4 text-yellow-500">Workout Plan</h2>
+        <div class="sm:overflow-hidden overflow-scroll">
+            <table id="exerciseTable" class="min-w-full bg-gray-700 rounded">
+                <thead>
+                  <tr>
+                    <th class="py-2 px-4 text-left">Category</th>
+                    <th class="py-2 px-4 text-left">Exercise</th>
+                    <th class="py-2 px-4 text-left">Duration</th>
+                    <th class="py-2 px-4 text-left">Date</th>
+                    <th class="py-2 px-4 text-left">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Exercise entries will be added here -->
+                </tbody>
+              </table>
+        </div>
+        <canvas id="exerciseChart" class="mt-8"></canvas>
+        <button onclick="downloadPDF()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Download as PDF</button>
+      </div>
+    </div>
+    <div class="bg-gray-800 p-6 rounded-lg shadow-lg mt-8">
+      <h2 class="text-3xl font-bold mb-4 text-center text-blue-500">Workout Plan Generator Documentation</h2>
+      <div class="prose lg:prose-xl mx-auto text-gray-200">
+        <p>The Workout Plan Generator allows users to create customized workout plans based on their fitness goals. Users can add various exercises categorized into different types such as Strength Training, Cardio, Flexibility, Balance, Endurance, and HIIT. The application also provides suggestions for exercises and generates a PDF report of the workout plan.</p>
+
+        <h3 class="text-2xl font-bold mt-8 mb-4 text-yellow-500">Features</h3>
+        <ul class="list-disc list-inside">
+          <li>Add multiple categories of exercises such as Strength Training, Cardio, Flexibility, Balance, Endurance, and HIIT.</li>
+          <li>Input fields for exercise name, duration (in minutes), and date.</li>
+          <li>Exercise name suggestions based on common exercises.</li>
+          <li>Displays exercise details in a table with options to add, edit, and delete entries.</li>
+          <li>Generates a pie chart visualization of the workout plan by categories.</li>
+          <li>Automatically clears input fields after adding an exercise.</li>
+          <li>Generates a PDF report with the workout plan, including a random motivational quote and summary information.</li>
+          <li>Responsive design and dark theme interface for improved user experience.</li>
+        </ul>
+
+        <h3 class="text-2xl font-bold mt-8 mb-4 text-yellow-500">Usage Instructions</h3>
+        <ol class="list-decimal list-inside">
+          <li>Select a category from the dropdown menu.</li>
+          <li>Enter the exercise name or choose from the suggestions.</li>
+          <li>Input the duration of the exercise in minutes.</li>
+          <li>Select the date of the exercise.</li>
+          <li>Click the "Add Exercise" button to add the exercise to the table.</li>
+          <li>Repeat steps 1-5 to add more exercises.</li>
+          <li>View the workout plan in the table and pie chart visualization.</li>
+          <li>Click the "Download as PDF" button to generate a PDF report of the workout plan.</li>
+        </ol>
+
+        <h3 class="text-2xl font-bold mt-8 mb-4 text-yellow-500">Use Cases</h3>
+        <p>This Workout Plan Generator is useful for individuals who want to create a structured workout plan tailored to their fitness goals. It can be used by:</p>
+        <ul class="list-disc list-inside">
+          <li>Fitness enthusiasts looking to track their workouts.</li>
+          <li>Personal trainers creating workout plans for clients.</li>
+          <li>Individuals preparing for specific fitness goals, such as marathons or bodybuilding competitions.</li>
+          <li>Anyone looking to maintain a balanced and diverse workout routine.</li>
+        </ul>
+
+        <h3 class="text-2xl font-bold mt-8 mb-4 text-yellow-500">Formulas and Calculations</h3>
+        <p>The total duration of workouts is calculated by summing up the duration of each exercise. The pie chart represents the distribution of workout categories based on the total duration of exercises in each category.</p>
+        <p><strong>Total Duration</strong> = Sum of durations of all exercises</p>
+        <p>The PDF report includes a motivational quote, the list of exercises with their details, and the total duration of the workout plan.</p>
+
+        <h3 class="text-2xl font-bold mt-8 mb-4 text-yellow-500">Developer Information</h3>
+        <p>Developed by <strong class="text-blue-500">Sourav Chhimpa</strong></p>
+        <p>Contact: <a href="mailto:example@example.com" class="text-blue-500">souravchhimpa1@gmail.com</a></p>
+        <p>GitHub: <a href="https://github.com/souravchhimpa" class="text-blue-500">https://github.com/souravhere</a></p>
+
+        <h3 class="text-2xl font-bold mt-8 mb-4 text-yellow-500">Acknowledgments</h3>
+        <ul class="list-disc list-inside">
+          <li>Chart.js - for interactive chart visualizations.</li>
+          <li>pdfmake - for generating PDF documents from HTML content.</li>
+          <li>Tailwind CSS - for responsive and customizable UI components.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <script src="WorkoutPlanGenerator.js"></script>
+</body>
+</html>
