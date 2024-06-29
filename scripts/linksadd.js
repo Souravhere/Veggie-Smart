@@ -276,6 +276,13 @@ function FitnessCal(){
             tagName: "Free",
             buttonName: "Body Fat Percentage"
         },
+        {
+            link: "./FitnessCalculators/One-RepMaxCal.html",
+            imageSrc: "https://img.icons8.com/color/800/weightlift.png",
+            imageAlt: "One-Rep Max Calculator",
+            tagName: "Free",
+            buttonName: "One-Rep Max Cal"
+        },
     ]
     const FitnessCalContainer = document.getElementById("FitnessCal");
     FitnessCalContainer.innerHTML = ''; 
