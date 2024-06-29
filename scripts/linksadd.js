@@ -283,6 +283,13 @@ function FitnessCal(){
             tagName: "Free",
             buttonName: "One-Rep Max Cal"
         },
+        {
+            link: "./FitnessCalculators/PaceCalculator.html",
+            imageSrc: "https://img.icons8.com/emoji/800/man-mountain-biking.png",
+            imageAlt: "Advanced Pace Cal",
+            tagName: "Free",
+            buttonName: "Advanced Pace Cal"
+        },
     ]
     const FitnessCalContainer = document.getElementById("FitnessCal");
     FitnessCalContainer.innerHTML = ''; 
