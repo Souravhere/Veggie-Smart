@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance Cost Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body class="bg-gray-900 text-white p-8">
+    <div class="max-w-3xl mx-auto">
+        <h1 class="text-3xl font-bold mb-4 text-center">Maintenance Cost Calculator</h1>
+
+        <!-- Description Box -->
+        <div class="mb-8 p-4 bg-gray-800 rounded-lg">
+            <h2 class="text-2xl font-semibold mb-2">What is this calculator?</h2>
+            <p class="text-gray-300">The Maintenance Cost Calculator helps you track and estimate the cost of vehicle maintenance. By entering your maintenance activities and their costs, you can keep a record of your expenses and plan for future maintenance needs.</p>
+        </div>
+
+        <!-- Input Form -->
+        <div class="mb-8">
+            <label for="maintenanceType" class="block text-sm font-medium text-gray-300 mb-2">Maintenance Type:</label>
+            <input type="text" id="maintenanceType" class="bg-gray-800 border border-gray-700 text-gray-300 rounded-lg w-full py-2 px-3 mb-4" placeholder="Enter maintenance type (e.g., Oil Change)" list="maintenanceSuggestions">
+
+            <!-- Suggestions for Maintenance Type -->
+            <datalist id="maintenanceSuggestions">
+                <option value="Oil Change">
+                <option value="Brake Service">
+                <option value="Battery Replacement">
+                <option value="Tire Rotation">
+                <option value="Coolant Flush">
+                <option value="Air Filter Replacement">
+                <option value="Wheel Alignment">
+                <option value="Spark Plug Replacement">
+                <option value="Transmission Fluid Change">
+                <option value="AC Service">
+                <option value="Wiper Blade Replacement">
+                <option value="Engine Tune-up">
+                <option value="Suspension Check">
+                <option value="Headlight Replacement">
+                <option value="Brake Pad Replacement">
+            </datalist>
+
+            <label for="maintenanceCost" class="block text-sm font-medium text-gray-300 mb-2">Maintenance Cost (Rupees):</label>
+            <input type="number" id="maintenanceCost" class="bg-gray-800 border border-gray-700 text-gray-300 rounded-lg w-full py-2 px-3 mb-4" placeholder="Enter cost">
+
+            <label for="maintenanceDate" class="block text-sm font-medium text-gray-300 mb-2">Date of Maintenance:</label>
+            <input type="date" id="maintenanceDate" class="bg-gray-800 border border-gray-700 text-gray-300 rounded-lg w-full py-2 px-3 mb-4">
+
+            <button onclick="addMaintenance()" class="bg-blue-600 w-full hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Add Maintenance</button>
+        </div>
+
+        <!-- Maintenance Records -->
+        <div id="maintenanceRecords" class="mb-8 hidden bg-green-600 rounded-lg p-3">
+            <h2 class="text-2xl font-semibold mb-2">Maintenance Records</h2>
+            <table class="w-full text-left border-collapse bg-gray-500 rounded-lg">
+                <thead>
+                    <tr>
+                        <th class="border-b-2 border-gray-600 py-2 px-3">Maintenance Type</th>
+                        <th class="border-b-2 border-gray-600 py-2 px-3">Cost (Rupees)</th>
+                        <th class="border-b-2 border-gray-600 py-2 px-3">Date</th>
+                    </tr>
+                </thead>
+                <tbody id="maintenanceTableBody">
+                    <!-- Maintenance records will be added here dynamically -->
+                </tbody>
+            </table>
+            <div class="mt-4">
+                <p id="totalMaintenanceCost" class="text-lg font-semibold"></p>
+                <button onclick="downloadPDF()" class="bg-blue-600 w-full hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mt-4">Download PDF</button>
+            </div>
+        </div>
+
+        <!-- Documentation -->
+        <div class="mb-8 bg-gray-700 rounded-lg p-3">
+            <h2 class="text-2xl font-semibold mb-2">Maintenance Cost Calculator Documentation</h2>
+            <p class="mb-4">The Maintenance Cost Calculator allows you to keep track of your vehicle maintenance expenses. It is a useful tool for budgeting and ensuring that you are aware of your vehicle's maintenance needs and costs.</p>
+
+            <h3 class="text-xl font-semibold mb-2">Usage</h3>
+            <ol class="list-decimal pl-6 mb-4">
+                <li>Enter the type of maintenance activity (e.g., Oil Change).</li>
+                <li>Enter the cost of the maintenance in Rupees.</li>
+                <li>Select the date of the maintenance.</li>
+                <li>Click "Add Maintenance" to record the maintenance activity.</li>
+                <li>Review the maintenance records and total cost displayed in the table.</li>
+                <li>Optionally, download a PDF report for record-keeping.</li>
+            </ol>
+        </div>
+    </div>
+    <h6 class="text-center mt-4"><a href="./../index.html" class="text-purple-400 text-2xl font-bold">Home</a></h6>
+    <h5 class="text-center mt-8">Designed and Developed by Sourav Chhimpa</h5>
+    <h6 class="text-center mt-2 mb-6">Insta: <a href="https://www.instagram.com/sourav-chhimpa/" target="_blank" class="text-purple-400">@sourav-chhimpa</a></h6> 
+    <script src="MaintenanceCostCalculator.js"></script>
+</body>
+</html>
