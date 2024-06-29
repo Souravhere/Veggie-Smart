@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Loan Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body class="bg-gray-900 text-white p-8">
+    <div class="max-w-3xl mx-auto">
+        <h1 class="text-3xl font-bold mb-4 text-center">Vehicle Loan Calculator</h1>
+
+        <!-- Description Box -->
+        <div class="mb-8 p-4 bg-gray-800 rounded-lg">
+            <h2 class="text-2xl font-semibold mb-2">What is this calculator?</h2>
+            <p class="text-gray-300">The Vehicle Loan Calculator helps you estimate the monthly payments and total interest for a vehicle loan based on the loan amount, interest rate, and loan tenure. It assists in financial planning for vehicle purchases.</p>
+        </div>
+
+        <!-- Input Form -->
+        <div class="mb-8">
+            <label for="loanAmount" class="block text-sm font-medium text-gray-300 mb-2">Loan Amount (Rupees):</label>
+            <input type="number" id="loanAmount" class="bg-gray-800 border border-gray-700 text-gray-300 rounded-lg w-full py-2 px-3 mb-4" placeholder="Enter loan amount">
+
+            <label for="interestRate" class="block text-sm font-medium text-gray-300 mb-2">Interest Rate (% per annum):</label>
+            <input type="number" id="interestRate" class="bg-gray-800 border border-gray-700 text-gray-300 rounded-lg w-full py-2 px-3 mb-4" placeholder="Enter interest rate">
+
+            <label for="loanTenure" class="block text-sm font-medium text-gray-300 mb-2">Loan Tenure (years):</label>
+            <input type="number" id="loanTenure" class="bg-gray-800 border border-gray-700 text-gray-300 rounded-lg w-full py-2 px-3 mb-4" placeholder="Enter loan tenure">
+
+            <label for="paymentFrequency" class="block text-sm font-medium text-gray-300 mb-2">Payment Frequency:</label>
+            <select id="paymentFrequency" class="bg-gray-800 border border-gray-700 text-gray-300 rounded-lg w-full py-2 px-3 mb-4">
+                <option value="monthly">Monthly</option>
+                <option value="quarterly">Every 3 Months</option>
+                <option value="semi-annually">Every 6 Months</option>
+                <option value="annually">Annually</option>
+            </select>
+
+            <button onclick="calculateLoan()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Calculate Loan</button>
+        </div>
+
+        <!-- Results -->
+        <div id="results" class="hidden mb-8 bg-green-600 rounded-lg p-3">
+            <h2 class="text-2xl font-semibold mb-2">Results</h2>
+            <p id="paymentAmount" class="mb-4"></p>
+            <p id="totalInterest" class="mb-4"></p>
+            <button onclick="downloadPDF()" class="w-full bg-blue-600 hover:bg-blue-700 mt-2 mb-2 text-white font-bold py-2 px-4 rounded-lg">Download PDF</button>
+        </div>
+
+        <!-- Documentation -->
+        <div class="mb-8 bg-gray-600 rounded-lg p-3">
+            <h2 class="text-2xl font-semibold mb-2">Vehicle Loan Calculator Documentation</h2>
+            <p class="mb-4">The Vehicle Loan Calculator helps you estimate the payments and total interest for a vehicle loan. It provides you with essential financial information to plan your vehicle purchase effectively.</p>
+
+            <h3 class="text-xl font-semibold mb-2">Formulas</h3>
+            <p class="mb-4">The payment and total interest can be calculated using the following formulas:</p>
+            <ul class="list-disc pl-6 mb-4">
+                <li><strong>Payment Formula:</strong> \( EMI = \frac{P \cdot r \cdot (1 + r)^n}{(1 + r)^n - 1} \)</li>
+                <li><strong>Total Interest Formula:</strong> Total Interest = (Payment × n) - P</li>
+            </ul>
+            <p class="mb-4">Where:</p>
+            <ul class="list-disc pl-6 mb-4">
+                <li>P = Loan Amount</li>
+                <li>r = Interest Rate per Payment Period</li>
+                <li>n = Total Number of Payments</li>
+            </ul>
+
+            <h3 class="text-xl font-semibold mb-2">Usage</h3>
+            <ol class="list-decimal pl-6 mb-4">
+                <li>Enter the loan amount in Rupees.</li>
+                <li>Enter the annual interest rate.</li>
+                <li>Enter the loan tenure in years.</li>
+                <li>Select the payment frequency (monthly, quarterly, semi-annually, or annually).</li>
+                <li>Click "Calculate Loan" to see the results.</li>
+                <li>Optionally, download a PDF report for record-keeping.</li>
+            </ol>
+        </div>
+    </div>
+    <h6 class="text-center mt-4"><a href="./../index.html" class="text-purple-400 text-2xl font-bold">Home</a></h6>
+  <h5 class="text-center mt-8">Designed and Developed by Sourav Chhimpa</h5>
+  <h6 class="text-center mt-2 mb-6">Insta: <a href="https://www.instagram.com/sourav-chhimpa/" target="_blank" class="text-purple-400">@sourav-chhimpa</a></h6> 
+  <script src="VehicleLoanCalculator.js"></script>
+</body>
+</html>
