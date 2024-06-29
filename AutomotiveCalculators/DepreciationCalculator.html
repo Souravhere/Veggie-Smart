@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Depreciation Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white p-8">
+    <div class="max-w-3xl mx-auto">
+        <h1 class="text-3xl font-bold mb-4 text-center">Advanced Depreciation Calculator</h1>
+
+        <!-- Input Form -->
+        <div class="mb-8">
+            <label for="vehicleCost" class="block text-sm font-medium text-gray-300 mb-2">Vehicle Cost (Rupees):</label>
+            <p class="text-xs text-gray-400 mb-4">Enter the initial cost of the vehicle.</p>
+            <input type="number" id="vehicleCost" class="bg-gray-800 border border-gray-700 text-gray-300 rounded-lg w-full py-2 px-3 mb-4" placeholder="Enter vehicle cost">
+
+            <label for="residualValue" class="block text-sm font-medium text-gray-300 mb-2">Residual Value (Rupees):</label>
+            <p class="text-xs text-gray-400 mb-4">Enter the estimated value at the end of its useful life.</p>
+            <input type="number" id="residualValue" class="bg-gray-800 border border-gray-700 text-gray-300 rounded-lg w-full py-2 px-3 mb-4" placeholder="Enter residual value">
+
+            <label for="usefulLife" class="block text-sm font-medium text-gray-300 mb-2">Useful Life (Years):</label>
+            <p class="text-xs text-gray-400 mb-4">Enter the number of years over which the vehicle will be depreciated.</p>
+            <input type="number" id="usefulLife" class="bg-gray-800 border border-gray-700 text-gray-300 rounded-lg w-full py-2 px-3 mb-4" placeholder="Enter useful life in years">
+
+            <label for="depreciationMethod" class="block text-sm font-medium text-gray-300 mb-2">Depreciation Method:</label>
+            <p class="text-xs text-gray-400 mb-4">Select the method used to calculate depreciation.</p>
+            <select id="depreciationMethod" class="bg-gray-800 border border-gray-700 text-gray-300 rounded-lg w-full py-2 px-3 mb-4">
+                <option value="straight-line">Straight Line</option>
+                <option value="double-declining">Double Declining Balance</option>
+            </select>
+
+            <label for="paymentFrequency" class="block text-sm font-medium text-gray-300 mb-2">Payment Frequency:</label>
+            <p class="text-xs text-gray-400 mb-4">Select how often depreciation payments are made.</p>
+            <select id="paymentFrequency" class="bg-gray-800 border border-gray-700 text-gray-300 rounded-lg w-full py-2 px-3 mb-4">
+                <option value="monthly">Monthly</option>
+                <option value="quarterly">Quarterly</option>
+                <option value="half-yearly">Half-Yearly</option>
+                <option value="yearly">Yearly</option>
+            </select>
+
+            <button onclick="calculateDepreciation()" class="bg-blue-600 w-full hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Calculate Depreciation</button>
+        </div>
+
+        <!-- Depreciation Results -->
+        <div id="depreciationResults" class="hidden bg-green-600 rounded-lg p-3">
+            <h2 class="text-2xl font-semibold mb-2">Depreciation Results</h2>
+            <p id="depreciationAmount" class="text-lg font-semibold mb-4"></p>
+        </div>
+
+        <!-- Documentation -->
+        <div class="mb-8 bg-gray-700 rounded-lg p-3 mt-4">
+            <h2 class="text-2xl font-semibold mb-2">Depreciation Calculator Documentation</h2>
+            <p class="mb-4">The Advanced Depreciation Calculator estimates the depreciation of a vehicle over time based on user-provided information such as initial cost, residual value, useful life, depreciation method, and payment frequency.</p>
+
+            <h3 class="text-xl font-semibold mb-2">Usage</h3>
+            <ol class="list-decimal pl-6 mb-4">
+                <li>Enter the initial cost of the vehicle.</li>
+                <li>Enter the residual value (estimated value at the end of its useful life).</li>
+                <li>Enter the useful life of the vehicle in years.</li>
+                <li>Select the depreciation method (Straight Line or Double Declining Balance).</li>
+                <li>Select the payment frequency (Monthly, Quarterly, Half-Yearly, or Yearly).</li>
+                <li>Click "Calculate Depreciation" to see the estimated depreciation amount.</li>
+                <li>Optionally, download a PDF report for record-keeping.</li>
+            </ol>
+        </div>
+    </div>
+    <h6 class="text-center mt-4"><a href="./../index.html" class="text-purple-400 text-2xl font-bold">Home</a></h6>
+    <h5 class="text-center mt-8">Designed and Developed by Sourav Chhimpa</h5>
+    <h6 class="text-center mt-2 mb-6">Insta: <a href="https://www.instagram.com/sourav-chhimpa/" target="_blank" class="text-purple-400">@sourav-chhimpa</a></h6> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@0.4.1/dist/html2canvas.min.js"></script>
+    <script src="DepreciationCalculator.js"></script>
+</body>
+</html>
