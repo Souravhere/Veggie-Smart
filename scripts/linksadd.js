@@ -329,11 +329,11 @@ function AutomotiveCal(){
             buttonName: "Maintenance Cost"
         },
         {
-            link: "./FitnessCalculators/One-RepMaxCal.html",
-            imageSrc: "https://img.icons8.com/color/800/weightlift.png",
-            imageAlt: "One-Rep Max Calculator",
+            link: "AutomotiveCalculators/VehicleLoanCalculator.html",
+            imageSrc: "https://img.icons8.com/parakeet/800/car-loan.png",
+            imageAlt: "Vehicle Loan Calculator",
             tagName: "Free",
-            buttonName: "One-Rep Max Cal"
+            buttonName: "Vehicle Loan Cal"
         },
         {
             link: "AutomotiveCalculators/DepreciationCalculator.html",
