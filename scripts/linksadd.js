@@ -336,11 +336,11 @@ function AutomotiveCal(){
             buttonName: "One-Rep Max Cal"
         },
         {
-            link: "./FitnessCalculators/PaceCalculator.html",
-            imageSrc: "https://img.icons8.com/emoji/800/man-mountain-biking.png",
-            imageAlt: "Advanced Pace Cal",
+            link: "AutomotiveCalculators/DepreciationCalculator.html",
+            imageSrc: "https://img.icons8.com/fluency/800/administrative-tools.png",
+            imageAlt: "Advanced Depreciation Cal",
             tagName: "Free",
-            buttonName: "Advanced Pace Cal"
+            buttonName: "Depreciation Cost"
         },
     ]
     const AutomotiveCalContainer = document.getElementById("AutomotiveCal");
