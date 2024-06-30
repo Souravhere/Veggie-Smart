@@ -363,3 +363,55 @@ function AutomotiveCal(){
     });
 }
 AutomotiveCal()
+// this data for the Event Plannning Calculators
+function EventPlanCal(){
+    const Eventcontainer = [
+        {
+            link: "./EventPlanningCalculators/Guest-list-Cal.html   ",
+            imageSrc: "https://img.icons8.com/external-flaticons-lineal-color-flat-icons/800/external-guest-list-night-club-flaticons-lineal-color-flat-icons-3.png",
+            imageAlt: "Guest List Calculator",
+            tagName: "Beta",
+            buttonName: "Guest List Cal"
+        },
+        {
+            link: "./AutomotiveCalculators/MaintenanceCostCalculator.html",
+            imageSrc: "https://img.icons8.com/stickers/800/online-maintenance-portal.png",
+            imageAlt: "Maintenance Cost Calculator",
+            tagName: "Free",
+            buttonName: "Maintenance Cost"
+        },
+        {
+            link: "AutomotiveCalculators/VehicleLoanCalculator.html",
+            imageSrc: "https://img.icons8.com/parakeet/800/car-loan.png",
+            imageAlt: "Vehicle Loan Calculator",
+            tagName: "Free",
+            buttonName: "Vehicle Loan Cal"
+        },
+        {
+            link: "AutomotiveCalculators/DepreciationCalculator.html",
+            imageSrc: "https://img.icons8.com/fluency/800/administrative-tools.png",
+            imageAlt: "Advanced Depreciation Cal",
+            tagName: "Free",
+            buttonName: "Depreciation Cost"
+        },
+    ]
+    const EventPlanCalContainer = document.getElementById("EventPlanneCal");
+   EventPlanCalContainer.innerHTML = ''; 
+    
+   Eventcontainer.forEach(item => {
+       EventPlanCalContainer.innerHTML += `
+            <a href="${item.link}">
+                <div class="calbtn">
+                    <div>
+                        <img src="${item.imageSrc}" alt="${item.imageAlt}" loading="lazy">
+                    </div>
+                    <div class="btnsecondsection">
+                        <span class="btn-tagname">${item.tagName}</span>
+                        <h4 class="btn-name">${item.buttonName}</h4>
+                    </div>
+                </div>
+            </a>
+        `;
+    });
+}
+EventPlanCal()
