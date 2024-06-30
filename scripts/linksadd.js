@@ -374,11 +374,11 @@ function EventPlanCal(){
             buttonName: "Guest List Cal"
         },
         {
-            link: "./AutomotiveCalculators/MaintenanceCostCalculator.html",
-            imageSrc: "https://img.icons8.com/stickers/800/online-maintenance-portal.png",
-            imageAlt: "Maintenance Cost Calculator",
-            tagName: "Free",
-            buttonName: "Maintenance Cost"
+            link: "./EventPlanningCalculators/Budget-Planner.html",
+            imageSrc: "https://img.icons8.com/color/800/budget.png",
+            imageAlt: "Budget Planner",
+            tagName: "Beta",
+            buttonName: "Budget Planner"
         },
         {
             link: "AutomotiveCalculators/VehicleLoanCalculator.html",
