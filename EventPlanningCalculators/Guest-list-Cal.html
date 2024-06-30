@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Guest List Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-900 text-white">
+    <div class="container mx-auto p-6">
+        <h1 class="text-4xl font-bold mb-6 text-center">Guest List Calculator</h1>
+        <div class="bg-gray-800 p-4 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold mb-4">Add Guest</h2>
+            <div class="mb-4">
+                <label for="guestName" class="block text-sm font-medium text-gray-300">Guest Name</label>
+                <input type="text" id="guestName" class="mt-1 block w-full p-2 bg-gray-700 border border-gray-600 rounded-md text-white" placeholder="Enter guest name">
+            </div>
+            <div class="mb-4">
+                <label for="category" class="block text-sm font-medium text-gray-300">Category</label>
+                <select id="category" class="mt-1 block w-full p-2 bg-gray-700 border border-gray-600 rounded-md text-white">
+                    <option value="Family">Family</option>
+                    <option value="Friends">Friends</option>
+                    <option value="Colleagues">Colleagues</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="mealPreference" class="block text-sm font-medium text-gray-300">Meal Preference</label>
+                <select id="mealPreference" class="mt-1 block w-full p-2 bg-gray-700 border border-gray-600 rounded-md text-white">
+                    <option value="Vegetarian">Vegetarian</option>
+                    <option value="Non-Vegetarian">Non-Vegetarian</option>
+                    <option value="Vegan">Vegan</option>
+                    <option value="Jain">Jain</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="rsvp" class="block text-sm font-medium text-gray-300">RSVP</label>
+                <select id="rsvp" class="mt-1 block w-full p-2 bg-gray-700 border border-gray-600 rounded-md text-white">
+                    <option value="Pending">Pending</option>
+                    <option value="Accepted">Accepted</option>
+                    <option value="Declined">Declined</option>
+                </select>
+            </div>
+            <button onclick="addGuest()" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add Guest</button>
+        </div>
+
+        <div class="mt-6 bg-gray-800 p-4 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold mb-4">Guest List</h2>
+            <div class="mb-4 flex justify-between items-center">
+                <div>
+                    <label for="rsvpFilter" class="block text-sm font-medium text-gray-300">Filter by RSVP</label>
+                    <select id="rsvpFilter" class="mt-1 block w-full p-2 bg-gray-700 border border-gray-600 rounded-md text-white" onchange="renderTable()">
+                        <option value="All">All</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Accepted">Accepted</option>
+                        <option value="Declined">Declined</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="searchGuest" class="block text-sm font-medium text-gray-300">Search Guest</label>
+                    <input type="text" id="searchGuest" class="mt-1 block w-full p-2 bg-gray-700 border border-gray-600 rounded-md text-white" placeholder="Enter guest name" onkeyup="renderTable()">
+                </div>
+            </div>
+            <div id="guestSummary" class="mb-4 text-gray-300">
+                <!-- Guest summary will be rendered here -->
+            </div>
+            <div class="sm:overflow-hidden overflow-scroll">
+                <table class="min-w-full bg-gray-700 rounded-md text-white">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 border-b-2 border-gray-600">Guest Name</th>
+                            <th class="px-4 py-2 border-b-2 border-gray-600">Category</th>
+                            <th class="px-4 py-2 border-b-2 border-gray-600">Meal Preference</th>
+                            <th class="px-4 py-2 border-b-2 border-gray-600">RSVP</th>
+                            <th class="px-4 py-2 border-b-2 border-gray-600">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="guestTable" class="divide-y divide-gray-600">
+                        <!-- Guest rows will be added here dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <button onclick="downloadPDF()" class="w-full mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Download Guest List as PDF</button>
+    </div>
+     <!-- Documentation -->
+     <div class="bg-gray-800 p-6 rounded-lg shadow-md m-5">
+        <h2 class="text-3xl font-bold mb-4 text-center">Guest List Calculator Documentation</h2>
+        
+        <div class="mb-6">
+            <h3 class="text-2xl font-semibold mb-2">Overview</h3>
+            <p class="text-gray-300">The Guest List Calculator is an advanced tool designed to manage guest lists and seating arrangements for events, particularly tailored for Indian cultural events. This calculator allows users to add, edit, and delete guest entries, categorize guests, and track their RSVP status. Additionally, it provides functionalities to filter guests by RSVP status, search for guests, and generate a PDF of the guest list.</p>
+        </div>
+
+        <div class="mb-6">
+            <h3 class="text-2xl font-semibold mb-2">Features</h3>
+            <ul class="list-disc list-inside text-gray-300">
+                <li><strong>Add Guest:</strong> Input fields to add guest name, category, meal preference, and RSVP status. Form validation to ensure all fields are filled before adding a guest.</li>
+                <li><strong>Guest List Table:</strong> Displays the list of guests with their details. Options to edit or delete guest entries. Filter guests by RSVP status. Search for guests by name.</li>
+                <li><strong>Guest Count Summary:</strong> Provides a summary of the total number of guests and the count of each category (Family, Friends, Colleagues).</li>
+                <li><strong>PDF Generation:</strong> Generates a PDF of the guest list, including total guest counts and individual guest details. Replaces the rupee symbol with "Rupees" for currency representation.</li>
+            </ul>
+        </div>
+
+        <div class="mb-6">
+            <h3 class="text-2xl font-semibold mb-2">Input Fields</h3>
+            <ul class="list-disc list-inside text-gray-300">
+                <li><strong>Guest Name:</strong> Enter the name of the guest.</li>
+                <li><strong>Category:</strong> Select the category of the guest (Family, Friends, Colleagues).</li>
+                <li><strong>Meal Preference:</strong> Choose the meal preference of the guest (Vegetarian, Non-Vegetarian, Vegan, Jain).</li>
+                <li><strong>RSVP:</strong> Select the RSVP status of the guest (Pending, Accepted, Declined).</li>
+            </ul>
+        </div>
+
+        <div class="mb-6">
+            <h3 class="text-2xl font-semibold mb-2">Functionalities</h3>
+            
+            <h4 class="text-xl font-semibold mb-1">Adding a Guest</h4>
+            <ol class="list-decimal list-inside text-gray-300 mb-4">
+                <li>Fill in the guest's name.</li>
+                <li>Select the guest's category.</li>
+                <li>Choose the guest's meal preference.</li>
+                <li>Select the guest's RSVP status.</li>
+                <li>Click the "Add Guest" button.</li>
+            </ol>
+            
+            <h4 class="text-xl font-semibold mb-1">Editing a Guest</h4>
+            <ol class="list-decimal list-inside text-gray-300 mb-4">
+                <li>Click the "Edit" button next to the guest entry in the table.</li>
+                <li>The guest's details will be loaded into the input fields.</li>
+                <li>Modify the details as needed.</li>
+                <li>Click the "Add Guest" button to save the changes.</li>
+            </ol>
+            
+            <h4 class="text-xl font-semibold mb-1">Deleting a Guest</h4>
+            <ol class="list-decimal list-inside text-gray-300 mb-4">
+                <li>Click the "Delete" button next to the guest entry in the table.</li>
+                <li>The guest will be removed from the list.</li>
+            </ol>
+
+            <h4 class="text-xl font-semibold mb-1">Filtering by RSVP Status</h4>
+            <ol class="list-decimal list-inside text-gray-300 mb-4">
+                <li>Select the desired RSVP status from the "Filter by RSVP" dropdown.</li>
+                <li>The table will display only the guests matching the selected RSVP status.</li>
+            </ol>
+
+            <h4 class="text-xl font-semibold mb-1">Searching for a Guest</h4>
+            <ol class="list-decimal list-inside text-gray-300 mb-4">
+                <li>Enter the guest's name in the "Search Guest" input field.</li>
+                <li>The table will dynamically update to show guests whose names match the search query.</li>
+            </ol>
+        </div>
+
+        <div class="mb-6">
+            <h3 class="text-2xl font-semibold mb-2">Generating a PDF</h3>
+            <ol class="list-decimal list-inside text-gray-300">
+                <li>Click the "Download Guest List as PDF" button.</li>
+                <li>A PDF file will be generated and downloaded, containing the guest list and summary.</li>
+            </ol>
+        </div>
+
+        <div class="mb-6">
+            <h3 class="text-2xl font-semibold mb-2">Summary Section</h3>
+            <p class="text-gray-300">The summary section displays the total number of guests and the count of each category:</p>
+            <ul class="list-disc list-inside text-gray-300">
+                <li><strong>Total Guests:</strong> Total number of guests added to the list.</li>
+                <li><strong>Family:</strong> Number of guests categorized as Family.</li>
+                <li><strong>Friends:</strong> Number of guests categorized as Friends.</li>
+                <li><strong>Colleagues:</strong> Number of guests categorized as Colleagues.</li>
+            </ul>
+        </div>
+    </div>
+    <h6 class="text-center mt-4"><a href="./../index.html" class="text-purple-400 text-2xl font-bold">Home</a></h6>
+  <h5 class="text-center mt-8">Designed and Developed by Sourav Chhimpa</h5>
+  <h6 class="text-center mt-2 mb-6">Insta: <a href="https://www.instagram.com/sourav-chhimpa/" target="_blank" class="text-purple-400">@sourav-chhimpa</a></h6> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
+    <script src="Guest-list-Cal.js"></script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Planner</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .hidden { display: none; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <div class="container mx-auto p-6">
+        <h1 class="text-4xl font-bold mb-6 text-center">Budget Planner</h1>
+        <!-- Budget Planner Form -->
+        <div class="bg-gray-800 p-6 rounded-lg shadow-md">
+            <h2 class="text-3xl font-bold mb-4 text-center">Budget Planner</h2>
+            <div class="mb-4">
+                <label for="description" class="block text-sm font-medium text-gray-300">Expense Description</label>
+                <input type="text" id="description" class="p-2 mt-1 block w-full bg-gray-700 border-gray-600 text-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter the expense description">
+            </div>
+            <div class="mb-4">
+                <label for="category" class="block text-sm font-medium text-gray-300">Category</label>
+                <select id="category" class="p-2 mt-1 block w-full bg-gray-700 border-gray-600 text-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                    <option value="Venue">Venue</option>
+                    <option value="Catering">Catering</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Decorations">Decorations</option>
+                    <option value="Transport">Transport</option>
+                    <option value="Others">Others</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="amount" class="block text-sm font-medium text-gray-300">Amount (Rupees)</label>
+                <input type="number" id="amount" class="p-2 mt-1 block w-full bg-gray-700 border-gray-600 text-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter the amount in Rupees">
+            </div>
+            <div class="flex justify-center">
+                <button onclick="addExpense()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                    <span>Add Expense</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Expense Table and Summary -->
+        <div class="bg-gray-800 p-6 rounded-lg shadow-md mt-6">
+            <h2 class="text-3xl font-bold mb-4 text-center">Expense List</h2>
+            <div class="sm:overflow-hidden overflow-scroll">
+                <table class="min-w-full divide-y divide-gray-700 mb-4">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Description</th>
+                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Category</th>
+                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Amount (Rupees)</th>
+                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="expenseTableBody" class="bg-gray-700 divide-y divide-gray-600">
+                        <!-- Rows will be added here dynamically -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-center mb-4">
+                <h3 class="text-2xl font-bold">Summary</h3>
+                <p class="text-xl">Total Budget: <span id="totalBudget">0</span> Rupees</p>
+                <ul id="categoryBreakdown" class="list-disc list-inside text-gray-300 mt-2"></ul>
+            </div>
+            <div class="flex justify-center">
+                <button onclick="downloadPDF()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                    <span>Download Budget as PDF</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M4 3a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1V8.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0011.586 2H4zm1 1h5v4a1 1 0 001 1h4v8H5V4z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div id="loadingIndicator" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center">
+            <div class="text-white text-lg font-bold">Generating PDF...</div>
+        </div>
+    </div>
+    <!-- Documentation -->
+    <div class="bg-gray-800 p-6 rounded-lg shadow-md mb-6">
+        <h2 class="text-3xl font-bold mb-4 text-center">Budget Planner Documentation</h2>
+        <p class="text-gray-300">The Budget Planner helps you manage and plan your budget for events like weddings, parties, and conferences. It allows you to add, edit, and delete expense items, categorize expenses, and track the total budget. Additionally, it provides functionalities to download the budget details as a PDF.</p>
+        <div class="mt-4">
+            <h3 class="text-2xl font-semibold mb-2">Features</h3>
+            <ul class="list-disc list-inside text-gray-300">
+                <li><strong>Add Expense:</strong> Input fields to add expense description, category, and amount. Form validation to ensure all fields are filled before adding an expense.</li>
+                <li><strong>Expense List Table:</strong> Displays the list of expenses with their details. Options to edit or delete expense entries.</li>
+                <li><strong>Budget Summary:</strong> Provides a summary of the total budget and the breakdown of expenses by category.</li>
+                <li><strong>PDF Generation:</strong> Generates a PDF of the budget details, including total budget and individual expense details.</li>
+            </ul>
+        </div>
+        <div class="mt-4">
+            <h3 class="text-2xl font-semibold mb-2">Input Fields</h3>
+            <ul class="list-disc list-inside text-gray-300">
+                <li><strong>Expense Description:</strong> Enter the description of the expense.</li>
+                <li><strong>Category:</strong> Select the category of the expense (e.g., Venue, Catering, Entertainment).</li>
+                <li><strong>Amount:</strong> Enter the amount for the expense in Rupees.</li>
+            </ul>
+        </div>
+        <div class="mt-4">
+            <h3 class="text-2xl font-semibold mb-2">Functionalities</h3>
+            <h4 class="text-xl font-semibold mb-1">Adding an Expense</h4>
+            <ol class="list-decimal list-inside text-gray-300 mb-4">
+                <li>Fill in the expense description.</li>
+                <li>Select the expense category.</li>
+                <li>Enter the amount in Rupees.</li>
+                <li>Click the "Add Expense" button.</li>
+            </ol>
+            <h4 class="text-xl font-semibold mb-1">Editing an Expense</h4>
+            <ol class="list-decimal list-inside text-gray-300 mb-4">
+                <li>Click the "Edit" button next to the expense entry in the table.</li>
+                <li>The expense details will be loaded into the input fields.</li>
+                <li>Modify the details as needed.</li>
+                <li>Click the "Add Expense" button to save the changes.</li>
+            </ol>
+            <h4 class="text-xl font-semibold mb-1">Deleting an Expense</h4>
+            <ol class="list-decimal list-inside text-gray-300 mb-4">
+                <li>Click the "Delete" button next to the expense entry in the table.</li>
+                <li>The expense will be removed from the list.</li>
+            </ol>
+        </div>
+        <div class="mt-4">
+            <h3 class="text-2xl font-semibold mb-2">Generating a PDF</h3>
+            <ol class="list-decimal list-inside text-gray-300">
+                <li>Click the "Download Budget as PDF" button.</li>
+                <li>A PDF file will be generated and downloaded, containing the budget details and summary.</li>
+            </ol>
+        </div>
+        <div class="mt-4">
+            <h3 class="text-2xl font-semibold mb-2">Summary Section</h3>
+            <p class="text-gray-300">The summary section displays the total budget and the breakdown of expenses by category:</p>
+            <ul class="list-disc list-inside text-gray-300">
+                <li><strong>Total Budget:</strong> Total amount of all expenses added to the list.</li>
+                <li><strong>Category Breakdown:</strong> Total amount spent in each category (e.g., Venue, Catering, Entertainment).</li>
+            </ul>
+        </div>
+    </div>
+    <h6 class="text-center mt-4"><a href="./../index.html" class="text-purple-400 text-2xl font-bold">Home</a></h6>
+  <h5 class="text-center mt-8">Designed and Developed by Sourav Chhimpa</h5>
+  <h6 class="text-center mt-2 mb-6">Insta: <a href="https://www.instagram.com/sourav-chhimpa/" target="_blank" class="text-purple-400">@sourav-chhimpa</a></h6> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.14/jspdf.plugin.autotable.min.js"></script>
+    <script src="Budget-Planner.js"></script>
+</body>
+</html>
