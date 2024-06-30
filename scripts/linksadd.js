@@ -311,3 +311,55 @@ function FitnessCal(){
     });
 }
 FitnessCal()
+// this data for the Automotive Calculators
+function AutomotiveCal(){
+    const Automotivecontainer = [
+        {
+            link: "./AutomotiveCalculators/Automotive-Calculators.html",
+            imageSrc: "https://img.icons8.com/external-smashingstocks-flat-smashing-stocks/800/external-Fuel-Cost-commodities-smashingstocks-flat-smashing-stocks.png",
+            imageAlt: "Fuel Cost Calculator",
+            tagName: "Free",
+            buttonName: "Fuel Cost Cal"
+        },
+        {
+            link: "./AutomotiveCalculators/MaintenanceCostCalculator.html",
+            imageSrc: "https://img.icons8.com/stickers/800/online-maintenance-portal.png",
+            imageAlt: "Maintenance Cost Calculator",
+            tagName: "Free",
+            buttonName: "Maintenance Cost"
+        },
+        {
+            link: "./FitnessCalculators/One-RepMaxCal.html",
+            imageSrc: "https://img.icons8.com/color/800/weightlift.png",
+            imageAlt: "One-Rep Max Calculator",
+            tagName: "Free",
+            buttonName: "One-Rep Max Cal"
+        },
+        {
+            link: "./FitnessCalculators/PaceCalculator.html",
+            imageSrc: "https://img.icons8.com/emoji/800/man-mountain-biking.png",
+            imageAlt: "Advanced Pace Cal",
+            tagName: "Free",
+            buttonName: "Advanced Pace Cal"
+        },
+    ]
+    const AutomotiveCalContainer = document.getElementById("AutomotiveCal");
+    AutomotiveCalContainer.innerHTML = ''; 
+    
+   Automotivecontainer.forEach(item => {
+       AutomotiveCalContainer.innerHTML += `
+            <a href="${item.link}">
+                <div class="calbtn">
+                    <div>
+                        <img src="${item.imageSrc}" alt="${item.imageAlt}" loading="lazy">
+                    </div>
+                    <div class="btnsecondsection">
+                        <span class="btn-tagname">${item.tagName}</span>
+                        <h4 class="btn-name">${item.buttonName}</h4>
+                    </div>
+                </div>
+            </a>
+        `;
+    });
+}
+AutomotiveCal()
