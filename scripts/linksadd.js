@@ -381,18 +381,18 @@ function EventPlanCal(){
             buttonName: "Budget Planner"
         },
         {
-            link: "AutomotiveCalculators/VehicleLoanCalculator.html",
-            imageSrc: "https://img.icons8.com/parakeet/800/car-loan.png",
-            imageAlt: "Vehicle Loan Calculator",
-            tagName: "Free",
-            buttonName: "Vehicle Loan Cal"
+            link: "./EventPlanningCalculators/Catering-Cal.html",
+            imageSrc: "https://img.icons8.com/external-flaticons-lineal-color-flat-icons/800/external-catering-bowling-alley-and-arcade-flaticons-lineal-color-flat-icons.png",
+            imageAlt: "Catering Calculator",
+            tagName: "Beta",
+            buttonName: "Catering Calculator"
         },
         {
-            link: "AutomotiveCalculators/DepreciationCalculator.html",
-            imageSrc: "https://img.icons8.com/fluency/800/administrative-tools.png",
-            imageAlt: "Advanced Depreciation Cal",
-            tagName: "Free",
-            buttonName: "Depreciation Cost"
+            link: "./EventPlanningCalculators/VenueCapacityCalculator.html",
+            imageSrc: "https://img.icons8.com/fluency/800/street-food.png",
+            imageAlt: "Venue Capacity Cal",
+            tagName: "Beta",
+            buttonName: "Venue Capacity Cal"
         },
     ]
     const EventPlanCalContainer = document.getElementById("EventPlanneCal");
