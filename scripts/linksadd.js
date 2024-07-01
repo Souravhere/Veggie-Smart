@@ -14,6 +14,13 @@ function foodcal() {
             tagName: "Beta",
             buttonName: "Nutrition Calculator"
         },
+        {
+            link: "./Recipe Cost Calculator/Serving-Size-Converter.html",
+            imageSrc: "https://img.icons8.com/color/800/tableware.png",
+            imageAlt: "Serving Size Converter",
+            tagName: "Beta",
+            buttonName: "Serving Size Cal"
+        },
     ];
     
     const foodcontainer = document.getElementById("FoodCalculators");
