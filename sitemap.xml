@@ -31,7 +31,7 @@
     <priority>0.8</priority>
   </url>
   <!-- Add more URLs as needed -->
-  <!-- Health Calculators Linkes -->
+  <!-- Health Calculators Links -->
   <url>
     <loc>https://souravhere.github.io/Veggie-Smart/calhealth/bmi.html</loc>
     <lastmod>2024-07-01</lastmod>
@@ -167,84 +167,35 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/FitnessCalculators/PaceCalculator.html</loc>
+    <loc>https://souravhere.github.io/Veggie-Smart/FitnessCalculators/MuscleGainCal.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  <!-- Automotive Calculators -->
+  <!-- Add more URLs as needed -->
+  <!-- Market Cal -->
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/AutomotiveCalculators/Automotive-Calculators.html</loc>
-    <lastmod>2024-07-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/AutomotiveCalculators/MaintenanceCostCalculator.html</loc>
+    <loc>https://souravhere.github.io/Veggie-Smart/MarketCal/Calculate-Total-Price.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/AutomotiveCalculators/VehicleLoanCalculator.html</loc>
+    <loc>https://souravhere.github.io/Veggie-Smart/MarketCal/Calculate-Price-Kg.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/AutomotiveCalculators/DepreciationCalculator.html</loc>
-    <lastmod>2024-07-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <!-- Event Planning Calculators -->
-  <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/EventPlanningCalculators/Guest-list-Cal.html</loc>
+    <loc>https://souravhere.github.io/Veggie-Smart/MarketCal/Calculate-Quantity.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/EventPlanningCalculators/Budget-Planner.html</loc>
+    <loc>https://souravhere.github.io/Veggie-Smart/Offers%20Cal/OffersCal.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/EventPlanningCalculators/Catering-Cal.html</loc>
-    <lastmod>2024-07-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/EventPlanningCalculators/VenueCapacityCalculator.html</loc>
-    <lastmod>2024-07-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <!-- Food Calculators -->
-  <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/Recipe%20Cost%20Calculator/RecipeCostCalculator.html</loc>
-    <lastmod>2024-07-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/NutritionCal/NutritionCal.html</loc>
-    <lastmod>2024-07-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/Recipe%20Cost%20Calculator/Serving-Size-Converter.html</loc>
-    <lastmod>2024-07-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <!-- <url>
-    <loc></loc>
-    <lastmod>2024-07-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url> -->
 </urlset>
