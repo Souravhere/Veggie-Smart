@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/</loc>
+    <loc>https://veggie-smart.vercel.app/</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/MarketCal/Calculate-Total-Price.html</loc>
+    <loc>https://veggie-smart.vercel.app/MarketCal/Calculate-Total-Price.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/MarketCal/Calculate-Price-Kg.html</loc>
+    <loc>https://veggie-smart.vercel.app/MarketCal/Calculate-Price-Kg.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/MarketCal/Calculate-Quantity.html</loc>
+    <loc>https://veggie-smart.vercel.app/MarketCal/Calculate-Quantity.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/Offers%20Cal/OffersCal.html</loc>
+    <loc>https://veggie-smart.vercel.app/Offers%20Cal/OffersCal.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -33,25 +33,25 @@
   <!-- Add more URLs as needed -->
   <!-- Health Calculators Links -->
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/calhealth/bmi.html</loc>
+    <loc>https://veggie-smart.vercel.app/calhealth/bmi.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/calhealth/CalorieBurnCalculator.html</loc>
+    <loc>https://veggie-smart.vercel.app/calhealth/CalorieBurnCalculator.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/calhealth/HydrationCalculator.html</loc>
+    <loc>https://veggie-smart.vercel.app/calhealth/HydrationCalculator.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/calhealth/MacroNutrientcal.html</loc>
+    <loc>https://veggie-smart.vercel.app/calhealth/MacroNutrientcal.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -59,37 +59,37 @@
   <!-- Add more URLs as needed -->
   <!-- Finance Calculators -->
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/FinanceCal/LoanCal.html</loc>
+    <loc>https://veggie-smart.vercel.app/FinanceCal/LoanCal.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/FinanceCal/InvestmentReturn.html</loc>
+    <loc>https://veggie-smart.vercel.app/FinanceCal/InvestmentReturn.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/FinanceCal/CalSavingsGoal.html</loc>
+    <loc>https://veggie-smart.vercel.app/FinanceCal/CalSavingsGoal.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/FinanceCal/BudgetPlanner.html</loc>
+    <loc>https://veggie-smart.vercel.app/FinanceCal/BudgetPlanner.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/FinanceCal/InterestCal.html</loc>
+    <loc>https://veggie-smart.vercel.app/FinanceCal/InterestCal.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/FinanceCal/InterestCal.html</loc>
+    <loc>https://veggie-smart.vercel.app/FinanceCal/InterestCal.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -97,25 +97,25 @@
   <!-- Add more URLs as needed -->
   <!-- Home Improvement Cal -->
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/HomeImprovementCals/PaintCal.html</loc>
+    <loc>https://veggie-smart.vercel.app/HomeImprovementCals/PaintCal.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/HomeImprovementCals/GardenArea.html</loc>
+    <loc>https://veggie-smart.vercel.app/HomeImprovementCals/GardenArea.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/HomeImprovementCals/FlooringCalculator.html</loc>
+    <loc>https://veggie-smart.vercel.app/HomeImprovementCals/FlooringCalculator.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/HomeImprovementCals/RenovationCostEstimator.html</loc>
+    <loc>https://veggie-smart.vercel.app/HomeImprovementCals/RenovationCostEstimator.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -123,25 +123,25 @@
   <!-- Add more URLs as needed -->
   <!-- Education Calculators -->
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/EducationCalculators/PercentageCalculator.html</loc>
+    <loc>https://veggie-smart.vercel.app/EducationCalculators/PercentageCalculator.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/EducationCalculators/GradeCalculator.html</loc>
+    <loc>https://veggie-smart.vercel.app/EducationCalculators/GradeCalculator.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/EducationCalculators/StudyTimePlanner.html</loc>
+    <loc>https://veggie-smart.vercel.app/EducationCalculators/StudyTimePlanner.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/EducationCalculators/TuitionFeeCal.html</loc>
+    <loc>https://veggie-smart.vercel.app/EducationCalculators/TuitionFeeCal.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -149,25 +149,25 @@
   <!-- Fitness Calculators -->
 
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/FitnessCalculators/WorkoutPlanGenerator.html</loc>
+    <loc>https://veggie-smart.vercel.app/FitnessCalculators/WorkoutPlanGenerator.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/FitnessCalculators/BodyFatPercentage.html</loc>
+    <loc>https://veggie-smart.vercel.app/FitnessCalculators/BodyFatPercentage.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/FitnessCalculators/One-RepMaxCal.html</loc>
+    <loc>https://veggie-smart.vercel.app/FitnessCalculators/One-RepMaxCal.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/FitnessCalculators/MuscleGainCal.html</loc>
+    <loc>https://veggie-smart.vercel.app/FitnessCalculators/MuscleGainCal.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -175,25 +175,25 @@
   <!-- Add more URLs as needed -->
   <!-- Market Cal -->
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/MarketCal/Calculate-Total-Price.html</loc>
+    <loc>https://veggie-smart.vercel.app/MarketCal/Calculate-Total-Price.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/MarketCal/Calculate-Price-Kg.html</loc>
+    <loc>https://veggie-smart.vercel.app/MarketCal/Calculate-Price-Kg.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/MarketCal/Calculate-Quantity.html</loc>
+    <loc>https://veggie-smart.vercel.app/MarketCal/Calculate-Quantity.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://souravhere.github.io/Veggie-Smart/Offers%20Cal/OffersCal.html</loc>
+    <loc>https://veggie-smart.vercel.app/Offers%20Cal/OffersCal.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
