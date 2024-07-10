@@ -134,7 +134,7 @@ function FinanceCal(){
             buttonName: "Simple Interest"
         },
         {
-            link: "./FinanceCal/InterestCal.html",
+            link: "./FinanceCal/CompoundInterest.html",
             imageSrc: "https://img.icons8.com/fluency/800/credit-card-interest.png",
             imageAlt: "Compound Interest",
             tagName: "Free",
