@@ -21,8 +21,9 @@ header{
     justify-content:space-between;
     margin-bottom: 20px;
 }
-header h1 {
+header .title {
     font-size: x-large;
+    font-family: "calfont";
 }
 header svg{
     color: white;
@@ -30,7 +31,7 @@ header svg{
     background:#282828;
     border-radius: 50%;
 }
-header i:hover{
+header svg:hover{
     background: #000;
     transition: 1s all;
 }
