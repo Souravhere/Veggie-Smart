@@ -24,10 +24,9 @@ header{
 header h1 {
     font-size: x-large;
 }
-header i{
+header svg{
     color: white;
-    font-size: x-large;
-    padding: 14px;
+    padding: 10px;
     background:#282828;
     border-radius: 50%;
 }
