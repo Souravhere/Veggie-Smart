@@ -1,8 +1,9 @@
-const footer = document.querySelector("footer");
-console.log(footer);
+document.addEventListener("DOMContentLoaded",function(){
+    const footer = document.querySelector("footer");
+// console.log(footer);
 if (footer) {
     footer.innerHTML = `
-    <div style="display: flex; margin-bottom: 40px; align-items: center; justify-content: space-evenly; flex-wrap: wrap;">
+    <div style="display: flex; margin-bottom: 40px; margin-top:30px; align-items: center; justify-content: space-evenly; flex-wrap: wrap; overflow-x: hidden;">
             <style>
                 footer a{
                     text-decoration: none;
@@ -39,7 +40,7 @@ if (footer) {
                     </a>
                 </div>
             </div>
-            <div style="display: flex; min-width: 400px; max-width: 60%; margin: 0 auto; text-align: center; justify-content: space-evenly; border-radius: 8px;">
+            <div style="display: flex; min-width: 340px; max-width: 60%; margin: 0 auto; text-align: center; justify-content: space-evenly; border-radius: 8px;">
                <div>
                 <p class="foot-title">Trending</p>
                 <p style="text-align: center; text-align: left;"><a href="./../FinanceCal/InterestCal.html">Simple Interest</a></p>
@@ -67,3 +68,5 @@ if (footer) {
 } else {
     console.error("Footer element not found.");
 }
+});
+
