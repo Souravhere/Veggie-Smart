@@ -19,7 +19,7 @@
             <h1 class="text-3xl font-bold text-center">Veggie Smart</h1>
     </header>
 
-    <main class="container mx-auto p-6">
+    <main class="container mx-auto sm:p-6 p-0">
         <section class="bg-gray-800 p-6 rounded-lg shadow-lg">
             <h2 class="text-4xl font-bold mb-4 text-white">Contact Us</h2>
             <p class="mb-4">We would love to hear from you! Whether you have questions, feedback, or need support, please feel free to reach out to us using the contact information below or by sending us a message via WhatsApp.</p>
@@ -41,15 +41,15 @@
             <form id="whatsappForm" class="bg-gray-700 p-6 rounded-lg shadow-md">
                 <div class="mb-4">
                     <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Name</label>
-                    <input type="text" id="name" name="name" class="w-full p-3 border border-gray-600 rounded-md bg-gray-800 text-gray-300 focus:ring focus:ring-blue-500" required>
+                    <input type="text" id="name" name="name" placeholder="Enter Your Name" class="w-full p-3 border border-gray-600 rounded-md bg-gray-800 text-gray-300 focus:ring focus:ring-blue-500" required>
                 </div>
                 <div class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email</label>
-                    <input type="email" id="email" name="email" class="w-full p-3 border border-gray-600 rounded-md bg-gray-800 text-gray-300 focus:ring focus:ring-blue-500" required>
+                    <input type="email" id="email" name="email" placeholder="Enter Your Email" class="w-full p-3 border border-gray-600 rounded-md bg-gray-800 text-gray-300 focus:ring focus:ring-blue-500" required>
                 </div>
                 <div class="mb-4">
                     <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
-                    <textarea id="message" name="message" rows="5" class="w-full p-3 border border-gray-600 rounded-md bg-gray-800 text-gray-300 focus:ring focus:ring-blue-500" required></textarea>
+                    <textarea id="message" name="message" rows="5" placeholder="Enter Your Message..." class="w-full p-3 border border-gray-600 rounded-md bg-gray-800 text-gray-300 focus:ring focus:ring-blue-500" required></textarea>
                 </div>
                 <div class="mb-4">
                     <button type="button" onclick="sendWhatsAppMessage()" class="w-full p-3 bg-green-600 hover:bg-green-700 text-white rounded-md font-semibold">Send via WhatsApp</button>
@@ -67,7 +67,7 @@
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
-            const whatsappMessage = `Hello Sourav,AMy name is ${name}. My email is ${email}.:${message} AThank you,A${name}`;
+            const whatsappMessage = `Hello Sourav,\n\nMy name is ${name}. My email is ${email}.\n\nMessage:\n${message}\n\nThank you,\n${name}`;
             const whatsappUrl = `https://wa.me/916367477611?text=${encodeURIComponent(whatsappMessage)}`;
             window.open(whatsappUrl, '_blank');
         }
