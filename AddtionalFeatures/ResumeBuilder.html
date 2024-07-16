@@ -3,130 +3,249 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Resume Builder</title>
+    <title>Advanced Resume Builder</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
+        /* Dark theme */
         body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    max-width: 800px;
-    margin: 20px auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-h1, h2 {
-    text-align: center;
-}
-
-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-
-label {
-    font-weight: bold;
-}
-
-textarea, input[type="text"], input[type="email"], input[type="tel"], input[type="file"] {
-    width: calc(100% - 12px);
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-textarea {
-    resize: vertical;
-}
-
-#skillsContainer {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
-.addSkillButton {
-    padding: 8px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-#preview {
-    margin-top: 20px;
-    border-top: 1px solid #ccc;
-    padding-top: 20px;
-    display: none;
-}
-
-#previewContent {
-    border: 1px solid #ccc;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.preview h2 {
-    text-align: center;
-}
-
-.preview img {
-    max-width: 100px;
-    border-radius: 50%;
-    margin-bottom: 10px;
-}
-
+            background-color: #1a202c;
+            color: #cbd5e0;
+        }
+        .form-input {
+            @apply bg-gray-700 text-white;
+        }
+        .form-input:focus {
+            @apply bg-gray-800;
+        }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>Resume Builder</h1>
-        <form id="resumeForm">
-            <label for="fullName">Full Name:</label>
-            <input type="text" id="fullName" required>
+<body class="p-4">
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" required>
+    <div class="max-w-3xl mx-auto bg-gray-800 p-6 rounded-lg shadow-lg">
+        <h1 class="text-2xl font-bold text-white mb-4">Advanced Resume Builder</h1>
 
-            <label for="phone">Phone:</label>
-            <input type="tel" id="phone" required>
+        <!-- Upload Picture (Optional) -->
+        <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-400">Upload Picture (Optional)</label>
+            <input type="file" id="profilePicture" accept="image/*" class="form-input mt-1 block w-full">
+        </div>
 
-            <label for="address">Address:</label>
-            <input type="text" id="address" required>
+        <!-- Personal Information -->
+        <div class="mb-6">
+            <label for="name" class="block text-sm font-medium text-gray-400">Name</label>
+            <input type="text" id="name" class="form-input mt-1 block w-full" placeholder="Enter your name">
+        </div>
+        <div class="mb-6">
+            <label for="email" class="block text-sm font-medium text-gray-400">Email Address</label>
+            <input type="email" id="email" class="form-input mt-1 block w-full" placeholder="Enter your email">
+        </div>
+        <div class="mb-6">
+            <label for="phone" class="block text-sm font-medium text-gray-400">Phone Number</label>
+            <input type="tel" id="phone" class="form-input mt-1 block w-full" placeholder="Enter your phone number">
+        </div>
+        <div class="mb-6">
+            <label for="address" class="block text-sm font-medium text-gray-400">Address</label>
+            <textarea id="address" class="form-input mt-1 block w-full" placeholder="Enter your address"></textarea>
+        </div>
 
-            <label for="summary">Summary:</label>
-            <textarea id="summary" rows="4" required></textarea>
+        <!-- Experience -->
+        <div class="mb-6">
+            <label for="experience" class="block text-sm font-medium text-gray-400">Experience (in years)</label>
+            <input type="number" id="experience" class="form-input mt-1 block w-full" placeholder="Enter years of experience">
+        </div>
 
-            <label for="skills">Skills:</label>
-            <div id="skillsContainer">
-                <input type="text" class="skillInput" required>
-                <button type="button" class="addSkillButton">Add More Skills</button>
+        <!-- Education -->
+        <div class="mb-6">
+            <label for="education" class="block text-sm font-medium text-gray-400">Education</label>
+            <input type="text" id="education" class="form-input mt-1 block w-full" placeholder="Enter your education">
+        </div>
+
+        <!-- Skills -->
+        <div class="mb-6">
+            <label for="skills" class="block text-sm font-medium text-gray-400">Skills</label>
+            <div id="skillsContainer" class="flex flex-wrap gap-2">
+                <!-- Skills added dynamically -->
             </div>
+            <div class="mt-2 flex">
+                <input type="text" id="newSkill" class="form-input w-full mr-2" placeholder="Add a new skill">
+                <button type="button" onclick="addSkill()" class="bg-gray-700 text-white px-3 py-1 rounded-md text-sm">Add Skill</button>
+            </div>
+        </div>
 
-            <label for="uploadImage">Upload Picture:</label>
-            <input type="file" id="uploadImage">
+        <!-- Soft Skills -->
+        <div class="mb-6">
+            <label for="softSkills" class="block text-sm font-medium text-gray-400">Soft Skills</label>
+            <div id="softSkillsContainer" class="flex flex-wrap gap-2">
+                <!-- Soft skills added dynamically -->
+            </div>
+            <div class="mt-2 flex">
+                <input type="text" id="newSoftSkill" class="form-input w-full mr-2" placeholder="Add a new soft skill">
+                <button type="button" onclick="addSoftSkill()" class="bg-gray-700 text-white px-3 py-1 rounded-md text-sm">Add Soft Skill</button>
+            </div>
+        </div>
 
-            <button type="button" onclick="previewResume()">Preview</button>
-            <a id="downloadLink" href="#" download="resume.pdf" style="display: none;">Download</a>
-        </form>
+        <!-- Pre-written Text Suggestions -->
+        <div class="mb-6">
+            <label for="summary" class="block text-sm font-medium text-gray-400">Summary</label>
+            <textarea id="summary" class="form-input mt-1 block w-full h-20" placeholder="Enter a summary"></textarea>
+        </div>
 
-        <div id="preview" class="preview">
-            <h2>Preview</h2>
-            <div id="previewContent"></div>
+        <!-- Preview and Download Buttons -->
+        <div class="mt-6">
+            <button type="button" onclick="previewResume()" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Preview Resume</button>
+            <button type="button" onclick="downloadResume()" class="ml-4 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Download PDF</button>
         </div>
     </div>
 
-    <script src="ResumeBuilder.js"></script>
+    <!-- Preview Modal -->
+    <div id="previewModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center hidden">
+        <div class="max-w-3xl mx-auto bg-gray-800 p-6 rounded-lg shadow-lg">
+            <h1 class="text-2xl font-bold text-white mb-4">Resume Preview</h1>
+            <div id="previewContent" class="text-white"></div>
+            <button type="button" onclick="closePreview()" class="mt-4 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600">Close</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
+    <script>
+        // Array to store skills and soft skills
+        let skills = [];
+        let softSkills = [];
+
+        // Function to add skills
+        function addSkill() {
+            const newSkill = document.getElementById('newSkill').value.trim();
+            if (newSkill !== '' && !skills.includes(newSkill)) {
+                skills.push(newSkill);
+                renderSkills();
+                document.getElementById('newSkill').value = '';
+            }
+        }
+
+        // Function to add soft skills
+        function addSoftSkill() {
+            const newSoftSkill = document.getElementById('newSoftSkill').value.trim();
+            if (newSoftSkill !== '' && !softSkills.includes(newSoftSkill)) {
+                softSkills.push(newSoftSkill);
+                renderSoftSkills();
+                document.getElementById('newSoftSkill').value = '';
+            }
+        }
+
+        // Function to render skills
+        function renderSkills() {
+            const skillsContainer = document.getElementById('skillsContainer');
+            skillsContainer.innerHTML = '';
+            skills.forEach(skill => {
+                skillsContainer.innerHTML += `
+                    <div class="flex items-center bg-gray-700 text-white rounded-full px-3 py-1">
+                        <span class="text-sm">${skill}</span>
+                        <button type="button" onclick="removeSkill('${skill}')" class="ml-2 text-xs font-medium text-gray-400">x</button>
+                    </div>
+                `;
+            });
+        }
+
+        // Function to render soft skills
+        function renderSoftSkills() {
+            const softSkillsContainer = document.getElementById('softSkillsContainer');
+            softSkillsContainer.innerHTML = '';
+            softSkills.forEach(skill => {
+                softSkillsContainer.innerHTML += `
+                    <div class="flex items-center bg-gray-700 text-white rounded-full px-3 py-1">
+                        <span class="text-sm">${skill}</span>
+                        <button type="button" onclick="removeSoftSkill('${skill}')" class="ml-2 text-xs font-medium text-gray-400">x</button>
+                    </div>
+                `;
+            });
+        }
+
+        // Function to remove skill
+        function removeSkill(skill) {
+            skills = skills.filter(s => s !== skill);
+            renderSkills();
+        }
+
+        // Function to remove soft skill
+        function removeSoftSkill(skill) {
+            softSkills = softSkills.filter(s => s !== skill);
+            renderSoftSkills();
+        }
+
+        // Function to preview resume
+        function previewResume() {
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const address = document.getElementById('address').value.trim();
+            const experience = document.getElementById('experience').value.trim();
+            const education = document.getElementById('education').value.trim();
+            const summary = document.getElementById('summary').value.trim();
+
+            let previewContent = `
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Phone:</strong> ${phone}</p>
+                <p><strong>Address:</strong> ${address}</p>
+                <p><strong>Experience:</strong> ${experience} years</p>
+                <p><strong>Education:</strong> ${education}</p>
+                <p><strong>Summary:</strong></p>
+                <p>${summary}</p>
+                <p><strong>Skills:</strong> ${skills.join(', ')}</p>
+                <p><strong>Soft Skills:</strong> ${softSkills.join(', ')}</p>
+            `;
+            document.getElementById('previewContent').innerHTML = previewContent;
+            document.getElementById('previewModal').classList.remove('hidden');
+        }
+
+        // Function to close preview modal
+        function closePreview() {
+            document.getElementById('previewModal').classList.add('hidden');
+        }
+
+        // Function to download resume as PDF
+        function downloadResume() {
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const address = document.getElementById('address').value.trim();
+            const experience = document.getElementById('experience').value.trim();
+            const education = document.getElementById('education').value.trim();
+            const summary = document.getElementById('summary').value.trim();
+
+            let docDefinition = {
+                content: [
+                    { text: 'Resume', style: 'header' },
+                    { text: `Name: ${name}`, style: 'subheader' },
+                    { text: `Email: ${email}` },
+                    { text: `Phone: ${phone}` },
+                    { text: `Address: ${address}` },
+                    { text: `Experience: ${experience} years` },
+                    { text: `Education: ${education}` },
+                    { text: `Summary:\n${summary}`, margin: [0, 10, 0, 10] },
+                    { text: 'Skills:', style: 'subheader' },
+                    skills.map(skill => { return { text: ` - ${skill}` }; }),
+                    { text: 'Soft Skills:', style: 'subheader' },
+                    softSkills.map(skill => { return { text: ` - ${skill}` }; })
+                ],
+                styles: {
+                    header: {
+                        fontSize: 22,
+                        bold: true,
+                        alignment: 'center',
+                        margin: [0, 0, 0, 20]
+                    },
+                    subheader: {
+                        fontSize: 18,
+                        bold: true,
+                        margin: [0, 15, 0, 5]
+                    }
+                }
+            };
+
+            pdfmake.createPdf(docDefinition).download(`${name}_resume.pdf`);
+        }
+    </script>
 </body>
 </html>
