@@ -24,12 +24,6 @@
     <div class="max-w-3xl mx-auto bg-gray-800 p-6 rounded-lg shadow-lg">
         <h1 class="text-2xl font-bold text-white mb-4">Advanced Resume Builder</h1>
 
-        <!-- Upload Picture (Optional) -->
-        <div class="mb-6">
-            <label class="block text-sm font-medium text-gray-400">Upload Picture (Optional)</label>
-            <input type="file" id="profilePicture" accept="image/*" class="form-input mt-1 block w-full">
-        </div>
-
         <!-- Personal Information -->
         <div class="mb-6">
             <label for="name" class="block text-sm font-medium text-gray-400">Name</label>
@@ -44,20 +38,44 @@
             <input type="tel" id="phone" class="form-input mt-1 block w-full" placeholder="Enter your phone number">
         </div>
         <div class="mb-6">
-            <label for="address" class="block text-sm font-medium text-gray-400">Address</label>
-            <textarea id="address" class="form-input mt-1 block w-full" placeholder="Enter your address"></textarea>
+            <label for="linkedin" class="block text-sm font-medium text-gray-400">LinkedIn Profile</label>
+            <input type="text" id="linkedin" class="form-input mt-1 block w-full" placeholder="Enter your LinkedIn profile URL">
         </div>
 
-        <!-- Experience -->
+        <!-- Summary -->
         <div class="mb-6">
-            <label for="experience" class="block text-sm font-medium text-gray-400">Experience (in years)</label>
-            <input type="number" id="experience" class="form-input mt-1 block w-full" placeholder="Enter years of experience">
+            <label for="summary" class="block text-sm font-medium text-gray-400">Summary</label>
+            <textarea id="summary" class="form-input mt-1 block w-full h-20" placeholder="Enter a summary"></textarea>
         </div>
 
         <!-- Education -->
         <div class="mb-6">
-            <label for="education" class="block text-sm font-medium text-gray-400">Education</label>
-            <input type="text" id="education" class="form-input mt-1 block w-full" placeholder="Enter your education">
+            <label for="educationDegree" class="block text-sm font-medium text-gray-400">Education Degree</label>
+            <input type="text" id="educationDegree" class="form-input mt-1 block w-full" placeholder="Enter your degree">
+        </div>
+        <div class="mb-6">
+            <label for="educationGradYear" class="block text-sm font-medium text-gray-400">Graduation Year</label>
+            <input type="text" id="educationGradYear" class="form-input mt-1 block w-full" placeholder="Enter graduation year">
+        </div>
+        <div class="mb-6">
+            <label for="educationGPA" class="block text-sm font-medium text-gray-400">GPA</label>
+            <input type="text" id="educationGPA" class="form-input mt-1 block w-full" placeholder="Enter your GPA">
+        </div>
+        <div class="mb-6">
+            <label for="educationCollege" class="block text-sm font-medium text-gray-400">College Name</label>
+            <input type="text" id="educationCollege" class="form-input mt-1 block w-full" placeholder="Enter your college name">
+        </div>
+
+        <!-- Relevant Industry Experience -->
+        <div class="mb-6">
+            <label for="industryExperience" class="block text-sm font-medium text-gray-400">Relevant Industry Experience</label>
+            <textarea id="industryExperience" class="form-input mt-1 block w-full h-20" placeholder="Enter relevant industry experience"></textarea>
+        </div>
+
+        <!-- Additional Work Experience -->
+        <div class="mb-6">
+            <label for="additionalExperience" class="block text-sm font-medium text-gray-400">Additional Work Experience</label>
+            <textarea id="additionalExperience" class="form-input mt-1 block w-full h-20" placeholder="Enter additional work experience"></textarea>
         </div>
 
         <!-- Skills -->
@@ -84,13 +102,7 @@
             </div>
         </div>
 
-        <!-- Pre-written Text Suggestions -->
-        <div class="mb-6">
-            <label for="summary" class="block text-sm font-medium text-gray-400">Summary</label>
-            <textarea id="summary" class="form-input mt-1 block w-full h-20" placeholder="Enter a summary"></textarea>
-        </div>
-
-        <!-- Preview and Download Buttons -->
+        <!-- Download Button -->
         <div class="mt-6">
             <button type="button" onclick="previewResume()" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Preview Resume</button>
             <button type="button" onclick="downloadResume()" class="ml-4 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Download PDF</button>
@@ -109,7 +121,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
     <script>
-        // Array to store skills and soft skills
+        // Arrays to store skills and soft skills
         let skills = [];
         let softSkills = [];
 
@@ -161,40 +173,56 @@
             });
         }
 
-        // Function to remove skill
+        // Function to remove a skill
         function removeSkill(skill) {
             skills = skills.filter(s => s !== skill);
             renderSkills();
         }
 
-        // Function to remove soft skill
+        // Function to remove a soft skill
         function removeSoftSkill(skill) {
             softSkills = softSkills.filter(s => s !== skill);
             renderSoftSkills();
         }
 
-        // Function to preview resume
+        // Function to preview the resume
         function previewResume() {
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
             const phone = document.getElementById('phone').value.trim();
-            const address = document.getElementById('address').value.trim();
-            const experience = document.getElementById('experience').value.trim();
-            const education = document.getElementById('education').value.trim();
+            const linkedin = document.getElementById('linkedin').value.trim();
             const summary = document.getElementById('summary').value.trim();
+            const educationDegree = document.getElementById('educationDegree').value.trim();
+            const educationGradYear = document.getElementById('educationGradYear').value.trim();
+            const educationGPA = document.getElementById('educationGPA').value.trim();
+            const educationCollege = document.getElementById('educationCollege').value.trim();
+            const industryExperience = document.getElementById('industryExperience').value.trim();
+            const additionalExperience = document.getElementById('additionalExperience').value.trim();
 
-            let previewContent = `
-                <p><strong>Name:</strong> ${name}</p>
-                <p><strong>Email:</strong> ${email}</p>
-                <p><strong>Phone:</strong> ${phone}</p>
-                <p><strong>Address:</strong> ${address}</p>
-                <p><strong>Experience:</strong> ${experience} years</p>
-                <p><strong>Education:</strong> ${education}</p>
-                <p><strong>Summary:</strong></p>
+            const previewContent = `
+                <p class="text-xl font-bold">${name}</p>
+                <p>${phone} • ${email}</p>
+                <p>${linkedin}</p>
+
                 <p>${summary}</p>
-                <p><strong>Skills:</strong> ${skills.join(', ')}</p>
-                <p><strong>Soft Skills:</strong> ${softSkills.join(', ')}</p>
+
+                <p class="text-lg font-bold mt-4">Education</p>
+                <p>${educationDegree}, ${educationGradYear}, GPA ${educationGPA}</p>
+                <p>${educationCollege}</p>
+
+                <p class="text-lg font-bold mt-4">Relevant Industry Experience</p>
+                <p>${industryExperience}</p>
+
+                <p class="text-lg font-bold mt-4">Additional Work Experience</p>
+                <p>${additionalExperience}</p>
+
+                <p class="text-lg font-bold mt-4">Skills</p>
+                ${skills.map(skill => `<p>- ${skill}</p>`).join('')}
+                
+                <p class="text-lg font-bold mt-4">Soft Skills</p>
+                ${softSkills.map(skill => `<p>- ${skill}</p>`).join('')}
             `;
+
             document.getElementById('previewContent').innerHTML = previewContent;
             document.getElementById('previewModal').classList.remove('hidden');
         }
@@ -209,42 +237,55 @@
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
             const phone = document.getElementById('phone').value.trim();
-            const address = document.getElementById('address').value.trim();
-            const experience = document.getElementById('experience').value.trim();
-            const education = document.getElementById('education').value.trim();
+            const linkedin = document.getElementById('linkedin').value.trim();
             const summary = document.getElementById('summary').value.trim();
+            const educationDegree = document.getElementById('educationDegree').value.trim();
+            const educationGradYear = document.getElementById('educationGradYear').value.trim();
+            const educationGPA = document.getElementById('educationGPA').value.trim();
+            const educationCollege = document.getElementById('educationCollege').value.trim();
+            const industryExperience = document.getElementById('industryExperience').value.trim();
+            const additionalExperience = document.getElementById('additionalExperience').value.trim();
 
             let docDefinition = {
                 content: [
-                    { text: 'Resume', style: 'header' },
-                    { text: `Name: ${name}`, style: 'subheader' },
-                    { text: `Email: ${email}` },
-                    { text: `Phone: ${phone}` },
-                    { text: `Address: ${address}` },
-                    { text: `Experience: ${experience} years` },
-                    { text: `Education: ${education}` },
-                    { text: `Summary:\n${summary}`, margin: [0, 10, 0, 10] },
-                    { text: 'Skills:', style: 'subheader' },
-                    skills.map(skill => { return { text: ` - ${skill}` }; }),
-                    { text: 'Soft Skills:', style: 'subheader' },
-                    softSkills.map(skill => { return { text: ` - ${skill}` }; })
+                    { text: `${name}`, style: 'header' },
+                    { text: `${phone} • ${email}` },
+                    { text: `${linkedin}` },
+                    { text: '' },
+
+                    { text: `${summary}`, margin: [0, 10, 0, 10] },
+                    
+                    { text: 'Education', style: 'subheader' },
+                    { text: `${educationDegree}, ${educationGradYear}, GPA ${educationGPA}` },
+                    { text: `${educationCollege}` },
+
+                    { text: 'Relevant Industry Experience', style: 'subheader' },
+                    { text: `${industryExperience}` },
+
+                    { text: 'Additional Work Experience', style: 'subheader' },
+                    { text: `${additionalExperience}` },
+
+                    { text: 'Skills', style: 'subheader' },
+                    { ul: skills.map(skill => `- ${skill}`) },
+
+                    { text: 'Soft Skills', style: 'subheader' },
+                    { ul: softSkills.map(skill => `- ${skill}`) }
                 ],
                 styles: {
                     header: {
-                        fontSize: 22,
-                        bold: true,
-                        alignment: 'center',
-                        margin: [0, 0, 0, 20]
-                    },
-                    subheader: {
                         fontSize: 18,
                         bold: true,
-                        margin: [0, 15, 0, 5]
+                        margin: [0, 0, 0, 10]
+                    },
+                    subheader: {
+                        fontSize: 14,
+                        bold: true,
+                        margin: [0, 10, 0, 5]
                     }
                 }
             };
 
-            pdfmake.createPdf(docDefinition).download(`${name}_resume.pdf`);
+            pdfMake.createPdf(docDefinition).download(`${name}_Resume.pdf`);
         }
     </script>
 </body>
