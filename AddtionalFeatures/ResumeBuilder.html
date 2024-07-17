@@ -17,6 +17,13 @@
         .form-input:focus {
             @apply bg-gray-800;
         }
+        .section {
+            transition: all 0.3s ease;
+        }
+        .section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body class="p-4">
@@ -40,7 +47,7 @@
                 <h2 class="text-lg font-semibold text-white">Sections</h2>
                 <button type="button" onclick="addSection()" class="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600">Add Section</button>
             </div>
-            <div id="sectionsList" class="space-y-2">
+            <div id="sectionsList" class="space-y-4">
                 <!-- Sections added dynamically -->
             </div>
         </div>
@@ -123,7 +130,7 @@
             sectionsList.innerHTML = '';
             sections.forEach((section, index) => {
                 sectionsList.innerHTML += `
-                    <div class="bg-gray-700 p-4 rounded-lg">
+                    <div class="bg-gray-700 p-4 rounded-lg section">
                         <input type="text" class="form-input block mb-2 w-full" value="${section.title}" placeholder="Section Title" onchange="updateSectionTitle(${index}, this.value)">
                         <div class="bg-gray-800 text-white p-2 rounded-lg" contenteditable="true" style="min-height: 100px;" oninput="updateSectionContent(${index}, this.innerText)">${section.content}</div>
                         <button type="button" onclick="removeSection(${index})" class="mt-2 bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600">Remove Section</button>
