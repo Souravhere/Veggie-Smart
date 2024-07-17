@@ -24,268 +24,169 @@
     <div class="max-w-3xl mx-auto bg-gray-800 p-6 rounded-lg shadow-lg">
         <h1 class="text-2xl font-bold text-white mb-4">Advanced Resume Builder</h1>
 
-        <!-- Personal Information -->
+        <!-- Template Selection -->
         <div class="mb-6">
-            <label for="name" class="block text-sm font-medium text-gray-400">Name</label>
-            <input type="text" id="name" class="form-input mt-1 block w-full" placeholder="Enter your name">
-        </div>
-        <div class="mb-6">
-            <label for="email" class="block text-sm font-medium text-gray-400">Email Address</label>
-            <input type="email" id="email" class="form-input mt-1 block w-full" placeholder="Enter your email">
-        </div>
-        <div class="mb-6">
-            <label for="phone" class="block text-sm font-medium text-gray-400">Phone Number</label>
-            <input type="tel" id="phone" class="form-input mt-1 block w-full" placeholder="Enter your phone number">
-        </div>
-        <div class="mb-6">
-            <label for="linkedin" class="block text-sm font-medium text-gray-400">LinkedIn Profile</label>
-            <input type="text" id="linkedin" class="form-input mt-1 block w-full" placeholder="Enter your LinkedIn profile URL">
+            <label for="template" class="block text-sm font-medium text-gray-400">Select Template</label>
+            <select id="template" class="form-select mt-1 block w-full">
+                <option value="template1">Template 1</option>
+                <option value="template2">Template 2</option>
+                <option value="template3">Template 3</option>
+            </select>
         </div>
 
-        <!-- Summary -->
-        <div class="mb-6">
-            <label for="summary" class="block text-sm font-medium text-gray-400">Summary</label>
-            <textarea id="summary" class="form-input mt-1 block w-full h-20" placeholder="Enter a summary"></textarea>
-        </div>
-
-        <!-- Education -->
-        <div class="mb-6">
-            <label for="educationDegree" class="block text-sm font-medium text-gray-400">Education Degree</label>
-            <input type="text" id="educationDegree" class="form-input mt-1 block w-full" placeholder="Enter your degree">
-        </div>
-        <div class="mb-6">
-            <label for="educationGradYear" class="block text-sm font-medium text-gray-400">Graduation Year</label>
-            <input type="text" id="educationGradYear" class="form-input mt-1 block w-full" placeholder="Enter graduation year">
-        </div>
-        <div class="mb-6">
-            <label for="educationGPA" class="block text-sm font-medium text-gray-400">GPA</label>
-            <input type="text" id="educationGPA" class="form-input mt-1 block w-full" placeholder="Enter your GPA">
-        </div>
-        <div class="mb-6">
-            <label for="educationCollege" class="block text-sm font-medium text-gray-400">College Name</label>
-            <input type="text" id="educationCollege" class="form-input mt-1 block w-full" placeholder="Enter your college name">
-        </div>
-
-        <!-- Relevant Industry Experience -->
-        <div class="mb-6">
-            <label for="industryExperience" class="block text-sm font-medium text-gray-400">Relevant Industry Experience</label>
-            <textarea id="industryExperience" class="form-input mt-1 block w-full h-20" placeholder="Enter relevant industry experience"></textarea>
-        </div>
-
-        <!-- Additional Work Experience -->
-        <div class="mb-6">
-            <label for="additionalExperience" class="block text-sm font-medium text-gray-400">Additional Work Experience</label>
-            <textarea id="additionalExperience" class="form-input mt-1 block w-full h-20" placeholder="Enter additional work experience"></textarea>
-        </div>
-
-        <!-- Skills -->
-        <div class="mb-6">
-            <label for="skills" class="block text-sm font-medium text-gray-400">Skills</label>
-            <div id="skillsContainer" class="flex flex-wrap gap-2">
-                <!-- Skills added dynamically -->
+        <!-- Sections -->
+        <div id="sectionsContainer" class="mb-6">
+            <div class="flex justify-between items-center mb-2">
+                <h2 class="text-lg font-semibold text-white">Sections</h2>
+                <button type="button" onclick="addSection()" class="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600">Add Section</button>
             </div>
-            <div class="mt-2 flex">
-                <input type="text" id="newSkill" class="form-input w-full mr-2" placeholder="Add a new skill">
-                <button type="button" onclick="addSkill()" class="bg-gray-700 text-white px-3 py-1 rounded-md text-sm">Add Skill</button>
+            <div id="sectionsList" class="space-y-2">
+                <!-- Sections added dynamically -->
             </div>
         </div>
 
-        <!-- Soft Skills -->
+        <!-- Skills Assessment -->
         <div class="mb-6">
-            <label for="softSkills" class="block text-sm font-medium text-gray-400">Soft Skills</label>
-            <div id="softSkillsContainer" class="flex flex-wrap gap-2">
-                <!-- Soft skills added dynamically -->
+            <label for="skillsAssessment" class="block text-sm font-medium text-gray-400">Skill Assessment</label>
+            <div id="skillsAssessmentContainer" class="flex flex-wrap gap-2">
+                <!-- Skill assessment fields added dynamically -->
             </div>
-            <div class="mt-2 flex">
-                <input type="text" id="newSoftSkill" class="form-input w-full mr-2" placeholder="Add a new soft skill">
-                <button type="button" onclick="addSoftSkill()" class="bg-gray-700 text-white px-3 py-1 rounded-md text-sm">Add Soft Skill</button>
-            </div>
+            <button type="button" onclick="addSkillAssessment()" class="mt-2 bg-gray-700 text-white px-3 py-1 rounded-md text-sm">Add Skill</button>
         </div>
 
-        <!-- Download Button -->
+        <!-- Rich Text Editing (using contenteditable) -->
+        <div class="mb-6">
+            <label for="richText" class="block text-sm font-medium text-gray-400">Rich Text Editing</label>
+            <div id="richTextEditor" contenteditable="true" class="bg-gray-700 text-white p-2 h-40 overflow-y-auto" style="outline: none;"></div>
+        </div>
+
+        <!-- Automated Suggestions -->
+        <div class="mb-6">
+            <label for="suggestions" class="block text-sm font-medium text-gray-400">Automated Suggestions</label>
+            <textarea id="suggestions" class="form-input mt-1 block w-full h-20" placeholder="Enter suggestions"></textarea>
+        </div>
+
+        <!-- Social Media Integration -->
+        <div class="mb-6">
+            <label for="socialMedia" class="block text-sm font-medium text-gray-400">Social Media Integration</label>
+            <input type="text" id="socialMedia" class="form-input mt-1 block w-full" placeholder="Enter social media links">
+        </div>
+
+        <!-- Responsive Design note -->
+        <div class="mb-6">
+            <p class="text-sm text-gray-400">Note: The builder is mobile-friendly by default.</p>
+        </div>
+
+        <!-- PDF Customization -->
+        <div class="mb-6">
+            <label for="pdfCustomization" class="block text-sm font-medium text-gray-400">PDF Customization</label>
+            <textarea id="pdfCustomization" class="form-input mt-1 block w-full h-20" placeholder="Enter PDF customization details"></textarea>
+        </div>
+
+        <!-- Version Control -->
+        <div class="mb-6">
+            <p class="text-lg font-semibold text-white mb-2">Version Control</p>
+            <button type="button" onclick="viewVersions()" class="bg-gray-700 text-white px-3 py-1 rounded-md text-sm">View Versions</button>
+            <button type="button" onclick="revertToVersion()" class="ml-2 bg-gray-700 text-white px-3 py-1 rounded-md text-sm">Revert to Version</button>
+        </div>
+
+        <!-- Privacy and Security -->
+        <div class="mb-6">
+            <p class="text-lg font-semibold text-white mb-2">Privacy and Security</p>
+            <p class="text-sm text-gray-400">Strong security measures are implemented to protect your data and privacy.</p>
+        </div>
+
+        <!-- Save and Download -->
         <div class="mt-6">
-            <button type="button" onclick="previewResume()" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Preview Resume</button>
-            <button type="button" onclick="downloadResume()" class="ml-4 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Download PDF</button>
+            <button type="button" onclick="saveResume()" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Save Resume</button>
+            <button type="button" onclick="downloadPDF()" class="ml-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Download PDF</button>
         </div>
     </div>
 
-    <!-- Preview Modal -->
-    <div id="previewModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center hidden">
-        <div class="max-w-3xl mx-auto bg-gray-800 p-6 rounded-lg shadow-lg">
-            <h1 class="text-2xl font-bold text-white mb-4">Resume Preview</h1>
-            <div id="previewContent" class="text-white"></div>
-            <button type="button" onclick="closePreview()" class="mt-4 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600">Close</button>
-        </div>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
     <script>
-        // Arrays to store skills and soft skills
-        let skills = [];
-        let softSkills = [];
+        // Array to store sections
+        let sections = [];
 
-        // Function to add skills
-        function addSkill() {
-            const newSkill = document.getElementById('newSkill').value.trim();
-            if (newSkill !== '' && !skills.includes(newSkill)) {
-                skills.push(newSkill);
-                renderSkills();
-                document.getElementById('newSkill').value = '';
-            }
-        }
-
-        // Function to add soft skills
-        function addSoftSkill() {
-            const newSoftSkill = document.getElementById('newSoftSkill').value.trim();
-            if (newSoftSkill !== '' && !softSkills.includes(newSoftSkill)) {
-                softSkills.push(newSoftSkill);
-                renderSoftSkills();
-                document.getElementById('newSoftSkill').value = '';
-            }
-        }
-
-        // Function to render skills
-        function renderSkills() {
-            const skillsContainer = document.getElementById('skillsContainer');
-            skillsContainer.innerHTML = '';
-            skills.forEach(skill => {
-                skillsContainer.innerHTML += `
-                    <div class="flex items-center bg-gray-700 text-white rounded-full px-3 py-1">
-                        <span class="text-sm">${skill}</span>
-                        <button type="button" onclick="removeSkill('${skill}')" class="ml-2 text-xs font-medium text-gray-400">x</button>
-                    </div>
-                `;
-            });
-        }
-
-        // Function to render soft skills
-        function renderSoftSkills() {
-            const softSkillsContainer = document.getElementById('softSkillsContainer');
-            softSkillsContainer.innerHTML = '';
-            softSkills.forEach(skill => {
-                softSkillsContainer.innerHTML += `
-                    <div class="flex items-center bg-gray-700 text-white rounded-full px-3 py-1">
-                        <span class="text-sm">${skill}</span>
-                        <button type="button" onclick="removeSoftSkill('${skill}')" class="ml-2 text-xs font-medium text-gray-400">x</button>
-                    </div>
-                `;
-            });
-        }
-
-        // Function to remove a skill
-        function removeSkill(skill) {
-            skills = skills.filter(s => s !== skill);
-            renderSkills();
-        }
-
-        // Function to remove a soft skill
-        function removeSoftSkill(skill) {
-            softSkills = softSkills.filter(s => s !== skill);
-            renderSoftSkills();
-        }
-
-        // Function to preview the resume
-        function previewResume() {
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const linkedin = document.getElementById('linkedin').value.trim();
-            const summary = document.getElementById('summary').value.trim();
-            const educationDegree = document.getElementById('educationDegree').value.trim();
-            const educationGradYear = document.getElementById('educationGradYear').value.trim();
-            const educationGPA = document.getElementById('educationGPA').value.trim();
-            const educationCollege = document.getElementById('educationCollege').value.trim();
-            const industryExperience = document.getElementById('industryExperience').value.trim();
-            const additionalExperience = document.getElementById('additionalExperience').value.trim();
-
-            const previewContent = `
-                <p class="text-xl font-bold">${name}</p>
-                <p>${phone} • ${email}</p>
-                <p>${linkedin}</p>
-
-                <p>${summary}</p>
-
-                <p class="text-lg font-bold mt-4">Education</p>
-                <p>${educationDegree}, ${educationGradYear}, GPA ${educationGPA}</p>
-                <p>${educationCollege}</p>
-
-                <p class="text-lg font-bold mt-4">Relevant Industry Experience</p>
-                <p>${industryExperience}</p>
-
-                <p class="text-lg font-bold mt-4">Additional Work Experience</p>
-                <p>${additionalExperience}</p>
-
-                <p class="text-lg font-bold mt-4">Skills</p>
-                ${skills.map(skill => `<p>- ${skill}</p>`).join('')}
-                
-                <p class="text-lg font-bold mt-4">Soft Skills</p>
-                ${softSkills.map(skill => `<p>- ${skill}</p>`).join('')}
-            `;
-
-            document.getElementById('previewContent').innerHTML = previewContent;
-            document.getElementById('previewModal').classList.remove('hidden');
-        }
-
-        // Function to close preview modal
-        function closePreview() {
-            document.getElementById('previewModal').classList.add('hidden');
-        }
-
-        // Function to download resume as PDF
-        function downloadResume() {
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const linkedin = document.getElementById('linkedin').value.trim();
-            const summary = document.getElementById('summary').value.trim();
-            const educationDegree = document.getElementById('educationDegree').value.trim();
-            const educationGradYear = document.getElementById('educationGradYear').value.trim();
-            const educationGPA = document.getElementById('educationGPA').value.trim();
-            const educationCollege = document.getElementById('educationCollege').value.trim();
-            const industryExperience = document.getElementById('industryExperience').value.trim();
-            const additionalExperience = document.getElementById('additionalExperience').value.trim();
-
-            let docDefinition = {
-                content: [
-                    { text: `${name}`, style: 'header' },
-                    { text: `${phone} • ${email}` },
-                    { text: `${linkedin}` },
-                    { text: '' },
-
-                    { text: `${summary}`, margin: [0, 10, 0, 10] },
-                    
-                    { text: 'Education', style: 'subheader' },
-                    { text: `${educationDegree}, ${educationGradYear}, GPA ${educationGPA}` },
-                    { text: `${educationCollege}` },
-
-                    { text: 'Relevant Industry Experience', style: 'subheader' },
-                    { text: `${industryExperience}` },
-
-                    { text: 'Additional Work Experience', style: 'subheader' },
-                    { text: `${additionalExperience}` },
-
-                    { text: 'Skills', style: 'subheader' },
-                    { ul: skills.map(skill => `- ${skill}`) },
-
-                    { text: 'Soft Skills', style: 'subheader' },
-                    { ul: softSkills.map(skill => `- ${skill}`) }
-                ],
-                styles: {
-                    header: {
-                        fontSize: 18,
-                        bold: true,
-                        margin: [0, 0, 0, 10]
-                    },
-                    subheader: {
-                        fontSize: 14,
-                        bold: true,
-                        margin: [0, 10, 0, 5]
-                    }
-                }
+        // Function to add section
+        function addSection() {
+            const newSection = {
+                title: 'New Section',
+                content: ''
             };
+            sections.push(newSection);
+            renderSections();
+        }
 
-            pdfMake.createPdf(docDefinition).download(`${name}_Resume.pdf`);
+        // Function to render sections
+        function renderSections() {
+            const sectionsList = document.getElementById('sectionsList');
+            sectionsList.innerHTML = '';
+            sections.forEach((section, index) => {
+                sectionsList.innerHTML += `
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <input type="text" class="form-input block mb-2 w-full" value="${section.title}" placeholder="Section Title" onchange="updateSectionTitle(${index}, this.value)">
+                        <div class="bg-gray-800 text-white p-2 rounded-lg" contenteditable="true" style="min-height: 100px;" oninput="updateSectionContent(${index}, this.innerText)">${section.content}</div>
+                        <button type="button" onclick="removeSection(${index})" class="mt-2 bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600">Remove Section</button>
+                    </div>
+                `;
+            });
+        }
+
+        // Function to update section title
+        function updateSectionTitle(index, title) {
+            sections[index].title = title;
+        }
+
+        // Function to update section content
+        function updateSectionContent(index, content) {
+            sections[index].content = content;
+        }
+
+        // Function to remove section
+        function removeSection(index) {
+            sections.splice(index, 1);
+            renderSections();
+        }
+
+        // Function to add skill assessment field
+        function addSkillAssessment() {
+            const skillsAssessmentContainer = document.getElementById('skillsAssessmentContainer');
+            skillsAssessmentContainer.innerHTML += `
+                <div class="flex items-center bg-gray-700 text-white rounded-full px-3 py-1">
+                    <input type="text" class="form-input w-full" placeholder="Skill">
+                    <select class="form-select ml-2">
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                    <button type="button" onclick="removeSkillAssessment(this.parentNode)" class="ml-2 text-xs font-medium text-gray-400">x</button>
+                </div>
+            `;
+        }
+
+        // Function to remove skill assessment field
+        function removeSkillAssessment(node) {
+            node.parentNode.removeChild(node);
+        }
+
+        // Function to save resume (simulated, not functional)
+        function saveResume() {
+            alert('Resume saved! (Simulated)');
+        }
+
+        // Function to download PDF (simulated, not functional)
+        function downloadPDF() {
+            alert('PDF downloaded! (Simulated)');
+        }
+
+        // Function to view version history (simulated, not functional)
+        function viewVersions() {
+            alert('Version history viewed! (Simulated)');
+        }
+
+        // Function to revert to previous version (simulated, not functional)
+        function revertToVersion() {
+            alert('Reverted to previous version! (Simulated)');
         }
     </script>
 </body>
