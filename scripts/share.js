@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     shareMenu.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
     shareMenu.style.padding = '10px';
     shareMenu.style.zIndex = '1001';
-    shareMenu.style.maxWidth = '200px';
+    shareMenu.style.maxWidth = '250px';
     shareMenu.style.textAlign = 'center';
 
     // Function to create social media icons
@@ -56,7 +56,12 @@ document.addEventListener('DOMContentLoaded', () => {
             { name: 'Facebook', url: 'https://www.facebook.com/sharer/sharer.php?u=', icon: 'fab fa-facebook-f' },
             { name: 'Twitter', url: 'https://twitter.com/intent/tweet?url=', icon: 'fab fa-twitter' },
             { name: 'LinkedIn', url: 'https://www.linkedin.com/shareArticle?mini=true&url=', icon: 'fab fa-linkedin-in' },
-            { name: 'WhatsApp', url: 'https://api.whatsapp.com/send?text=', icon: 'fab fa-whatsapp' }
+            { name: 'WhatsApp', url: 'https://api.whatsapp.com/send?text=', icon: 'fab fa-whatsapp' },
+            { name: 'Instagram', url: 'https://www.instagram.com/share?url=', icon: 'fab fa-instagram' },
+            { name: 'Pinterest', url: 'https://pinterest.com/pin/create/button/?url=', icon: 'fab fa-pinterest' },
+            { name: 'Reddit', url: 'https://www.reddit.com/submit?url=', icon: 'fab fa-reddit' },
+            { name: 'Telegram', url: 'https://t.me/share/url?url=', icon: 'fab fa-telegram-plane' },
+            { name: 'Tumblr', url: 'https://www.tumblr.com/share/link?url=', icon: 'fab fa-tumblr' }
         ];
 
         return socialMedia.map(media => {
