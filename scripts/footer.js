@@ -24,6 +24,13 @@ if (footer) {
                 .svg:hover{
                     background-color: white;
                 }
+                     #backhomebtn{
+                    background-color: #10b981; 
+                    transition: 500ms;
+                }
+                #backhomebtn:hover{
+                    background-color: #10b98171;
+                }
             </style>
             <div style="max-width: 200px; margin: 0 auto; text-align: center;">
                 <h1 style="font-size: larger;">Veggie Smart</h1>
@@ -64,7 +71,11 @@ if (footer) {
                </div>
             </div>
         </div>
-        <p style="font-size: smaller; color: gray; margin-top: 10px; margin-bottom: 10px;">&copy; 2024 Veggie Smart. All Rights Reserved</p> `;
+        <p style="font-size: smaller; color: gray; margin-top: 10px; margin-bottom: 10px;">&copy; 2024 Veggie Smart. All Rights Reserved</p> 
+        <a href="/">
+            <p id="backhomebtn" style="max-width: 90%;padding: 4px 0 4px 0; text-align: center; margin: 10px auto; font-size: larger; color: white ; border-radius: 8px;">Back to Home</p>
+        </a>
+        `;
 } else {
     console.error("Footer element not found.");
 }
