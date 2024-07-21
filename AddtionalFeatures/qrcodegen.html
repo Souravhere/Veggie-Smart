@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-900 text-gray-100">
+
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold mb-4 text-center">QR Code Generator</h1>
+
+        <div class="bg-gray-800 p-4 rounded-lg shadow-md mb-4">
+            <label for="qr-type" class="block mb-2 font-semibold">Select QR Code Type:</label>
+            <select id="qr-type" class="w-full p-2 bg-gray-700 border border-gray-600 rounded">
+                <option value="text">Text</option>
+                <option value="email">Email</option>
+                <option value="phone">Phone Number</option>
+                <option value="whatsapp">WhatsApp Message</option>
+                <option value="link">Link</option>
+            </select>
+        </div>
+
+        <div id="qr-input-fields" class="bg-gray-800 p-4 rounded-lg shadow-md mb-4">
+            <!-- Input fields will be dynamically added here -->
+        </div>
+
+        <div class="bg-gray-800 p-4 rounded-lg shadow-md mb-4">
+            <label for="header" class="block mb-2 font-semibold">Header (optional):</label>
+            <input id="header" type="text" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="Enter header text">
+
+            <label for="footer" class="block mt-4 mb-2 font-semibold">Footer (optional):</label>
+            <input id="footer" type="text" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="Enter footer text">
+        </div>
+
+        <div class="bg-gray-800 p-4 rounded-lg shadow-md mb-4">
+            <label for="logo" class="block mb-2 font-semibold">Upload Logo (optional):</label>
+            <input id="logo" type="file" class="w-full p-2 bg-gray-700 border border-gray-600 rounded">
+        </div>
+
+        <button id="generate-qr-btn" class="bg-green-500 hover:bg-green-600 w-full text-white px-4 py-2 rounded-md mb-4">Generate QR Code</button>
+
+        <div id="qr-result" class="bg-gray-800 p-4 rounded-lg shadow-md mb-4 hidden">
+            <div id="qr-code" class="flex justify-center mb-4"></div>
+
+            <button id="download-jpg-btn" class="bg-blue-500 hover:bg-blue-600 w-full text-white px-4 py-2 rounded-md mb-2">Download as JPG</button>
+        </div>
+    </div>
+    
+    <div class="bg-gray-800 p-4 rounded-lg shadow-md mb-4">
+        <h2 class="text-2xl font-bold mb-2">Documentation</h2>
+        <p class="mb-2">This QR Code Generator allows you to create customized QR codes based on various types of input data. You can choose the type of QR code you want to generate, add optional headers and footers, upload a logo, and download the resulting QR code in JPG or PDF format. Below is a detailed explanation of how to use each feature:</p>
+    
+        <h3 class="text-xl font-semibold mb-2">1. Select QR Code Type</h3>
+        <p class="mb-2">Choose the type of QR code you want to generate from the dropdown menu. The available options are:</p>
+        <ul class="list-disc pl-5 mb-2">
+            <li><strong>Text:</strong> Generate a QR code containing plain text.</li>
+            <li><strong>Email:</strong> Generate a QR code for sending an email with pre-filled fields (email address, subject, body).</li>
+            <li><strong>Phone Number:</strong> Generate a QR code for dialing a phone number.</li>
+            <li><strong>WhatsApp Message:</strong> Generate a QR code for sending a WhatsApp message to a specified phone number with a pre-filled message.</li>
+            <li><strong>Link:</strong> Generate a QR code for a URL link.</li>
+        </ul>
+    
+        <h3 class="text-xl font-semibold mb-2">2. Input Fields</h3>
+        <p class="mb-2">Based on the selected QR code type, different input fields will appear. Fill in the required information:</p>
+        <ul class="list-disc pl-5 mb-2">
+            <li><strong>Text:</strong> Enter the text you want to encode in the QR code.</li>
+            <li><strong>Email:</strong> Enter the email address, subject, and body for the email QR code.</li>
+            <li><strong>Phone Number:</strong> Enter the phone number to dial.</li>
+            <li><strong>WhatsApp Message:</strong> Enter the phone number and message for the WhatsApp QR code.</li>
+            <li><strong>Link:</strong> Enter the URL you want to encode.</li>
+        </ul>
+    
+        <h3 class="text-xl font-semibold mb-2">3. Optional Customizations</h3>
+        <p class="mb-2">You can customize your QR code with the following options:</p>
+        <ul class="list-disc pl-5 mb-2">
+            <li><strong>Header:</strong> Add optional text at the top of the QR code.</li>
+            <li><strong>Footer:</strong> Add optional text at the bottom of the QR code.</li>
+            <li><strong>Logo:</strong> Upload a logo image to be placed in the center of the QR code. The logo will be resized to fit within the QR code without obscuring the code itself.</li>
+        </ul>
+    
+        <h3 class="text-xl font-semibold mb-2">4. Generate QR Code</h3>
+        <p class="mb-2">After filling out the required fields and optional customizations, click the "Generate QR Code" button. The QR code will be generated and displayed on the screen.</p>
+    
+        <h3 class="text-xl font-semibold mb-2">5. Download QR Code</h3>
+        <p class="mb-2">You can download the generated QR code in two formats:</p>
+        <ul class="list-disc pl-5 mb-2">
+            <li><strong>JPG:</strong> Click the "Download as JPG" button to save the QR code as a JPG image.</li>
+            <li><strong>PDF:</strong> Click the "Download as PDF" button to save the QR code as a PDF document.</li>
+        </ul>
+    
+        <h3 class="text-xl font-semibold mb-2">Formulas and Logic Used:</h3>
+        <p class="mb-2">The QR code is generated using the QRCode.js library, which converts the input data into a QR code format. Optional customizations (header, footer, and logo) are added to the QR code using the HTML5 Canvas API:</p>
+        <ul class="list-disc pl-5 mb-2">
+            <li><strong>Header and Footer:</strong> Text is added to the top and bottom of the QR code image using the canvas context's fillText method.</li>
+            <li><strong>Logo:</strong> The logo image is drawn on the canvas in the center of the QR code.</li>
+        </ul>
+    </div>
+    <footer id="footer"></footer>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-pdf@1.5.3"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.0.0-alpha.12/html2canvas.min.js"></script>
+    <script src="qrcodegen.js"></script>
+    <script src="./../scripts/footer.js"></script>
+</body>
+
+</html>
