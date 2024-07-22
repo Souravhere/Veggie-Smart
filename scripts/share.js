@@ -11,8 +11,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadFontAwesome();
 
-    // Define the image link variable
-    const imageUrl = 'https://veggie-smart.vercel.app/SourceImages/open-graph-img.png'; // Update this URL to your image
+    const imageUrl = 'https://veggie-smart.vercel.app/SourceImages/open-graph-img.png';
+    const pageDescription = 'A tool to calculate vegetable prices, recipe costs, and more. Updated regularly with new features.';
+
+    const injectMetaTags = () => {
+        let metaImage = document.querySelector('meta[property="og:image"]');
+        let metaDescription = document.querySelector('meta[name="description"]');
+        let metaOgDescription = document.querySelector('meta[property="og:description"]');
+
+        if (!metaImage) {
+            metaImage = document.createElement('meta');
+            metaImage.setAttribute('property', 'og:image');
+            document.head.appendChild(metaImage);
+        }
+        metaImage.setAttribute('content', imageUrl);
+
+        if (!metaDescription) {
+            metaDescription = document.createElement('meta');
+            metaDescription.setAttribute('name', 'description');
+            document.head.appendChild(metaDescription);
+        }
+        metaDescription.setAttribute('content', pageDescription);
+
+        if (!metaOgDescription) {
+            metaOgDescription = document.createElement('meta');
+            metaOgDescription.setAttribute('property', 'og:description');
+            document.head.appendChild(metaOgDescription);
+        }
+        metaOgDescription.setAttribute('content', pageDescription);
+    };
+
+    injectMetaTags();
 
     // Create and style the share button container
     const shareButtonContainer = document.createElement('div');
@@ -58,15 +87,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const pageTitle = encodeURIComponent(document.title);
         const pageUrl = encodeURIComponent(window.location.href);
         const encodedImageUrl = encodeURIComponent(imageUrl);
+        const encodedDescription = encodeURIComponent(pageDescription);
         const socialMedia = [
             { name: 'Facebook', url: `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}&quote=${pageTitle}&picture=${encodedImageUrl}`, icon: 'fab fa-facebook-f' },
             { name: 'Twitter', url: `https://twitter.com/intent/tweet?url=${pageUrl}&text=${pageTitle}&via=yourhandle&hashtags=example&image=${encodedImageUrl}`, icon: 'fab fa-twitter' },
-            { name: 'LinkedIn', url: `https://www.linkedin.com/shareArticle?mini=true&url=${pageUrl}&title=${pageTitle}&summary=${pageTitle}&source=LinkedIn&image=${encodedImageUrl}`, icon: 'fab fa-linkedin-in' },
+            { name: 'LinkedIn', url: `https://www.linkedin.com/shareArticle?mini=true&url=${pageUrl}&title=${pageTitle}&summary=${encodedDescription}&source=LinkedIn&image=${encodedImageUrl}`, icon: 'fab fa-linkedin-in' },
             { name: 'WhatsApp', url: `https://api.whatsapp.com/send?text=${pageTitle}%20${pageUrl}`, icon: 'fab fa-whatsapp' },
-            { name: 'Pinterest', url: `https://pinterest.com/pin/create/button/?url=${pageUrl}&description=${pageTitle}&media=${encodedImageUrl}`, icon: 'fab fa-pinterest' },
+            { name: 'Pinterest', url: `https://pinterest.com/pin/create/button/?url=${pageUrl}&description=${encodedDescription}&media=${encodedImageUrl}`, icon: 'fab fa-pinterest' },
             { name: 'Reddit', url: `https://www.reddit.com/submit?url=${pageUrl}&title=${pageTitle}`, icon: 'fab fa-reddit' },
             { name: 'Telegram', url: `https://t.me/share/url?url=${pageUrl}&text=${pageTitle}`, icon: 'fab fa-telegram-plane' },
-            { name: 'Tumblr', url: `https://www.tumblr.com/share/link?url=${pageUrl}&name=${pageTitle}`, icon: 'fab fa-tumblr' }
+            { name: 'Tumblr', url: `https://www.tumblr.com/share/link?url=${pageUrl}&name=${pageTitle}`, icon: 'fab fa-tumblr' },
+            { name: 'Instagram', url: `https://www.instagram.com/`, icon: 'fab fa-instagram' }
         ];
 
         return socialMedia.map(media => {
