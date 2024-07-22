@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadFontAwesome();
 
+    // Define the image link variable
+    const imageUrl = 'https://veggie-smart.vercel.app/SourceImages/open-graph-img.png'; // Update this URL to your image
+
     // Create and style the share button container
     const shareButtonContainer = document.createElement('div');
     shareButtonContainer.id = 'share-button-container';
@@ -52,14 +55,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to create social media icons
     const createSocialMediaIcons = () => {
-        const pageTitle = document.title;
+        const pageTitle = encodeURIComponent(document.title);
         const pageUrl = encodeURIComponent(window.location.href);
+        const encodedImageUrl = encodeURIComponent(imageUrl);
         const socialMedia = [
-            { name: 'Facebook', url: `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}&t=${pageTitle}`, icon: 'fab fa-facebook-f' },
-            { name: 'Twitter', url: `https://twitter.com/intent/tweet?url=${pageUrl}&text=${pageTitle}`, icon: 'fab fa-twitter' },
-            { name: 'LinkedIn', url: `https://www.linkedin.com/shareArticle?mini=true&url=${pageUrl}&title=${pageTitle}`, icon: 'fab fa-linkedin-in' },
+            { name: 'Facebook', url: `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}&quote=${pageTitle}&picture=${encodedImageUrl}`, icon: 'fab fa-facebook-f' },
+            { name: 'Twitter', url: `https://twitter.com/intent/tweet?url=${pageUrl}&text=${pageTitle}&via=yourhandle&hashtags=example&image=${encodedImageUrl}`, icon: 'fab fa-twitter' },
+            { name: 'LinkedIn', url: `https://www.linkedin.com/shareArticle?mini=true&url=${pageUrl}&title=${pageTitle}&summary=${pageTitle}&source=LinkedIn&image=${encodedImageUrl}`, icon: 'fab fa-linkedin-in' },
             { name: 'WhatsApp', url: `https://api.whatsapp.com/send?text=${pageTitle}%20${pageUrl}`, icon: 'fab fa-whatsapp' },
-            { name: 'Pinterest', url: `https://pinterest.com/pin/create/button/?url=${pageUrl}&description=${pageTitle}`, icon: 'fab fa-pinterest' },
+            { name: 'Pinterest', url: `https://pinterest.com/pin/create/button/?url=${pageUrl}&description=${pageTitle}&media=${encodedImageUrl}`, icon: 'fab fa-pinterest' },
             { name: 'Reddit', url: `https://www.reddit.com/submit?url=${pageUrl}&title=${pageTitle}`, icon: 'fab fa-reddit' },
             { name: 'Telegram', url: `https://t.me/share/url?url=${pageUrl}&text=${pageTitle}`, icon: 'fab fa-telegram-plane' },
             { name: 'Tumblr', url: `https://www.tumblr.com/share/link?url=${pageUrl}&name=${pageTitle}`, icon: 'fab fa-tumblr' }
