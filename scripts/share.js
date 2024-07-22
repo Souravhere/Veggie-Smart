@@ -1,15 +1,33 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Load Font Awesome dynamically if not already included
-    const loadFontAwesome = () => {
-        if (!document.querySelector('link[href*="font-awesome"]')) {
-            const link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css';
-            document.head.appendChild(link);
-        }
+    // Load Font Awesome and html2canvas dynamically if not already included
+    const loadResources = () => {
+        const resources = [
+            {
+                type: 'link',
+                href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css',
+                rel: 'stylesheet'
+            },
+            {
+                type: 'script',
+                src: 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js'
+            }
+        ];
+
+        resources.forEach(resource => {
+            if (resource.type === 'link' && !document.querySelector(`link[href="${resource.href}"]`)) {
+                const link = document.createElement('link');
+                link.rel = resource.rel;
+                link.href = resource.href;
+                document.head.appendChild(link);
+            } else if (resource.type === 'script' && !document.querySelector(`script[src="${resource.src}"]`)) {
+                const script = document.createElement('script');
+                script.src = resource.src;
+                document.head.appendChild(script);
+            }
+        });
     };
 
-    loadFontAwesome();
+    loadResources();
 
     // Create and style the share button container
     const shareButtonContainer = document.createElement('div');
@@ -57,11 +75,11 @@ document.addEventListener('DOMContentLoaded', () => {
             { name: 'Twitter', url: 'https://twitter.com/intent/tweet?url=', icon: 'fab fa-twitter' },
             { name: 'LinkedIn', url: 'https://www.linkedin.com/shareArticle?mini=true&url=', icon: 'fab fa-linkedin-in' },
             { name: 'WhatsApp', url: 'https://api.whatsapp.com/send?text=', icon: 'fab fa-whatsapp' },
-            { name: 'Instagram', url: 'https://www.instagram.com/share?url=', icon: 'fab fa-instagram' },
             { name: 'Pinterest', url: 'https://pinterest.com/pin/create/button/?url=', icon: 'fab fa-pinterest' },
             { name: 'Reddit', url: 'https://www.reddit.com/submit?url=', icon: 'fab fa-reddit' },
             { name: 'Telegram', url: 'https://t.me/share/url?url=', icon: 'fab fa-telegram-plane' },
-            { name: 'Tumblr', url: 'https://www.tumblr.com/share/link?url=', icon: 'fab fa-tumblr' }
+            { name: 'Tumblr', url: 'https://www.tumblr.com/share/link?url=', icon: 'fab fa-tumblr' },
+            { name: 'Instagram', url: '', icon: 'fab fa-instagram' }
         ];
 
         return socialMedia.map(media => {
@@ -90,6 +108,50 @@ document.addEventListener('DOMContentLoaded', () => {
             a.addEventListener('mouseout', () => {
                 a.style.backgroundColor = '#f3f4f6';
                 a.style.color = '#333';
+            });
+
+            a.addEventListener('click', async (event) => {
+                event.preventDefault();
+
+                try {
+                    const canvas = await html2canvas(document.body, {
+                        height: window.innerHeight / 2
+                    });
+
+                    if (canvas.toDataURL) {
+                        const imgData = canvas.toDataURL('image/png');
+                        const topParagraph = document.querySelector('p').innerText;
+                        const shareData = {
+                            title: document.title,
+                            text: topParagraph,
+                            url: window.location.href,
+                            files: [
+                                new File([imgData], 'screenshot.png', { type: 'image/png' })
+                            ]
+                        };
+
+                        if (navigator.share) {
+                            navigator.share(shareData)
+                                .then(() => console.log('Shared successfully'))
+                                .catch(error => console.error('Error sharing', error));
+                        } else {
+                            if (media.name === 'Instagram') {
+                                alert('Instagram sharing is not supported. Please share manually.');
+                            } else {
+                                window.open(a.href, '_blank');
+                            }
+                        }
+                    } else {
+                        throw new Error('canvas.toDataURL is not a function');
+                    }
+                } catch (error) {
+                    console.error('Error generating screenshot', error);
+                    if (media.name === 'Instagram') {
+                        alert('Instagram sharing is not supported. Please share manually.');
+                    } else {
+                        window.open(a.href, '_blank');
+                    }
+                }
             });
 
             return a;
