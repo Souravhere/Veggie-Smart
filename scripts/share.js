@@ -11,9 +11,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadFontAwesome();
 
-    const imageUrl = 'https://veggie-smart.vercel.app/SourceImages/open-graph-img.png';
+    const imageUrl = 'https://veggie-smart.vercel.app/SourceImages/open-graph-img.png'; 
     const pageDescription = 'A tool to calculate vegetable prices, recipe costs, and more. Updated regularly with new features.';
+    const pageTitle = encodeURIComponent(document.title + ' | Where Smart Calculations Begin');
+    const pageUrl = encodeURIComponent(window.location.href);
+    const encodedImageUrl = encodeURIComponent(imageUrl);
+    const encodedDescription = encodeURIComponent(pageDescription);
 
+    // Function to inject meta tags for image and description
     const injectMetaTags = () => {
         let metaImage = document.querySelector('meta[property="og:image"]');
         let metaDescription = document.querySelector('meta[name="description"]');
@@ -84,10 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to create social media icons
     const createSocialMediaIcons = () => {
-        const pageTitle = encodeURIComponent(document.title);
-        const pageUrl = encodeURIComponent(window.location.href);
-        const encodedImageUrl = encodeURIComponent(imageUrl);
-        const encodedDescription = encodeURIComponent(pageDescription);
         const socialMedia = [
             { name: 'Facebook', url: `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}&quote=${pageTitle}&picture=${encodedImageUrl}`, icon: 'fab fa-facebook-f' },
             { name: 'Twitter', url: `https://twitter.com/intent/tweet?url=${pageUrl}&text=${pageTitle}&via=yourhandle&hashtags=example&image=${encodedImageUrl}`, icon: 'fab fa-twitter' },
@@ -97,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { name: 'Reddit', url: `https://www.reddit.com/submit?url=${pageUrl}&title=${pageTitle}`, icon: 'fab fa-reddit' },
             { name: 'Telegram', url: `https://t.me/share/url?url=${pageUrl}&text=${pageTitle}`, icon: 'fab fa-telegram-plane' },
             { name: 'Tumblr', url: `https://www.tumblr.com/share/link?url=${pageUrl}&name=${pageTitle}`, icon: 'fab fa-tumblr' },
-            { name: 'Instagram', url: `https://www.instagram.com/`, icon: 'fab fa-instagram' }
+            { name: 'Instagram', url: 'https://www.instagram.com/create/story/', icon: 'fab fa-instagram', instructions: 'Please open the Instagram app and manually add your post. Instagram does not support direct URL sharing.' }
         ];
 
         return socialMedia.map(media => {
@@ -127,6 +128,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 a.style.backgroundColor = '#f3f4f6';
                 a.style.color = '#333';
             });
+
+            if (media.instructions) {
+                a.title = media.instructions;
+            }
 
             return a;
         });
