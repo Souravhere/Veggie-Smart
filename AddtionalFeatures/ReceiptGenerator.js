@@ -1,8 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
     const companyNameInput = document.getElementById('company-name');
     const shopNameInput = document.getElementById('shop-name');
+    const addressInput = document.getElementById('address');
+    const emailInput = document.getElementById('email');
     const contactInfoInput = document.getElementById('contact-info');
+    const ownerNameInput = document.getElementById('owner-name');
     const logoInput = document.getElementById('logo');
+    const customerNameInput = document.getElementById('customer-name');
     const itemsContainer = document.getElementById('items');
     const addItemBtn = document.getElementById('add-item-btn');
     const receiptPreview = document.getElementById('receipt-preview');
@@ -11,7 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const updateReceiptPreview = () => {
         const companyName = companyNameInput.value;
         const shopName = shopNameInput.value;
+        const address = addressInput.value;
+        const email = emailInput.value;
         const contactInfo = contactInfoInput.value;
+        const ownerName = ownerNameInput.value;
+        const customerName = customerNameInput.value;
+        const currentDate = new Date().toLocaleString();
         const items = Array.from(document.querySelectorAll('.item')).map(item => {
             return {
                 name: item.querySelector('.item-name').value,
@@ -25,7 +34,13 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="mb-4">
                 <h2 class="text-xl font-bold">${companyName}</h2>
                 <p>${shopName}</p>
+                <p>${address}</p>
+                <p>${email}</p>
                 <p>${contactInfo}</p>
+            </div>
+            <div class="mb-4">
+                <p><strong>Customer Name:</strong> ${customerName}</p>
+                <p><strong>Date:</strong> ${currentDate}</p>
             </div>
             <table class="w-full text-left mb-4">
                 <thead>
@@ -58,6 +73,13 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="text-right">
                 <p class="font-bold">Total: ${total.toFixed(2)}</p>
             </div>
+            <div class="mt-4">
+                <p><strong>Owner Name:</strong> ${ownerName}</p>
+                <p><strong>Signature:</strong> _____________________</p>
+            </div>
+            <div class="mt-4">
+                <p><strong>Customer Signature:</strong> _____________________</p>
+            </div>
         `;
 
         receiptPreview.innerHTML = previewHtml;
@@ -74,15 +96,24 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
         itemsContainer.appendChild(itemDiv);
-        updateReceiptPreview();
     });
 
-    document.addEventListener('input', updateReceiptPreview);
+    document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('input', updateReceiptPreview);
+    });
+
+    updateReceiptPreview();
 
     generatePdfBtn.addEventListener('click', () => {
+        const logoFile = logoInput.files[0];
         const companyName = companyNameInput.value;
         const shopName = shopNameInput.value;
+        const address = addressInput.value;
+        const email = emailInput.value;
         const contactInfo = contactInfoInput.value;
+        const ownerName = ownerNameInput.value;
+        const customerName = customerNameInput.value;
+        const currentDate = new Date().toLocaleString();
         const items = Array.from(document.querySelectorAll('.item')).map(item => {
             return {
                 name: item.querySelector('.item-name').value,
@@ -91,45 +122,62 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         });
 
+        let total = 0;
+        const itemsTableBody = items.map(item => {
+            const itemTotal = item.amount + (item.amount * (item.gst / 100));
+            total += itemTotal;
+            return [
+                { text: item.name, style: 'tableCell' },
+                { text: item.amount.toFixed(2), style: 'tableCell' },
+                { text: `${item.gst.toFixed(2)}%`, style: 'tableCell' },
+                { text: itemTotal.toFixed(2), style: 'tableCell' }
+            ];
+        });
+
         const docDefinition = {
             content: [
                 { text: companyName, style: 'header' },
-                shopName,
-                contactInfo,
-                '\n',
+                { text: shopName, style: 'subheader' },
+                { text: address },
+                { text: email },
+                { text: contactInfo },
+                { text: `Customer Name: ${customerName}`, style: 'subheader' },
+                { text: `Date: ${currentDate}`, style: 'subheader' },
                 {
+                    style: 'table',
                     table: {
-                        headerRows: 1,
-                        widths: ['*', 'auto', 'auto', 'auto'],
+                        widths: ['*', '*', '*', '*'],
                         body: [
-                            ['Item', 'Amount', 'GST', 'Total'],
-                            ...items.map(item => {
-                                const itemTotal = item.amount + (item.amount * (item.gst / 100));
-                                return [
-                                    item.name,
-                                    item.amount.toFixed(2),
-                                    `${item.gst.toFixed(2)}%`,
-                                    itemTotal.toFixed(2)
-                                ];
-                            }),
-                            [{ text: 'Total', colSpan: 3 }, {}, {}, items.reduce((sum, item) => sum + item.amount + (item.amount * (item.gst / 100)), 0).toFixed(2)]
+                            [
+                                { text: 'Item', style: 'tableHeader' },
+                                { text: 'Amount', style: 'tableHeader' },
+                                { text: 'GST', style: 'tableHeader' },
+                                { text: 'Total', style: 'tableHeader' }
+                            ],
+                            ...itemsTableBody
                         ]
-                    }
-                }
+                    },
+                    layout: 'lightHorizontalLines'
+                },
+                { text: `Total: ${total.toFixed(2)}`, style: 'total' },
+                { text: `Owner Name: ${ownerName}`, style: 'signature' },
+                { text: 'Signature: _____________________', style: 'signature' },
+                { text: 'Customer Signature: _____________________', style: 'signature' }
             ],
             styles: {
-                header: {
-                    fontSize: 18,
-                    bold: true,
-                    margin: [0, 0, 0, 10]
-                }
+                header: { fontSize: 18, bold: true, marginBottom: 8 },
+                subheader: { fontSize: 14, bold: true, marginBottom: 4 },
+                table: { marginBottom: 8 },
+                tableHeader: { bold: true, fontSize: 12, color: 'black' },
+                tableCell: { fontSize: 12 },
+                total: { fontSize: 14, bold: true, alignment: 'right', marginTop: 8 },
+                signature: { marginTop: 16, fontSize: 12 }
             }
         };
 
-        const logoFile = logoInput.files[0];
         if (logoFile) {
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = (e) => {
                 docDefinition.content.unshift({
                     image: e.target.result,
                     width: 150
