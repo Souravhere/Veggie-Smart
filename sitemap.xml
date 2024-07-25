@@ -7,6 +7,18 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://veggie-smart.vercel.app/AddtionalFeatures/ReceiptGenerator.html</loc>
+    <lastmod>2024-07-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://veggie-smart.vercel.app/MarketCal/Calculate-Total-Price.html</loc>
+    <lastmod>2024-07-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://veggie-smart.vercel.app/MarketCal/Calculate-Total-Price.html</loc>
     <lastmod>2024-07-01</lastmod>
     <changefreq>monthly</changefreq>
