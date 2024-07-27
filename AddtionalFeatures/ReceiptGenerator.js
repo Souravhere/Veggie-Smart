@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const companyNameInput = document.getElementById('company-name');
-    const shopNameInput = document.getElementById('shop-name');
+    // const shopNameInput = document.getElementById('shop-name');
     const addressInput = document.getElementById('address');
     const emailInput = document.getElementById('email');
     const contactInfoInput = document.getElementById('contact-info');
