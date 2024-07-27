@@ -3,34 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Veggie Smart - Discount Cal</title>
-    <link rel="stylesheet" href="./../styles/styles.css">
+    <meta name="description" content="Veggie Smart Discount Calculator to quickly calculate discounts on your total price.">
+    <meta name="keywords" content="Discount Calculator, Price Calculator, Veggie Smart, Savings Calculator">
+    <meta name="author" content="Sourav Chhimpa">
+    <title>Veggie Smart - Discount Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1a202c; /* Dark background */
+            color: #edf2f7; /* Light text color */
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Veggie Smart</h1>
-        <div class="calculator">
-            <h2>Discount Calculator</h2>
-            <form id="discountForm">
-                <div class="form-group">
-                    <label for="totalPrice">Total Price (₹):</label>
-                    <input type="number" id="totalPrice" placeholder="Enter total price">
+    <div class="container mx-auto p-6">
+        <h1 class="text-3xl font-bold text-center mb-6">Veggie Smart</h1>
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-semibold text-center text-green-400 mb-4">Discount Calculator</h2>
+            <form id="discountForm" class="space-y-4">
+                <div class="flex flex-col">
+                    <label for="totalPrice" class="text-lg font-medium">Total Price (₹):</label>
+                    <input type="number" id="totalPrice" placeholder="Enter total price" class="p-2 rounded border border-gray-600 bg-gray-900 text-white">
                 </div>
-                <div class="form-group">
-                    <label for="discount">Discount (%):</label>
-                    <input type="number" id="discount" placeholder="Enter discount percentage">
+                <div class="flex flex-col">
+                    <label for="discount" class="text-lg font-medium">Discount (%):</label>
+                    <input type="number" id="discount" placeholder="Enter discount percentage" class="p-2 rounded border border-gray-600 bg-gray-900 text-white">
                 </div>
-                <button type="button" onclick="calculateDiscount()">Calculate Discount</button>
+                <button type="button" onclick="calculateDiscount()" class="w-full bg-green-500 hover:bg-green-600 text-white p-2 rounded">Calculate Discount</button>
             </form>
-            <div id="discountResult" class="result"></div>
+            <div id="discountResult" class="mt-4 text-xl text-center text-green-300"></div>
         </div>
-        <a href="./../index.html">
-            <div class="calculator">
-                <h5>Home</h5>
+            <!-- Documentation Section -->
+            <div class="mb-6 p-4 bg-gray-700 rounded-lg mt-4">
+                <h3 class="text-xl font-semibold text-green-300 mb-2">How to Use the Discount Calculator</h3>
+                <p class="text-base mb-2">
+                    This Discount Calculator helps you determine the final price of an item after applying a discount. 
+                    To use the calculator, follow these steps:
+                </p>
+                <ol class="list-decimal list-inside mb-4">
+                    <li class="mb-2">
+                        <strong>Enter Total Price:</strong> Input the original price of the item in the "Total Price (₹)" field. 
+                        This should be the amount before any discount is applied.
+                    </li>
+                    <li class="mb-2">
+                        <strong>Enter Discount Percentage:</strong> Input the discount percentage in the "Discount (%)" field. 
+                        This is the percentage of the total price that will be deducted.
+                    </li>
+                    <li class="mb-2">
+                        <strong>Calculate Discount:</strong> Click the "Calculate Discount" button to see the discounted price. 
+                        The result will be displayed below the button.
+                    </li>
+                </ol>
+                <p class="text-base">
+                    The discounted price will be shown in the result section, reflecting the amount you will pay after applying the discount.
+                </p>
             </div>
-        </a>
     </div>
-    <footer id="footer"></footer>
+    <footer id="footer" class="text-center text-gray-500 mt-6"></footer>
     <script src="./../scripts/footer.js"></script>
     <script src="./offerscal.js"></script>
 </body>
