@@ -3,59 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./../styles/styles.css">
+    <meta name="description" content="Calculate the total price based on the price per kilogram and quantity in kilograms and grams.">
+    <meta name="keywords" content="Total Price Calculator, Price per Kg, Quantity Calculator, Veggie Smart">
+    <meta name="author" content="Sourav Chhimpa">
     <title>Calculate Total Price</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1a202c; /* Dark background */
+            color: #edf2f7; /* Light text color */
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div id="totalprice" class="calculator">
-            <h2>Calculate Total Price</h2>
-            <form id="priceForm">
-                <div class="form-group">
-                    <label for="vegPrice">Price (₹/kg):</label>
-                    <input type="number" id="vegPrice" placeholder="Enter price per kg">
+    <div class="container mx-auto p-6">
+        <div id="totalprice" class="bg-gray-800 p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-semibold text-center text-green-400 mb-4">Calculate Total Price</h2>
+            <form id="priceForm" class="space-y-4">
+                <div class="flex flex-col space-y-2">
+                    <label for="vegPrice" class="text-lg font-medium">Price (₹/kg):</label>
+                    <input type="number" id="vegPrice" placeholder="Enter price per kg" class="p-2 rounded border border-gray-600 bg-gray-900 text-white">
                 </div>
-                <div class="form-group">
-                    <label for="vegQtyKg">Quantity (kg):</label>
-                    <input type="number" id="vegQtyKg" placeholder="Enter quantity in kg">
-                    <label for="vegQtyG">Quantity (g):</label>
-                    <input type="number" id="vegQtyG" placeholder="Enter quantity in g">
+                <div class="flex flex-col space-y-2">
+                    <label for="vegQtyKg" class="text-lg font-medium">Quantity (kg):</label>
+                    <input type="number" id="vegQtyKg" placeholder="Enter quantity in kg" class="p-2 rounded border border-gray-600 bg-gray-900 text-white">
+                    <label for="vegQtyG" class="text-lg font-medium">Quantity (g):</label>
+                    <input type="number" id="vegQtyG" placeholder="Enter quantity in g" class="p-2 rounded border border-gray-600 bg-gray-900 text-white">
                 </div>
-                <button type="button" onclick="calculateTotalPrice()">Calculate Total</button>
+                <button type="button" onclick="calculateTotalPrice()" class="w-full bg-green-500 hover:bg-green-600 text-white p-2 rounded">Calculate Total</button>
             </form>
-            <div id="totalResult" class="result"></div>
+            <div id="totalResult" class="mt-4 text-xl text-center text-green-300"></div>
         </div>
-        <a href="./../index.html">
-            <div class="calculator">
-                <h2>Home</h2>             
-            </div>
-        </a>
-        <div id="documentation" class="documentation" style="margin: 20px; padding: 20px; background-color: transparent; border: 1px solid #ddd; border-radius: 12px;">
-            <h2>User Documentation for "Calculate Total Price" Calculator</h2>
-            <h3>Overview</h3>
-            <p>The "Calculate Total Price" calculator helps you determine the total price of a product based on its price per kilogram and the quantity (in kilograms and grams) you wish to purchase.</p>
-            <h3>Features</h3>
-            <ul>
+        
+
+        <!-- Documentation Section -->
+        <div id="documentation" class="mt-6 p-6 bg-gray-700 rounded-lg">
+            <h2 class="text-2xl font-semibold text-green-300 mb-4">User Documentation for "Calculate Total Price" Calculator</h2>
+            <h3 class="text-xl font-semibold text-green-200 mb-2">Overview</h3>
+            <p class="text-base mb-4">
+                The "Calculate Total Price" calculator helps you determine the total price of a product based on its price per kilogram and the quantity (in kilograms and grams) you wish to purchase.
+            </p>
+            <h3 class="text-xl font-semibold text-green-200 mb-2">Features</h3>
+            <ul class="list-disc list-inside mb-4">
                 <li>Input field for the price per kilogram (₹/kg).</li>
                 <li>Input fields for entering quantity in kilograms and grams.</li>
                 <li>Displays the calculated total price.</li>
                 <li>Clean and responsive design using Tailwind CSS classes.</li>
             </ul>
-            <h3>How to Use the Calculator</h3>
-            <h4>Open the Calculator Page</h4>
-            <p>Navigate to the calculator page in your browser.</p>
-            <h4>Input the Price per Kilogram</h4>
-            <p>Locate the input field labeled "Price (₹/kg):". Enter the price per kilogram of the product.</p>
-            <h4>Input the Quantity</h4>
-            <p>Locate the input fields labeled "Quantity (kg):" and "Quantity (g):". Enter the total quantity you wish to purchase in kilograms and grams.</p>
-            <h4>Calculate the Total Price</h4>
-            <p>Click the "Calculate Total" button. The calculator will process the inputs and display the total price in the result area.</p>
-            <h4>View the Result</h4>
-            <p>The calculated total price will be displayed below the form in the result area.</p>
+            <h3 class="text-xl font-semibold text-green-200 mb-2">How to Use the Calculator</h3>
+            <h4 class="text-lg font-semibold text-green-100 mb-1">Open the Calculator Page</h4>
+            <p class="text-base mb-2">Navigate to the calculator page in your browser.</p>
+            <h4 class="text-lg font-semibold text-green-100 mb-1">Input the Price per Kilogram</h4>
+            <p class="text-base mb-2">Locate the input field labeled "Price (₹/kg):". Enter the price per kilogram of the product.</p>
+            <h4 class="text-lg font-semibold text-green-100 mb-1">Input the Quantity</h4>
+            <p class="text-base mb-2">Locate the input fields labeled "Quantity (kg):" and "Quantity (g):". Enter the total quantity you wish to purchase in kilograms and grams.</p>
+            <h4 class="text-lg font-semibold text-green-100 mb-1">Calculate the Total Price</h4>
+            <p class="text-base mb-2">Click the "Calculate Total" button. The calculator will process the inputs and display the total price in the result area.</p>
+            <h4 class="text-lg font-semibold text-green-100 mb-1">View the Result</h4>
+            <p class="text-base">The calculated total price will be displayed below the form in the result area.</p>
         </div>
     </div>
-    <footer id="footer"></footer>
+    <footer id="footer" class="text-center text-gray-500 mt-6"></footer>
     <script src="./../scripts/footer.js"></script>
+    <script src="./../scripts/scripts.js"></script>
 </body>
-<script src="./../scripts/scripts.js"></script>
 </html>
