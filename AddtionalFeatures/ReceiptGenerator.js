@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let total = 0;
         let previewHtml = `
             <div class="mb-4">
-                <h2 class="text-xl font-bold">${companyName}</h2>
+                <h2 class="text-2xl font-bold">${companyName}</h2>
                 <p>${shopName}</p>
                 <p>${address}</p>
                 <p>${email}</p>
@@ -138,9 +138,9 @@ document.addEventListener('DOMContentLoaded', () => {
             content: [
                 { text: companyName, style: 'header' },
                 { text: shopName, style: 'subheader' },
-                { text: address },
-                { text: email },
-                { text: contactInfo },
+                { text: address, style: 'subheader' },
+                { text: email, style: 'subheader' },
+                { text: contactInfo, style: 'subheader' },
                 { text: `Customer Name: ${customerName}`, style: 'subheader' },
                 { text: `Date: ${currentDate}`, style: 'subheader' },
                 {
@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             styles: {
                 header: { fontSize: 18, bold: true, marginBottom: 8 },
-                subheader: { fontSize: 14, bold: true, marginBottom: 4 },
+                subheader: { fontSize: 14, marginBottom: 4 },
                 table: { marginBottom: 8 },
                 tableHeader: { bold: true, fontSize: 12, color: 'black' },
                 tableCell: { fontSize: 12 },

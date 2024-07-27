@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Receipt Generator</title>
+    <title>Advanced Receipt Generator</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
 </head>
 <body class="bg-gray-900 text-white p-8">
     <div class="container mx-auto">
-        <h1 class="text-2xl font-bold mb-4">Receipt Generator</h1>
+        <h1 class="text-3xl font-bold mb-6">Professional Receipt Generator</h1>
 
-        <div class="bg-gray-800 p-6 rounded shadow-lg mb-8">
-            <h2 class="text-xl font-semibold mb-4">Company Details</h2>
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Company Details</h2>
             <div class="mb-4">
                 <label class="block mb-2">Company Name</label>
                 <input type="text" id="company-name" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="Enter company name">
@@ -44,16 +44,16 @@
             </div>
         </div>
 
-        <div class="bg-gray-800 p-6 rounded shadow-lg mb-8">
-            <h2 class="text-xl font-semibold mb-4">Customer Details</h2>
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Customer Details</h2>
             <div class="mb-4">
                 <label class="block mb-2">Customer Name</label>
                 <input type="text" id="customer-name" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="Enter customer name">
             </div>
         </div>
 
-        <div class="bg-gray-800 p-6 rounded shadow-lg mb-8">
-            <h2 class="text-xl font-semibold mb-4">Items</h2>
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Items</h2>
             <div id="items">
                 <div class="item mb-4">
                     <div class="flex mb-2">
@@ -66,15 +66,14 @@
             <button id="add-item-btn" class="bg-blue-600 p-2 rounded">Add Item</button>
         </div>
 
-        <div class="bg-gray-800 p-6 rounded shadow-lg mb-8">
-            <h2 class="text-xl font-semibold mb-4">Receipt Preview</h2>
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Receipt Preview</h2>
             <div id="receipt-preview" class="bg-gray-700 p-4 rounded"></div>
         </div>
 
         <button id="generate-pdf-btn" class="bg-green-600 p-2 rounded">Download PDF</button>
     </div>
-    <footer id="footer"></footer>
+
     <script src="ReceiptGenerator.js"></script>
-    <script src="./../scripts/footer.js"></script>
 </body>
 </html>
