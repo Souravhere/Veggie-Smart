@@ -1,7 +1,3 @@
-Certainly! Here’s a `CONTRIBUTING.md` file for the `Veggie Smart` project, designed to guide potential contributors on how to get involved and contribute to the project.
-
----
-
 # Contributing to Veggie Smart
 
 Thank you for your interest in contributing to the Veggie Smart project! We welcome contributions from everyone. Please follow the guidelines below to ensure a smooth contribution process.
@@ -76,7 +72,3 @@ To report an issue:
 - **CSS**: Use [Tailwind CSS](https://tailwindcss.com/docs) for styling. Follow the project's existing class naming conventions.
 
 Thank you for contributing to Veggie Smart! Your help is greatly appreciated.
-
----
-
-Feel free to adjust any specific details, such as repository links and the code of conduct, to fit your project’s needs.
