@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veggie Smart - Profit Margin Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1a202c;
+            color: #a0aec0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .result {
+            background-color: #2d3748;
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container bg-gray-800 rounded-lg p-6 mt-10">
+        <h1 class="text-3xl font-bold mb-6 text-center text-white">Profit Margin Calculator</h1>
+        <form id="profitMarginForm" class="space-y-4">
+            <div>
+                <label for="costPrice" class="block text-sm font-medium text-gray-300">Cost Price (₹):</label>
+                <input type="number" id="costPrice" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="Enter cost price">
+            </div>
+            <div>
+                <label for="sellingPrice" class="block text-sm font-medium text-gray-300">Selling Price (₹):</label>
+                <input type="number" id="sellingPrice" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="Enter selling price">
+            </div>
+            <button type="button" onclick="calculateProfitMargin()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Calculate Profit Margin</button>
+        </form>
+        <div id="result" class="mt-6 text-center text-xl text-white result"></div>
+    </div>
+    <div class="container bg-gray-800 rounded-lg p-6 mt-6">
+        <h2 class="text-2xl font-bold mb-4 text-center text-white">Detailed Documentation</h2>
+        <p class="text-gray-300">
+            The Profit Margin Calculator helps businesses determine the profit margin for products. Profit margin is the percentage of profit earned on a product relative to its cost price.
+        </p>
+        <ul class="list-disc list-inside text-gray-300 mt-4">
+            <li><strong>Cost Price:</strong> Enter the cost price of the product.</li>
+            <li><strong>Selling Price:</strong> Enter the selling price of the product.</li>
+            <li><strong>Calculation:</strong> The profit margin is calculated using the formula: <code>((Selling Price - Cost Price) / Selling Price) * 100</code>.</li>
+        </ul>
+        <p class="text-gray-300 mt-4">
+            The formula used is:<br>
+            <code>Profit Margin (%) = ((Selling Price - Cost Price) / Selling Price) * 100</code>
+        </p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="profitMarginCalculator.js"></script>
+</body>
+</html>
