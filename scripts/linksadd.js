@@ -74,6 +74,13 @@ function healthcalc(){
             tagName: "Beta",
             buttonName: "Macro Nutrient Cal"
         },
+        {
+            link: "./calhealth/Ideal-Weight-Calculator.html",
+            imageSrc: "https://img.icons8.com/external-wanicon-flat-wanicon/800/external-weight-health-checkup-wanicon-flat-wanicon.png",
+            imageAlt: "Ideal Weight Calculator",
+            tagName: "Free",
+            buttonName: "Ideal Weight Cal"
+        },
     ]
     const healthcont = document.getElementById("HealthCal");
     healthcont.innerHTML = ''; 
