@@ -1,26 +1,80 @@
+function updateForm() {
+    const calcType = document.getElementById('calcType').value;
+    document.querySelectorAll('.calc-fields').forEach(field => field.classList.add('hidden'));
+    switch (calcType) {
+        case 'normal':
+            document.getElementById('normalMarginFields').classList.remove('hidden');
+            break;
+        case 'quantity':
+            document.getElementById('quantityMarginFields').classList.remove('hidden');
+            break;
+        case 'shop':
+            document.getElementById('shopMarginFields').classList.remove('hidden');
+            break;
+    }
+}
+
 function calculateProfitMargin() {
-    const costPrice = parseFloat(document.getElementById('costPrice').value);
-    const sellingPrice = parseFloat(document.getElementById('sellingPrice').value);
-    const resultDiv = document.getElementById('result');
+    const calcType = document.getElementById('calcType').value;
+    let profitMargin = 0;
+    let profit = 0;
+    let resultDiv = document.getElementById('result');
 
-    if (isNaN(costPrice) || isNaN(sellingPrice)) {
-        resultDiv.innerHTML = 'Please enter valid values for cost price and selling price.';
-        return;
+    switch (calcType) {
+        case 'normal':
+            const costPrice = parseFloat(document.getElementById('costPrice').value);
+            const sellingPrice = parseFloat(document.getElementById('sellingPrice').value);
+
+            if (isNaN(costPrice) || isNaN(sellingPrice)) {
+                resultDiv.innerHTML = 'Please enter valid values for cost price and selling price.';
+                return;
+            }
+
+            if (sellingPrice <= costPrice) {
+                resultDiv.innerHTML = 'Selling price should be greater than cost price.';
+                return;
+            }
+
+            profit = sellingPrice - costPrice;
+            profitMargin = (profit / sellingPrice) * 100;
+            break;
+
+        case 'quantity':
+            const quantity = parseFloat(document.getElementById('quantity').value);
+            const pricePerKg = parseFloat(document.getElementById('pricePerKg').value);
+            const sellingPriceKg = parseFloat(document.getElementById('sellingPriceKg').value);
+
+            if (isNaN(quantity) || isNaN(pricePerKg) || isNaN(sellingPriceKg)) {
+                resultDiv.innerHTML = 'Please enter valid values for quantity, price per kg, and selling price.';
+                return;
+            }
+
+            const totalCost = quantity * pricePerKg;
+            profit = (sellingPriceKg * quantity) - totalCost;
+            profitMargin = (profit / (sellingPriceKg * quantity)) * 100;
+            break;
+
+        case 'shop':
+            const costPriceShop = parseFloat(document.getElementById('costPriceShop').value);
+            const expenses = parseFloat(document.getElementById('expenses').value);
+            const sellingPriceShop = parseFloat(document.getElementById('sellingPriceShop').value);
+
+            if (isNaN(costPriceShop) || isNaN(expenses) || isNaN(sellingPriceShop)) {
+                resultDiv.innerHTML = 'Please enter valid values for cost price, expenses, and selling price.';
+                return;
+            }
+
+            const totalCostShop = costPriceShop + expenses;
+            profit = sellingPriceShop - totalCostShop;
+            profitMargin = (profit / sellingPriceShop) * 100;
+            break;
     }
-
-    if (sellingPrice <= costPrice) {
-        resultDiv.innerHTML = 'Selling price should be greater than cost price.';
-        return;
-    }
-
-    const profit = sellingPrice - costPrice;
-    const profitMargin = (profit / sellingPrice) * 100;
 
     resultDiv.innerHTML = `Your profit margin is approximately <strong>${profitMargin.toFixed(2)}%</strong>.`;
 
     // Display Chart
-    const ctx = document.createElement('canvas');
-    resultDiv.appendChild(ctx);
+    resultDiv.innerHTML += '<canvas id="profitMarginChart"></canvas>';
+    const ctx = document.getElementById('profitMarginChart').getContext('2d');
     new Chart(ctx, {
         type: 'doughnut',
         data: {

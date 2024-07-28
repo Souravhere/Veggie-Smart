@@ -27,12 +27,50 @@
         <h1 class="text-3xl font-bold mb-6 text-center text-white">Profit Margin Calculator</h1>
         <form id="profitMarginForm" class="space-y-4">
             <div>
-                <label for="costPrice" class="block text-sm font-medium text-gray-300">Cost Price (₹):</label>
-                <input type="number" id="costPrice" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="Enter cost price">
+                <label for="calcType" class="block text-sm font-medium text-gray-300">Calculation Type:</label>
+                <select id="calcType" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" onchange="updateForm()">
+                    <option value="normal">Normal Margin</option>
+                    <option value="quantity">Margin Based on Quantity</option>
+                    <option value="shop">Advanced Shop Margin</option>
+                </select>
             </div>
-            <div>
-                <label for="sellingPrice" class="block text-sm font-medium text-gray-300">Selling Price (₹):</label>
-                <input type="number" id="sellingPrice" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="Enter selling price">
+            <div id="normalMarginFields" class="calc-fields">
+                <div>
+                    <label for="costPrice" class="block text-sm font-medium text-gray-300">Cost Price (₹):</label>
+                    <input type="number" id="costPrice" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="Enter cost price">
+                </div>
+                <div>
+                    <label for="sellingPrice" class="block text-sm font-medium text-gray-300">Selling Price (₹):</label>
+                    <input type="number" id="sellingPrice" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="Enter selling price">
+                </div>
+            </div>
+            <div id="quantityMarginFields" class="calc-fields hidden">
+                <div>
+                    <label for="quantity" class="block text-sm font-medium text-gray-300">Quantity (kg):</label>
+                    <input type="number" id="quantity" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="Enter quantity in kg">
+                </div>
+                <div>
+                    <label for="pricePerKg" class="block text-sm font-medium text-gray-300">Price per kg (₹):</label>
+                    <input type="number" id="pricePerKg" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="Enter price per kg">
+                </div>
+                <div>
+                    <label for="sellingPriceKg" class="block text-sm font-medium text-gray-300">Selling Price (₹):</label>
+                    <input type="number" id="sellingPriceKg" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="Enter selling price">
+                </div>
+            </div>
+            <div id="shopMarginFields" class="calc-fields hidden">
+                <div>
+                    <label for="costPriceShop" class="block text-sm font-medium text-gray-300">Cost Price (₹):</label>
+                    <input type="number" id="costPriceShop" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="Enter cost price">
+                </div>
+                <div>
+                    <label for="expenses" class="block text-sm font-medium text-gray-300">Other Expenses (₹):</label>
+                    <input type="number" id="expenses" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="Enter other expenses">
+                </div>
+                <div>
+                    <label for="sellingPriceShop" class="block text-sm font-medium text-gray-300">Selling Price (₹):</label>
+                    <input type="number" id="sellingPriceShop" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="Enter selling price">
+                </div>
             </div>
             <button type="button" onclick="calculateProfitMargin()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Calculate Profit Margin</button>
         </form>
