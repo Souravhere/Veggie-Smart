@@ -70,10 +70,10 @@ function calculateProfitMargin() {
             break;
     }
 
-    resultDiv.innerHTML = `Your profit margin is approximately <strong>${profitMargin.toFixed(2)}%</strong>.`;
+    resultDiv.innerHTML = `Your profit amount is <strong>₹${profit.toFixed(2)}</strong> and your profit margin is approximately <strong>${profitMargin.toFixed(2)}%</strong>.`;
 
     // Display Chart
-    resultDiv.innerHTML += '<canvas id="profitMarginChart"></canvas>';
+    resultDiv.innerHTML += '<canvas id="profitMarginChart" class="mt-4"></canvas>';
     const ctx = document.getElementById('profitMarginChart').getContext('2d');
     new Chart(ctx, {
         type: 'doughnut',
