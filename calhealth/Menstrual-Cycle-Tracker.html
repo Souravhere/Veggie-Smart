@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veggie Smart - Menstrual Cycle Tracker Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <meta name="description" content="Advanced Menstrual Cycle Tracker Calculator to help users predict periods, ovulation, and track symptoms efficiently.">
+    <meta name="keywords" content="Menstrual Cycle Tracker, Period Calculator, Ovulation Prediction, Symptom Tracker, Fertility Calculator, Veggie Smart">
+    <meta name="author" content="Veggie Smart">
+    <style>
+        body {
+            background-color: #1a202c;
+            color: #a0aec0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .result, .docs {
+            background-color: #2d3748;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        .result strong, .docs strong {
+            color: #4caf50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container bg-gray-800 rounded-lg p-6 mt-10">
+        <h1 class="text-3xl font-bold mb-6 text-center text-white">Menstrual Cycle Tracker Calculator</h1>
+        <form id="menstrualCycleForm" class="space-y-4">
+            <div>
+                <label for="cycleStartDate" class="block text-sm font-medium text-gray-300">Cycle Start Date:</label>
+                <input type="date" id="cycleStartDate" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" required>
+            </div>
+            <div>
+                <label for="cycleLength" class="block text-sm font-medium text-gray-300">Cycle Length (days):</label>
+                <input type="number" id="cycleLength" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="e.g., 28" required>
+            </div>
+            <div>
+                <label for="periodLength" class="block text-sm font-medium text-gray-300">Period Length (days):</label>
+                <input type="number" id="periodLength" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="e.g., 5" required>
+            </div>
+            <div>
+                <label for="symptoms" class="block text-sm font-medium text-gray-300">Symptoms:</label>
+                <textarea id="symptoms" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="e.g., Cramps, Mood swings"></textarea>
+            </div>
+            <div>
+                <label for="notes" class="block text-sm font-medium text-gray-300">Notes:</label>
+                <textarea id="notes" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="e.g., Any additional notes"></textarea>
+            </div>
+            <button type="button" onclick="calculateMenstrualCycle()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Calculate</button>
+        </form>
+        <div id="result" class="mt-6 text-center text-xl text-white result"></div>
+    </div>
+    <div class="container bg-gray-800 rounded-lg p-6 mt-6 docs">
+        <h2 class="text-2xl font-bold mb-4 text-center text-white">Detailed Documentation</h2>
+        <p class="text-gray-300">
+            The Menstrual Cycle Tracker Calculator helps users predict periods, ovulation, and track symptoms efficiently.
+        </p>
+        <ul class="list-disc list-inside text-gray-300 mt-4">
+            <li><strong>Cycle Start Date:</strong> The date when the last menstrual period began.</li>
+            <li><strong>Cycle Length:</strong> The average length of the menstrual cycle (e.g., 28 days).</li>
+            <li><strong>Period Length:</strong> The average duration of the menstrual period (e.g., 5 days).</li>
+            <li><strong>Optional Inputs:</strong> Symptoms, mood changes, flow intensity, and any notes related to the cycle.</li>
+        </ul>
+        <h3 class="text-xl font-bold mt-4 text-white">Cycle Tracking:</h3>
+        <ul class="list-disc list-inside text-gray-300 mt-4">
+            <li><strong>Period Prediction:</strong> Predicts the start and end dates of future menstrual periods.</li>
+            <li><strong>Cycle Overview:</strong> Provides a visual calendar or timeline showing past cycles and predicted future cycles.</li>
+        </ul>
+        <h3 class="text-xl font-bold mt-4 text-white">Ovulation Prediction:</h3>
+        <ul class="list-disc list-inside text-gray-300 mt-4">
+            <li><strong>Ovulation Date:</strong> Estimates the ovulation day, typically around 14 days before the next expected period for a 28-day cycle.</li>
+            <li><strong>Fertile Window:</strong> Calculates the fertile window, including the ovulation day and the five days leading up to it.</li>
+        </ul>
+        <h3 class="text-xl font-bold mt-4 text-white">Symptom Tracking:</h3>
+        <ul class="list-disc list-inside text-gray-300 mt-4">
+            <li><strong>Daily Logs:</strong> Allows users to log daily symptoms, mood changes, and flow intensity.</li>
+            <li><strong>Symptom Analysis:</strong> Analyzes logged symptoms to provide insights into how the menstrual cycle affects the user's health and mood.</li>
+        </ul>
+        <h3 class="text-xl font-bold mt-4 text-white">Notifications and Reminders:</h3>
+        <ul class="list-disc list-inside text-gray-300 mt-4">
+            <li><strong>Upcoming Period:</strong> Sends notifications a few days before the predicted start of the next period.</li>
+            <li><strong>Ovulation Reminder:</strong> Notifies users about the upcoming fertile window and predicted ovulation day.</li>
+        </ul>
+        <h3 class="text-xl font-bold mt-4 text-white">Health Insights:</h3>
+        <ul class="list-disc list-inside text-gray-300 mt-4">
+            <li><strong>Cycle Regularity:</strong> Tracks the regularity of the menstrual cycle over time.</li>
+            <li><strong>Symptom Patterns:</strong> Provides insights into recurring symptoms and their possible connections to different phases of the cycle.</li>
+            <li><strong>Health Tips:</strong> Offers health tips based on the user's cycle patterns and symptoms.</li>
+        </ul>
+        <h3 class="text-xl font-bold mt-4 text-white">Data Export:</h3>
+        <ul class="list-disc list-inside text-gray-300 mt-4">
+            <li><strong>Report Generation:</strong> Allows users to generate reports of their cycle history, symptoms, and other logged data.</li>
+            <li><strong>Privacy Controls:</strong> Ensures users can securely manage their data, including options for data export and deletion.</li>
+        </ul>
+    </div>
+    <script>
+        function calculateMenstrualCycle() {
+            const startDate = new Date(document.getElementById('cycleStartDate').value);
+            const cycleLength = parseInt(document.getElementById('cycleLength').value);
+            const periodLength = parseInt(document.getElementById('periodLength').value);
+
+            if (isNaN(cycleLength) || isNaN(periodLength)) {
+                document.getElementById('result').innerHTML = 'Please enter valid values for cycle length and period length.';
+                return;
+            }
+
+            const nextPeriodStart = new Date(startDate);
+            nextPeriodStart.setDate(startDate.getDate() + cycleLength);
+            const nextPeriodEnd = new Date(nextPeriodStart);
+            nextPeriodEnd.setDate(nextPeriodStart.getDate() + periodLength - 1);
+
+            const ovulationDate = new Date(nextPeriodStart);
+            ovulationDate.setDate(nextPeriodStart.getDate() - 14);
+            const fertileStart = new Date(ovulationDate);
+            fertileStart.setDate(ovulationDate.getDate() - 5);
+            const fertileEnd = new Date(ovulationDate);
+
+            document.getElementById('result').innerHTML = `
+                <p>Your next period is expected to start on <strong>${nextPeriodStart.toDateString()}</strong> and end on <strong>${nextPeriodEnd.toDateString()}</strong>.</p>
+                <p>Your estimated ovulation date is <strong>${ovulationDate.toDateString()}</strong>, and your fertile window is from <strong>${fertileStart.toDateString()}</strong> to <strong>${fertileEnd.toDateString()}</strong>.</p>
+            `;
+        }
+    </script>
+</body>
+</html>
