@@ -81,6 +81,13 @@ function healthcalc(){
             tagName: "Free",
             buttonName: "Ideal Weight Cal"
         },
+        {
+            link: "./calhealth/Menstrual-Cycle-Tracker.html",
+            imageSrc: "https://img.icons8.com/external-flaticons-lineal-color-flat-icons/800/external-menstrual-cycle-anatomy-flaticons-lineal-color-flat-icons-2.png",
+            imageAlt: "Menstrual Cycle Tracker",
+            tagName: "Beta",
+            buttonName: "Menstrual Cycle"
+        },
     ]
     const healthcont = document.getElementById("HealthCal");
     healthcont.innerHTML = ''; 
