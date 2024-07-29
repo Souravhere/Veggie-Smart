@@ -30,6 +30,15 @@
         .result strong, .docs strong {
             color: #4caf50;
         }
+        .result p {
+            margin: 10px 0;
+        }
+        .result div {
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #4a5568;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -51,6 +60,23 @@
             <div>
                 <label for="symptoms" class="block text-sm font-medium text-gray-300">Symptoms:</label>
                 <textarea id="symptoms" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="e.g., Cramps, Mood swings"></textarea>
+            </div>
+            <div>
+                <label for="moodChanges" class="block text-sm font-medium text-gray-300">Mood Changes:</label>
+                <select id="moodChanges" class="w-full p-2 bg-gray-700 border border-gray-600 rounded">
+                    <option value="Happy">Happy</option>
+                    <option value="Sad">Sad</option>
+                    <option value="Irritated">Irritated</option>
+                    <option value="Anxious">Anxious</option>
+                </select>
+            </div>
+            <div>
+                <label for="flowIntensity" class="block text-sm font-medium text-gray-300">Flow Intensity:</label>
+                <select id="flowIntensity" class="w-full p-2 bg-gray-700 border border-gray-600 rounded">
+                    <option value="Light">Light</option>
+                    <option value="Moderate">Moderate</option>
+                    <option value="Heavy">Heavy</option>
+                </select>
             </div>
             <div>
                 <label for="notes" class="block text-sm font-medium text-gray-300">Notes:</label>
@@ -108,26 +134,39 @@
             const startDate = new Date(document.getElementById('cycleStartDate').value);
             const cycleLength = parseInt(document.getElementById('cycleLength').value);
             const periodLength = parseInt(document.getElementById('periodLength').value);
-
-            if (isNaN(cycleLength) || isNaN(periodLength)) {
-                document.getElementById('result').innerHTML = 'Please enter valid values for cycle length and period length.';
-                return;
-            }
+            const symptoms = document.getElementById('symptoms').value;
+            const moodChanges = document.getElementById('moodChanges').value;
+            const flowIntensity = document.getElementById('flowIntensity').value;
+            const notes = document.getElementById('notes').value;
 
             const nextPeriodStart = new Date(startDate);
             nextPeriodStart.setDate(startDate.getDate() + cycleLength);
+
             const nextPeriodEnd = new Date(nextPeriodStart);
             nextPeriodEnd.setDate(nextPeriodStart.getDate() + periodLength - 1);
 
             const ovulationDate = new Date(nextPeriodStart);
             ovulationDate.setDate(nextPeriodStart.getDate() - 14);
-            const fertileStart = new Date(ovulationDate);
-            fertileStart.setDate(ovulationDate.getDate() - 5);
-            const fertileEnd = new Date(ovulationDate);
 
-            document.getElementById('result').innerHTML = `
-                <p>Your next period is expected to start on <strong>${nextPeriodStart.toDateString()}</strong> and end on <strong>${nextPeriodEnd.toDateString()}</strong>.</p>
-                <p>Your estimated ovulation date is <strong>${ovulationDate.toDateString()}</strong>, and your fertile window is from <strong>${fertileStart.toDateString()}</strong> to <strong>${fertileEnd.toDateString()}</strong>.</p>
+            const fertileWindowStart = new Date(ovulationDate);
+            fertileWindowStart.setDate(ovulationDate.getDate() - 5);
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `
+                <h3 class="text-2xl font-bold mb-4">Cycle Prediction Results</h3>
+                <div>
+                    <p><strong>Next Period Start Date:</strong> ${nextPeriodStart.toDateString()}</p>
+                    <p><strong>Next Period End Date:</strong> ${nextPeriodEnd.toDateString()}</p>
+                    <p><strong>Ovulation Date:</strong> ${ovulationDate.toDateString()}</p>
+                    <p><strong>Fertile Window:</strong> ${fertileWindowStart.toDateString()} to ${ovulationDate.toDateString()}</p>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-2">Logged Symptoms and Notes:</h4>
+                    <p><strong>Symptoms:</strong> ${symptoms || 'None'}</p>
+                    <p><strong>Mood Changes:</strong> ${moodChanges}</p>
+                    <p><strong>Flow Intensity:</strong> ${flowIntensity}</p>
+                    <p><strong>Notes:</strong> ${notes || 'None'}</p>
+                </div>
             `;
         }
     </script>
