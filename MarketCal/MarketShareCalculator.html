@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Share Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <meta name="description" content="Advanced Market Share Calculator to determine a company's market share based on sales and total market sales, tailored for Indian and international markets.">
+    <meta name="keywords" content="Market Share Calculator, Business Calculator, Sales Analysis, Industry Market Share, Veggie Smart">
+    <meta name="author" content="Veggie Smart">
+    <style>
+        body {
+            background-color: #1a202c;
+            color: #a0aec0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .result, .docs {
+            background-color: #2d3748;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        .result strong, .docs strong {
+            color: #4caf50;
+        }
+        .result p {
+            margin: 10px 0;
+        }
+        .result div {
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #4a5568;
+            margin-top: 10px;
+        }
+        .error {
+            color: #e53e3e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container bg-gray-800 rounded-lg p-6 mt-10">
+        <h1 class="text-3xl font-bold mb-6 text-center text-white">Market Share Calculator</h1>
+        <form id="marketShareForm" class="space-y-4">
+            <div>
+                <label for="country" class="block text-sm font-medium text-gray-300">Select Country:</label>
+                <select id="country" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" required>
+                    <option value="India">India</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div>
+                <label for="companySales" class="block text-sm font-medium text-gray-300">Company Sales (in local currency):</label>
+                <input type="number" id="companySales" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="e.g., 1000000" required min="0">
+            </div>
+            <div>
+                <label for="totalMarketSales" class="block text-sm font-medium text-gray-300">Total Market Sales (in local currency):</label>
+                <input type="number" id="totalMarketSales" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="e.g., 5000000" required min="0">
+            </div>
+            <button type="button" onclick="calculateMarketShare()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Calculate</button>
+        </form>
+        <div id="result" class="mt-6 text-center text-xl text-white result"></div>
+    </div>
+    <div class="container bg-gray-800 rounded-lg p-6 mt-6 docs">
+        <h2 class="text-2xl font-bold mb-4 text-center text-white">Detailed Documentation</h2>
+        <p class="text-gray-300">
+            The Market Share Calculator helps businesses determine their market share based on their sales and the total market sales within an industry. This tool is tailored for both Indian and international markets.
+        </p>
+        <ul class="list-disc list-inside text-gray-300 mt-4">
+            <li><strong>Select Country:</strong> Choose between India and other countries to account for market-specific conditions.</li>
+            <li><strong>Company Sales:</strong> Enter your company's sales in the local currency.</li>
+            <li><strong>Total Market Sales:</strong> Enter the total market sales in the local currency.</li>
+        </ul>
+        <h3 class="text-xl font-bold mt-4 text-white">Calculation Method:</h3>
+        <ul class="list-disc list-inside text-gray-300 mt-4">
+            <li><strong>Market Share Percentage:</strong> Calculates the market share as a percentage of the company's sales to the total market sales.</li>
+            <li><strong>Profit Amount:</strong> Computes the profit amount based on the company's sales and market share percentage.</li>
+        </ul>
+        <h3 class="text-xl font-bold mt-4 text-white">Example Usage:</h3>
+        <ul class="list-disc list-inside text-gray-300 mt-4">
+            <li><strong>Company Sales:</strong> 1,000,000 (in local currency)</li>
+            <li><strong>Total Market Sales:</strong> 5,000,000 (in local currency)</li>
+            <li><strong>Market Share:</strong> 20%</li>
+            <li><strong>Profit Amount:</strong> 200,000 (in local currency)</li>
+        </ul>
+    </div>
+    <script>
+        function calculateMarketShare() {
+            const country = document.getElementById('country').value;
+            const companySales = parseFloat(document.getElementById('companySales').value);
+            const totalMarketSales = parseFloat(document.getElementById('totalMarketSales').value);
+
+            if (isNaN(companySales) || isNaN(totalMarketSales) || companySales < 0 || totalMarketSales <= 0) {
+                document.getElementById('result').innerHTML = '<p class="error">Please enter valid sales values.</p>';
+                return;
+            }
+
+            const marketSharePercentage = (companySales / totalMarketSales) * 100;
+            const profitAmount = (marketSharePercentage / 100) * companySales;
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `
+                <h3 class="text-2xl font-bold mb-4">Market Share Calculation Results</h3>
+                <div class="mb-4">
+                    <p><strong>Country:</strong> ${country}</p>
+                    <p><strong>Company Sales:</strong> ${companySales.toLocaleString()} (in local currency)</p>
+                    <p><strong>Total Market Sales:</strong> ${totalMarketSales.toLocaleString()} (in local currency)</p>
+                    <p><strong>Market Share:</strong> ${marketSharePercentage.toFixed(2)}%</p>
+                    <p><strong>Profit Amount:</strong> ${profitAmount.toLocaleString()} (in local currency)</p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
