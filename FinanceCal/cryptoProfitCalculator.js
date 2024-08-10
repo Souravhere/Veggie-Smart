@@ -5,7 +5,6 @@ const cryptoDetails = document.getElementById('cryptoDetails');
 const profitResult = document.getElementById('profitResult');
 const profitChart = document.getElementById('profitChart');
 
-const apiKey = 'YOUR_FREE_API_KEY';
 const apiURL = 'https://api.coingecko.com/api/v3/coins/markets';
 const currencies = ['USD', 'EUR', 'INR', 'JPY', 'GBP'];
 
@@ -20,6 +19,7 @@ const loadCryptocurrencies = async () => {
         });
     } catch (error) {
         console.error('Error loading cryptocurrencies:', error);
+        alert('Failed to load cryptocurrency data. Please check your network connection and try again.');
     }
 };
 
@@ -74,6 +74,7 @@ const calculateProfit = async () => {
 
     } catch (error) {
         console.error('Error calculating profit:', error);
+        alert('Failed to calculate profit. Please check your network connection and try again.');
     }
 };
 
