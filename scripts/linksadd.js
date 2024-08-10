@@ -371,6 +371,13 @@ function EducationCal(){
             tagName: "Free",
             buttonName: "Tuition Fee Cal"
         },
+        {
+            link: "./EducationCalculators/Course-Load-Planner.html",
+            imageSrc: "https://img.icons8.com/color/800/classroom.png",
+            imageAlt: "Course Load Planner",
+            tagName: "Free",
+            buttonName: "Course Load Planner"
+        },
     ]
     const educationCalContainer = document.getElementById("EducationCal");
     educationCalContainer.innerHTML = ''; 
