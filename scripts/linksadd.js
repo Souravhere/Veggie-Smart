@@ -1,3 +1,69 @@
+function MarketProCalculators() {
+    const MarketProCaldata = [
+        {
+            link: "./MarketCal/Calculate-Total-Price.html",
+            imageSrc: "https://img.icons8.com/color/800/calculate.png",
+            imageAlt: "Calculate Total Price",
+            tagName: "Free",
+            buttonName: "Calculate Total Price"
+        },
+        {
+            link: "./MarketCal/Calculate-Price-Kg.html",
+            imageSrc: "https://img.icons8.com/color/800/weight-kg.png",
+            imageAlt: "Calculate Price Kg",
+            tagName: "Free",
+            buttonName: "Calculate Price Kg"
+        },
+        {
+            link: "./MarketCal/Calculate-Quantity.html",
+            imageSrc: "https://img.icons8.com/color/800/scale.png",
+            imageAlt: "Calculate Quantity",
+            tagName: "Free",
+            buttonName: "Calculate Quantity"
+        },
+        {
+            link: "./Offers Cal/OffersCal.html",
+            imageSrc: "https://img.icons8.com/fluency/800/discount--v1.png",
+            imageAlt: "Discount Calculator",
+            tagName: "Free",
+            buttonName: "Discount Calculator"
+        },
+        {
+            link: "./MarketCal/Profit-Margin-Calculator.html",
+            imageSrc: "https://img.icons8.com/arcade/800/point-spread.png",
+            imageAlt: "Profit Margin Cal",
+            tagName: "Free",
+            buttonName: "Profit Margin Cal"
+        },
+        {
+            link: "./MarketCal/MarketShareCalculator.html",
+            imageSrc: "https://img.icons8.com/isometric/800/share.png",
+            imageAlt: "Market Share Cal",
+            tagName: "Free",
+            buttonName: "Market Share Cal"
+        },
+    ];
+    
+    const MarketProCal = document.getElementById("MarketProCal");
+    MarketProCal.innerHTML = ''; 
+    
+    MarketProCaldata.forEach(item => {
+        MarketProCal.innerHTML += `
+            <a href="${item.link}">
+                <div class="calbtn">
+                    <div>
+                        <img src="${item.imageSrc}" alt="${item.imageAlt}" loading="lazy">
+                    </div>
+                    <div class="btnsecondsection">
+                        <span class="btn-tagname">${item.tagName}</span>
+                        <h4 class="btn-name">${item.buttonName}</h4>
+                    </div>
+                </div>
+            </a>
+        `;
+    });
+}
+MarketProCalculators()
 function foodcal() {
     const fooddata = [
         {
