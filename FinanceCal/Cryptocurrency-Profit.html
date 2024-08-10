@@ -38,7 +38,7 @@
                 </form>
             </div>
             
-            <div id="resultDiv" class="bg-gray-800 p-6 rounded-lg shadow-lg hidden">
+            <div id="resultDiv" class="bg-gray-800 p-6 rounded-lg shadow-lg ">
                 <h2 class="text-xl font-bold mb-4">Result</h2>
                 <div id="cryptoDetails" class="mb-4">
                     <!-- Cryptocurrency details will be populated here -->
@@ -47,7 +47,32 @@
                 <canvas id="profitChart"></canvas>
             </div>
         </div>
+        <div class="mt-8 p-6 bg-gray-800 text-white rounded-lg">
+            <h2 class="text-2xl font-bold mb-4">Cryptocurrency Profit Calculator Documentation</h2>
+            <p>The Cryptocurrency Profit Calculator helps investors calculate potential profits or losses from their cryptocurrency investments.</p>
+            
+            <h3 class="text-xl font-bold mt-4">Features:</h3>
+            <ul class="list-disc list-inside">
+                <li>Select cryptocurrency and fiat currency.</li>
+                <li>Enter investment amount and purchase price per unit.</li>
+                <li>Displays real-time price of the selected cryptocurrency using the CoinGecko API.</li>
+                <li>Calculates profit/loss and displays it in both absolute and percentage terms.</li>
+                <li>Shows results in a graphical form using Chart.js.</li>
+            </ul>
+        
+            <h3 class="text-xl font-bold mt-4">Formulas Used:</h3>
+            <p><strong>Current Value:</strong> (Investment Amount / Purchase Price) * Current Price</p>
+            <p><strong>Profit/Loss:</strong> Current Value - Investment Amount</p>
+            <p><strong>Profit/Loss Percentage:</strong> (Profit/Loss / Investment Amount) * 100</p>
+            
+            <h3 class="text-xl font-bold mt-4">API Integration:</h3>
+            <p>We use the CoinGecko API to fetch real-time cryptocurrency prices in various fiat currencies.</p>
+            
+            <h3 class="text-xl font-bold mt-4">Chart.js Integration:</h3>
+            <p>We integrate Chart.js to visualize the profit and investment comparison in a doughnut chart.</p>
+        </div>
     </div>
+    
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script src="./cryptoProfitCalculator.js"></script>
