@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veggie Smart - Course Load Planner</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1a202c;
+            color: #a0aec0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .result {
+            background-color: #2d3748;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .course-table th, .course-table td {
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container bg-gray-800 rounded-lg p-6 mt-10">
+        <h1 class="text-3xl font-bold mb-6 text-center text-white">Course Load Planner</h1>
+        <form id="courseLoadForm" class="space-y-4">
+            <div class="flex space-x-4">
+                <div class="w-full">
+                    <label for="courseName" class="block text-sm font-medium text-gray-300">Course Name:</label>
+                    <input type="text" id="courseName" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="Enter course name">
+                </div>
+                <div class="w-1/3">
+                    <label for="credits" class="block text-sm font-medium text-gray-300">Credits:</label>
+                    <input type="number" id="credits" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="Enter credits">
+                </div>
+            </div>
+            <div class="flex space-x-4">
+                <div class="w-full">
+                    <label for="semester" class="block text-sm font-medium text-gray-300">Semester:</label>
+                    <input type="number" id="semester" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="Enter semester number">
+                </div>
+                <div class="w-1/3">
+                    <label for="targetGPA" class="block text-sm font-medium text-gray-300">Target GPA:</label>
+                    <input type="number" step="0.01" id="targetGPA" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="Enter target GPA">
+                </div>
+            </div>
+            <button type="button" onclick="addCourse()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add Course</button>
+        </form>
+        <div id="courseTableContainer" class="mt-6"></div>
+        <div id="result" class="mt-6 text-center text-xl text-white result"></div>
+    </div>
+    <div class="container bg-gray-800 rounded-lg p-6 mt-6">
+        <h2 class="text-2xl font-bold mb-4 text-center text-white">Detailed Documentation</h2>
+        <p class="text-gray-300">
+            The Course Load Planner is a tool designed to assist students in managing their course load for each semester. It helps in balancing the workload while ensuring that graduation requirements are met efficiently.
+        </p>
+        <ul class="list-disc list-inside text-gray-300 mt-4">
+            <li><strong>Course Name:</strong> Enter the name of the course.</li>
+            <li><strong>Credits:</strong> Enter the number of credits for the course.</li>
+            <li><strong>Semester:</strong> Enter the semester number for which the course is planned.</li>
+            <li><strong>Target GPA:</strong> Enter the target GPA for the semester.</li>
+            <li><strong>Add Course:</strong> Click the 'Add Course' button to add the course to the plan. The table below will update to reflect the planned courses.</li>
+            <li><strong>Total Credits:</strong> The total number of credits planned for the semester is displayed.</li>
+            <li><strong>Balance Workload:</strong> Adjust the number of courses or credits to balance the workload across semesters.</li>
+        </ul>
+        <p class="text-gray-300 mt-4">
+            The planner can be used iteratively to adjust the course load until a balanced and manageable schedule is achieved, ensuring a steady progress towards graduation.
+        </p>
+    </div>
+    <script>
+        const courses = [];
+
+        function addCourse() {
+            const courseName = document.getElementById('courseName').value;
+            const credits = parseFloat(document.getElementById('credits').value);
+            const semester = parseInt(document.getElementById('semester').value);
+            const targetGPA = parseFloat(document.getElementById('targetGPA').value);
+
+            if (courseName && !isNaN(credits) && !isNaN(semester) && !isNaN(targetGPA)) {
+                courses.push({ courseName, credits, semester, targetGPA });
+                updateCourseTable();
+                calculateLoad();
+            } else {
+                alert('Please enter valid course details.');
+            }
+        }
+
+        function updateCourseTable() {
+            const courseTableContainer = document.getElementById('courseTableContainer');
+            courseTableContainer.innerHTML = '';
+
+            const table = document.createElement('table');
+            table.classList.add('course-table', 'w-full', 'text-white', 'bg-gray-700', 'rounded-lg', 'mb-4');
+            table.innerHTML = `
+                <thead>
+                    <tr class="bg-gray-900">
+                        <th>Course Name</th>
+                        <th>Credits</th>
+                        <th>Semester</th>
+                        <th>Target GPA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${courses.map(course => `
+                        <tr>
+                            <td>${course.courseName}</td>
+                            <td>${course.credits}</td>
+                            <td>${course.semester}</td>
+                            <td>${course.targetGPA.toFixed(2)}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            `;
+
+            courseTableContainer.appendChild(table);
+        }
+
+        function calculateLoad() {
+            const totalCredits = courses.reduce((acc, course) => acc + course.credits, 0);
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `Total Credits Planned: <strong>${totalCredits}</strong>`;
+        }
+    </script>
+</body>
+</html>

@@ -1,3 +1,43 @@
+function NewFeatured() {
+    const NewFeatureddata = [
+        {
+            link: "./AddtionalFeatures/ReceiptGenerator.html",
+            imageSrc: "https://img.icons8.com/color/500/receipt.png",
+            imageAlt: "Receipt Generator",
+            tagName: "Beta",
+            buttonName: "Receipt Generator"
+        },
+        {
+            link: "./AddtionalFeatures/qrcodegen.html",
+            imageSrc: "https://img.icons8.com/fluency/500/qr-code.png",
+            imageAlt: "QR Code Generator",
+            tagName: "Free",
+            buttonName: "QR Code Generator"
+        },
+    ];
+    
+    const NewFeatured = document.getElementById("NewFeatured");
+    NewFeatured.innerHTML = ''; 
+    
+    NewFeatureddata.forEach(item => {
+        NewFeatured.innerHTML += `
+            <a href="${item.link}">
+                <div class="calbtn">
+                    <div>
+                        <img src="${item.imageSrc}" alt="${item.imageAlt}" loading="lazy">
+                    </div>
+                    <div class="btnsecondsection">
+                        <span class="btn-tagname">${item.tagName}</span>
+                        <h4 class="btn-name">${item.buttonName}</h4>
+                    </div>
+                </div>
+            </a>
+        `;
+    });
+}
+NewFeatured()
+
+// This function for the Market Pro Calcuaotor 
 function MarketProCalculators() {
     const MarketProCaldata = [
         {
