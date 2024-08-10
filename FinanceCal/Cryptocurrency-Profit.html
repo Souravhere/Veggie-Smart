@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptocurrency Profit Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-8 text-center">Cryptocurrency Profit Calculator</h1>
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg max-w-lg mx-auto">
+            <form id="cryptoForm">
+                <div class="mb-4">
+                    <label for="initialInvestment" class="block mb-2">Initial Investment (in USD):</label>
+                    <input type="number" id="initialInvestment" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="Enter initial investment" required>
+                </div>
+                <div class="mb-4">
+                    <label for="buyPrice" class="block mb-2">Buy Price per Coin (in USD):</label>
+                    <input type="number" id="buyPrice" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="Enter buy price" required>
+                </div>
+                <div class="mb-4">
+                    <label for="sellPrice" class="block mb-2">Sell Price per Coin (in USD):</label>
+                    <input type="number" id="sellPrice" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="Enter sell price" required>
+                </div>
+                <div class="mb-4">
+                    <label for="coinAmount" class="block mb-2">Number of Coins:</label>
+                    <input type="number" id="coinAmount" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" placeholder="Enter number of coins" required>
+                </div>
+                <button type="button" onclick="calculateProfit()" class="w-full py-2 px-4 bg-green-600 hover:bg-green-700 rounded text-white font-semibold">Calculate Profit</button>
+            </form>
+            <div id="profitResult" class="mt-6 text-center text-xl font-bold"></div>
+        </div>
+    </div>
+    <div class="container mx-auto px-4 py-8">
+        <h2 class="text-2xl font-semibold mb-4">How the Cryptocurrency Profit Calculator Works</h2>
+        <p>The Cryptocurrency Profit Calculator is designed to help you calculate the potential profit or loss from your cryptocurrency investments.</p>
+        <ul class="list-disc list-inside mt-4">
+            <li><strong>Initial Investment:</strong> This is the amount of money you initially invested in purchasing the cryptocurrency.</li>
+            <li><strong>Buy Price per Coin:</strong> The price at which you bought each cryptocurrency coin.</li>
+            <li><strong>Sell Price per Coin:</strong> The price at which you plan to sell or have sold each cryptocurrency coin.</li>
+            <li><strong>Number of Coins:</strong> The total number of cryptocurrency coins you own or plan to sell.</li>
+        </ul>
+        <p class="mt-4">The calculator uses the following formula to calculate your profit or loss:</p>
+        <p class="bg-gray-800 p-4 rounded-lg mt-4"><code>Profit/Loss = (Sell Price per Coin - Buy Price per Coin) * Number of Coins</code></p>
+        <p class="mt-4">The result will tell you whether you have made a profit or loss based on the difference between your buy price and sell price, multiplied by the number of coins.</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
+    <script>
+        function calculateProfit() {
+            const initialInvestment = parseFloat(document.getElementById('initialInvestment').value);
+            const buyPrice = parseFloat(document.getElementById('buyPrice').value);
+            const sellPrice = parseFloat(document.getElementById('sellPrice').value);
+            const coinAmount = parseFloat(document.getElementById('coinAmount').value);
+            
+            if (isNaN(initialInvestment) || isNaN(buyPrice) || isNaN(sellPrice) || isNaN(coinAmount)) {
+                document.getElementById('profitResult').innerText = 'Please enter valid numbers.';
+                return;
+            }
+
+            const profit = (sellPrice - buyPrice) * coinAmount;
+            const profitPercentage = (profit / initialInvestment) * 100;
+
+            document.getElementById('profitResult').innerText = `Your ${profit >= 0 ? 'Profit' : 'Loss'}: $${profit.toFixed(2)} (${profitPercentage.toFixed(2)}%)`;
+        }
+    </script>
+</body>
+</html>
