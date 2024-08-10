@@ -154,6 +154,13 @@ function FinanceCal(){
             tagName: "Free",
             buttonName: "Compound Interest"
         },
+        {
+            link: "./FinanceCal/Cryptocurrency-Profit.html",
+            imageSrc: "https://img.icons8.com/isometric/800/blockchain-technology.png",
+            imageAlt: "Cryptocurrency Profit ",
+            tagName: "Free",
+            buttonName: "Cryptocurrency Profit"
+        },
     ]
     const FinanceCal = document.getElementById("FinanceCal");
     FinanceCal.innerHTML = ''; 
