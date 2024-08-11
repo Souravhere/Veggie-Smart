@@ -157,28 +157,26 @@ const toolsData = {
     ],
 };
 
+
+document.addEventListener('DOMContentLoaded', function () {
 // Function to create tool cards
 function createToolCard(tool) {
     return `
-    <div class="tool-card bg-gray-800 text-center rounded-lg shadow-md hover:bg-gray-700">
-    <img src="${tool.imageSrc}" alt="${tool.imageAlt}" class="w-24 h-24 mx-auto mt-4 mb-2 transition-transform duration-300 ease-in-out">
+        <div class="tool-card">
     <div class="tool-card-content">
-        <h2 class="text-2xl font-bold tool-card-title">${tool.buttonName}</h2>
-        <span class="tool-card-tag mt-1">${tool.tagName}</span>
+        <img src="${tool.imageSrc}" alt="${tool.imageAlt}" class="mx-auto mt-4">
+        <h2 class="tool-card-title">${tool.buttonName}</h2>
+        <span class="tool-card-tag">${tool.tagName}</span>
+        <a href="${tool.link}" class="tool-card-button">Go to Tool</a>
+        <a href="#" class="show-more-btn">More Info</a>
+        <div class="more-info">
+            <p class="my-2 text-gray-300 text-sm">${tool.description}</p>
+            <p><strong>Last Updated:</strong> ${tool.lastUpdated}</p>
+            <p><strong>Author:</strong> ${tool.author}</p>
+            <p><strong>Usage Tips:</strong> ${tool.usageTips}</p>
+            <p><strong>Version:</strong> ${tool.version}</p>
+        </div>
     </div>
-    <div class="hover-info p-4">
-        <p>${tool.description}</p>
-        <p><strong>Last Updated:</strong> ${tool.lastUpdated}</p>
-        <p><strong>Rating:</strong> ${tool.giveStars}</p>
-        <p><strong>Category:</strong> ${tool.category}</p>
-        <p><strong>Author:</strong> ${tool.author}</p>
-        <p><strong>Version:</strong> ${tool.version}</p>
-        <p><strong>Features:</strong> ${tool.features.join(", ")}</p>
-        <p><strong>Supported Languages:</strong> ${tool.supportedLanguages.join(", ")}</p>
-        <a href="${tool.supportLink}" class="tool-card-link block mt-2">Support</a> |
-        <a href="${tool.privacyPolicy}" class="tool-card-link block mt-1">Privacy Policy</a>
-    </div>
-    <a href="${tool.link}" class="tool-card-button mt-4">${tool.buttonName}</a>
 </div>
 
     `;
@@ -214,3 +212,26 @@ document.getElementById('search').addEventListener('input', function() {
 
 // Load tools on page load
 loadTools();
+
+    const showMoreButtons = document.querySelectorAll('.show-more-btn');
+
+    showMoreButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const moreInfo = this.nextElementSibling;
+
+            if (moreInfo.classList.contains('show')) {
+                moreInfo.classList.remove('show');
+                this.textContent = 'More Info';
+            } else {
+                moreInfo.classList.add('show');
+                this.textContent = 'Show Less';
+            }
+
+            // Adjust card height dynamically
+            const toolCard = this.closest('.tool-card');
+            toolCard.style.height = moreInfo.classList.contains('show') 
+                ? `${toolCard.scrollHeight}px` 
+                : 'auto';
+        });
+    });
+});

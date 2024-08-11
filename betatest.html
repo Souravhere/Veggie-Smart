@@ -6,52 +6,106 @@
     <title>Tools Display</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        .hover-info {
-            display: none;
-            position: absolute;
-            background-color: rgba(0, 0, 0, 0.85);
-            color: #fff;
-            padding: 8px;
-            border-radius: 5px;
-            z-index: 100;
-            max-width: 250px;
-            transform: translateY(-10px);
-        }
         .tool-card {
-            position: relative;
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-        .tool-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-        .tool-card:hover .hover-info {
-            display: block;
-        }
+    background-color: #1f2937;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease, height 0.3s ease;
+    /* Added height transition */
+    position: relative;
+}
+
+.tool-card img {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    margin-top: 16px;
+}
+
+.tool-card-content {
+    padding: 12px;
+    text-align: center;
+}
+
+.tool-card-title {
+    color: #e5e7eb;
+    font-size: 1.125rem; /* 18px */
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.tool-card-tag {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 12px;
+    background-color: #4b5563;
+    color: #e5e7eb;
+    font-size: 0.875rem; /* 14px */
+    margin-top: 4px;
+}
+
+.tool-card-button {
+    display: block;
+    margin-top: 12px;
+    background-color: #10b981;
+    color: #fff;
+    padding: 8px;
+    border-radius: 8px;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.tool-card-button:hover {
+    background-color: #059669;
+}
+
+.more-info {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 12px;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    border-top: 1px solid #4b5563;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.more-info.show {
+    max-height: 200px; /* Adjust as needed */
+    padding: 12px;
+}
+
+.show-more-btn {
+    display: block;
+    margin-top: 12px;
+    background-color: #4b5563;
+    color: #e5e7eb;
+    padding: 8px;
+    border-radius: 8px;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.show-more-btn:hover {
+    background-color: #374151;
+}
+
     </style>
 </head>
 <body class="bg-gray-900 text-white">
 
     <div class="container mx-auto p-4">
-        <h1 class="text-3xl font-bold mb-6 text-center">Our Tools</h1>
-        <input type="text" id="search" placeholder="Search tools..." class="w-full p-2 mb-4 rounded bg-gray-700 text-white">
+        <h1 class="text-3xl font-bold mb-8 text-center">Explore Our Tools</h1>
+        <input type="text" id="search" placeholder="Search tools..." class="w-full p-3 mb-6 rounded-lg bg-gray-800 text-white shadow-md focus:outline-none focus:ring-2 focus:ring-green-600">
 
-        <div id="toolsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div class="tool-card bg-gray-800 p-4 rounded-lg shadow-lg relative">
-                <img src="https://img.icons8.com/color/500/receipt.png" alt="Receipt Generator" class="w-12 h-12 mx-auto">
-                <h2 class="text-lg font-semibold mt-4 text-center">Receipt Generator</h2>
-                <span class="inline-block mt-1 text-gray-400 text-center block">Beta</span>
-                <div class="hover-info">
-                    <p class="text-sm">Generate professional-level receipts with customizable fields, including logo upload and PDF export options. Ideal for small businesses and freelancers.</p>
-                    <p class="mt-2 text-xs"><strong>Last Updated:</strong> 2024-08-11</p>
-                    <p class="mt-2 text-xs"><strong>Author:</strong> Veggie Smart Team</p>
-                    <p class="mt-2 text-xs"><strong>Version:</strong> 2.0.1</p>
-                    <a href="./AddtionalFeatures/ReceiptGenerator.html" class="mt-2 block text-center bg-green-600 p-1 rounded text-sm hover:bg-green-700">Try Now</a>
-                </div>
-            </div>
+        <div id="toolsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Tools will be injected here dynamically -->
         </div>
     </div>
 
-    <!-- <script src="scripts/Test.js"></script> -->
+    <script src="scripts/Test.js"></script>
 </body>
 </html>
