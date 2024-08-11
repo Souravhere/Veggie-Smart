@@ -157,81 +157,74 @@ const toolsData = {
     ],
 };
 
-
 document.addEventListener('DOMContentLoaded', function () {
-// Function to create tool cards
-function createToolCard(tool) {
-    return `
+    // Function to create tool cards
+    function createToolCard(tool) {
+        return `
         <div class="tool-card">
-    <div class="tool-card-content">
-        <img src="${tool.imageSrc}" alt="${tool.imageAlt}" class="mx-auto mt-4">
-        <h2 class="tool-card-title">${tool.buttonName}</h2>
-        <span class="tool-card-tag">${tool.tagName}</span>
-        <a href="${tool.link}" class="tool-card-button">Go to Tool</a>
-        <a href="#" class="show-more-btn">More Info</a>
-        <div class="more-info">
-            <p class="my-2 text-gray-300 text-sm">${tool.description}</p>
-            <p><strong>Last Updated:</strong> ${tool.lastUpdated}</p>
-            <p><strong>Author:</strong> ${tool.author}</p>
-            <p><strong>Usage Tips:</strong> ${tool.usageTips}</p>
-            <p><strong>Version:</strong> ${tool.version}</p>
+            <div class="tool-card-content">
+                <img src="${tool.imageSrc}" alt="${tool.imageAlt}" class="mx-auto mt-4 w-16 h-16 object-cover">
+                <h2 class="tool-card-title mt-4">${tool.buttonName}</h2>
+                <span class="tool-card-tag">${tool.tagName}</span>
+                <a href="${tool.link}" class="tool-card-button mt-4">Go to Tool</a>
+                <button class="show-more-btn mt-4 text-blue-500">More Info</button>
+                <div class="more-info hidden">
+                    <p class="my-2 text-gray-300 text-sm">${tool.description}</p>
+                    <p class="text-sm"><strong>Last Updated:</strong> ${tool.lastUpdated}</p>
+                    <p class="text-sm"><strong>Author:</strong> ${tool.author}</p>
+                    <p class="text-sm"><strong>Usage Tips:</strong> ${tool.usageTips}</p>
+                    <p class="text-sm"><strong>Version:</strong> ${tool.version}</p>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-
-    `;
-}
-
-// Function to load all tools
-function loadTools() {
-    const toolsContainer = document.getElementById('toolsContainer');
-    toolsContainer.innerHTML = ''; // Clear previous content
-
-    for (const category in toolsData) {
-        toolsData[category].forEach(tool => {
-            toolsContainer.innerHTML += createToolCard(tool);
-        });
-    }
-}
-
-// Search functionality
-document.getElementById('search').addEventListener('input', function() {
-    const searchQuery = this.value.toLowerCase();
-    const filteredTools = {};
-
-    for (const category in toolsData) {
-        filteredTools[category] = toolsData[category].filter(tool => 
-            tool.buttonName.toLowerCase().includes(searchQuery) || 
-            tool.description.toLowerCase().includes(searchQuery)
-        );
+        `;
     }
 
-    toolsData = filteredTools;
-    loadTools();
-});
+    // Function to load all tools
+    function loadTools(tools) {
+        const toolsContainer = document.getElementById('toolsContainer');
+        toolsContainer.innerHTML = ''; // Clear previous content
 
-// Load tools on page load
-loadTools();
+        for (const category in tools) {
+            tools[category].forEach(tool => {
+                toolsContainer.innerHTML += createToolCard(tool);
+            });
+        }
 
-    const showMoreButtons = document.querySelectorAll('.show-more-btn');
+        // Re-select and add event listeners for "More Info" buttons
+        const showMoreButtons = document.querySelectorAll('.show-more-btn');
+        showMoreButtons.forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+                const moreInfo = this.nextElementSibling;
+                moreInfo.classList.toggle('hidden');
 
-    showMoreButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            const moreInfo = this.nextElementSibling;
-
-            if (moreInfo.classList.contains('show')) {
-                moreInfo.classList.remove('show');
-                this.textContent = 'More Info';
-            } else {
-                moreInfo.classList.add('show');
-                this.textContent = 'Show Less';
-            }
-
-            // Adjust card height dynamically
-            const toolCard = this.closest('.tool-card');
-            toolCard.style.height = moreInfo.classList.contains('show') 
-                ? `${toolCard.scrollHeight}px` 
-                : 'auto';
+                // Adjust the height of the card if more info is opened
+                const card = this.closest('.tool-card');
+                if (!moreInfo.classList.contains('hidden')) {
+                    card.style.height = 'auto';
+                } else {
+                    card.style.height = '60%';
+                }
+            });
         });
+    }
+
+    // Search functionality
+    document.getElementById('search').addEventListener('input', function() {
+        const searchQuery = this.value.toLowerCase();
+        const filteredTools = {};
+
+        for (const category in toolsData) {
+            filteredTools[category] = toolsData[category].filter(tool => 
+                tool.buttonName.toLowerCase().includes(searchQuery) || 
+                tool.description.toLowerCase().includes(searchQuery)
+            );
+        }
+
+        loadTools(filteredTools);
     });
+
+    // Load tools on page load
+    loadTools(toolsData);
 });

@@ -6,20 +6,13 @@
     <title>Tools Display</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        .tool-card {
+       .tool-card {
     background-color: #1f2937;
     border-radius: 8px;
     overflow: hidden;
     transition: box-shadow 0.3s ease, height 0.3s ease;
-    /* Added height transition */
     position: relative;
-}
-
-.tool-card img {
-    width: 64px;
-    height: 64px;
-    object-fit: cover;
-    margin-top: 16px;
+    padding-bottom: 12px; /* Adjust to give more space at the bottom */
 }
 
 .tool-card-content {
@@ -27,11 +20,16 @@
     text-align: center;
 }
 
+.tool-card img {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+}
+
 .tool-card-title {
     color: #e5e7eb;
     font-size: 1.125rem; /* 18px */
     font-weight: 600;
-    margin-top: 8px;
 }
 
 .tool-card-tag {
@@ -41,7 +39,7 @@
     background-color: #4b5563;
     color: #e5e7eb;
     font-size: 0.875rem; /* 14px */
-    margin-top: 4px;
+    margin-top: 8px; /* Add some space between the tag and title */
 }
 
 .tool-card-button {
@@ -62,35 +60,27 @@
 }
 
 .more-info {
-    max-height: 0;
-    overflow: hidden;
-    padding: 0 12px;
+    display: none;
+    padding: 12px;
     background-color: rgba(0, 0, 0, 0.75);
     color: #fff;
     border-top: 1px solid #4b5563;
-    transition: max-height 0.3s ease, padding 0.3s ease;
+    text-align: left;
+    margin-top: 12px;
 }
 
-.more-info.show {
-    max-height: 200px; /* Adjust as needed */
-    padding: 12px;
+.more-info.open {
+    display: block;
 }
 
 .show-more-btn {
-    display: block;
-    margin-top: 12px;
-    background-color: #4b5563;
-    color: #e5e7eb;
-    padding: 8px;
-    border-radius: 8px;
-    text-decoration: none;
-    text-align: center;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.3s ease;
 }
 
 .show-more-btn:hover {
-    background-color: #374151;
+    color: #059669;
 }
 
     </style>
