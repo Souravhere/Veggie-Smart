@@ -1,267 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Veggie Smart Tools</title>
+    <title>Tools Display</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        /* Custom styles for hover effects */
+        .hover-info {
+            display: none;
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.85);
+            color: #fff;
+            padding: 8px;
+            border-radius: 5px;
+            z-index: 100;
+            max-width: 250px;
+            transform: translateY(-10px);
+        }
         .tool-card {
+            position: relative;
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
-
         .tool-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
-
-        .tool-card:hover .tool-description {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .tool-description {
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        .tool-card:hover .hover-info {
+            display: block;
         }
     </style>
 </head>
-
 <body class="bg-gray-900 text-white">
 
-    <div class="container mx-auto p-6">
-        <h1 class="text-3xl font-bold mb-6 text-center">Veggie Smart Tools</h1>
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold mb-6 text-center">Our Tools</h1>
+        <input type="text" id="search" placeholder="Search tools..." class="w-full p-2 mb-4 rounded bg-gray-700 text-white">
 
-        <!-- Search Bar -->
-        <div class="mb-6">
-            <input id="searchInput" type="text" placeholder="Search tools..." class="w-full p-3 rounded-lg bg-gray-800 text-white" onkeyup="filterTools()">
-        </div>
-
-        <!-- Tool Categories -->
-        <div id="toolsContainer">
-            <!-- Dynamic tool loading happens here -->
+        <div id="toolsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="tool-card bg-gray-800 p-4 rounded-lg shadow-lg relative">
+                <img src="https://img.icons8.com/color/500/receipt.png" alt="Receipt Generator" class="w-12 h-12 mx-auto">
+                <h2 class="text-lg font-semibold mt-4 text-center">Receipt Generator</h2>
+                <span class="inline-block mt-1 text-gray-400 text-center block">Beta</span>
+                <div class="hover-info">
+                    <p class="text-sm">Generate professional-level receipts with customizable fields, including logo upload and PDF export options. Ideal for small businesses and freelancers.</p>
+                    <p class="mt-2 text-xs"><strong>Last Updated:</strong> 2024-08-11</p>
+                    <p class="mt-2 text-xs"><strong>Author:</strong> Veggie Smart Team</p>
+                    <p class="mt-2 text-xs"><strong>Version:</strong> 2.0.1</p>
+                    <a href="./AddtionalFeatures/ReceiptGenerator.html" class="mt-2 block text-center bg-green-600 p-1 rounded text-sm hover:bg-green-700">Try Now</a>
+                </div>
+            </div>
         </div>
     </div>
 
-    <script>
-        const toolsData = {
-            NewFeatured: [
-    {
-        link: "./AddtionalFeatures/ReceiptGenerator.html",
-        imageSrc: "https://img.icons8.com/color/500/receipt.png",
-        imageAlt: "Receipt Generator",
-        tagName: "Beta",
-        buttonName: "Receipt Generator",
-        description: "Generate professional-level receipts with customizable fields, including logo upload and PDF export options. Ideal for small businesses and freelancers looking for a polished solution to manage their billing needs.",
-        lastUpdated: "2024-08-11",
-        giveStars: "⭐⭐⭐⭐",
-        category: "Billing",
-        author: "Veggie Smart Team",
-        usageTips: "Upload your logo and customize fields before generating your receipt.",
-        features: ["Customizable Fields", "Logo Upload", "PDF Export"],
-        supportedLanguages: ["English", "Spanish", "French"],
-        version: "2.0.1",
-        updateFrequency: "Quarterly",
-        supportLink: "./support.html",
-        privacyPolicy: "All data is securely stored and used solely for generating receipts."
-    },
-    {
-        link: "./AddtionalFeatures/qrcodegen.html",
-        imageSrc: "https://img.icons8.com/fluency/500/qr-code.png",
-        imageAlt: "QR Code Generator",
-        tagName: "Free",
-        buttonName: "QR Code Generator",
-        description: "Create versatile QR codes for various purposes, including URLs, contact information, and Wi-Fi passwords. Enhance your marketing and communication efforts with this easy-to-use tool that supports logo integration and multiple output formats.",
-        lastUpdated: "2024-08-11",
-        giveStars: "⭐⭐⭐⭐",
-        category: "Marketing",
-        author: "Veggie Smart Team",
-        usageTips: "Select the type of QR code and add a logo for customization.",
-        features: ["Multiple QR Code Types", "Logo Integration", "Multiple Formats"],
-        supportedLanguages: ["English", "German", "Chinese"],
-        version: "1.5.3",
-        updateFrequency: "Bi-monthly",
-        supportLink: "./support.html",
-        privacyPolicy: "Your data is used only for generating QR codes and is not stored."
-    },
-],
-MarketProCalculators: [
-    {
-        link: "./MarketCal/Calculate-Total-Price.html",
-        imageSrc: "https://img.icons8.com/color/800/calculate.png",
-        imageAlt: "Calculate Total Price",
-        tagName: "Free",
-        buttonName: "Calculate Total Price",
-        description: "Quickly calculate the total price of multiple items with ease. Perfect for market professionals and shoppers who need a fast and reliable tool to sum up costs, apply discounts, and ensure accurate pricing.",
-        lastUpdated: "2024-08-10",
-        giveStars: "⭐⭐⭐⭐",
-        category: "Pricing",
-        author: "Veggie Smart Team",
-        usageTips: "Enter the item prices and quantities to get the total cost.",
-        features: ["Cost Summation", "Discount Application", "Price Accuracy"],
-        supportedLanguages: ["English", "Italian", "Portuguese"],
-        version: "1.8.0",
-        updateFrequency: "Monthly",
-        supportLink: "./support.html",
-        privacyPolicy: "No personal data is collected; only pricing data is processed."
-    },
-    {
-        link: "./MarketCal/Calculate-Price-Kg.html",
-        imageSrc: "https://img.icons8.com/color/800/weight-kg.png",
-        imageAlt: "Calculate Price per Kg",
-        tagName: "Free",
-        buttonName: "Calculate Price per Kg",
-        description: "Effortlessly calculate the price per kilogram of products, making it easier for both buyers and sellers to determine accurate pricing based on weight. Ideal for grocery shopping and market transactions.",
-        lastUpdated: "2024-08-09",
-        giveStars: "⭐⭐⭐⭐",
-        category: "Pricing",
-        author: "Veggie Smart Team",
-        usageTips: "Input the total price and weight to get the price per kilogram.",
-        features: ["Price Calculation", "Weight Input", "Easy Conversion"],
-        supportedLanguages: ["English", "Dutch", "Russian"],
-        version: "1.6.2",
-        updateFrequency: "Monthly",
-        supportLink: "./support.html",
-        privacyPolicy: "Your data is not stored and is only used for calculation purposes."
-    },
-    {
-        link: "./MarketCal/Calculate-Quantity.html",
-        imageSrc: "https://img.icons8.com/color/800/scale.png",
-        imageAlt: "Calculate Quantity",
-        tagName: "Free",
-        buttonName: "Calculate Quantity",
-        description: "Determine the exact quantity needed for bulk purchases or sales by inputting total price and unit price. This calculator is an essential tool for wholesalers and bulk buyers looking to optimize their purchasing strategy.",
-        lastUpdated: "2024-08-08",
-        giveStars: "⭐⭐⭐⭐",
-        category: "Purchasing",
-        author: "Veggie Smart Team",
-        usageTips: "Enter the total price and unit price to calculate the quantity needed.",
-        features: ["Bulk Quantity Calculation", "Cost Optimization", "Accurate Results"],
-        supportedLanguages: ["English", "Hindi", "Japanese"],
-        version: "1.7.4",
-        updateFrequency: "Bi-monthly",
-        supportLink: "./support.html",
-        privacyPolicy: "All data is processed in real-time and is not stored."
-    },
-    {
-        link: "./OffersCal/OffersCal.html",
-        imageSrc: "https://img.icons8.com/fluency/800/discount--v1.png",
-        imageAlt: "Discount Calculator",
-        tagName: "Free",
-        buttonName: "Discount Calculator",
-        description: "Easily calculate discounts and final prices with this user-friendly tool. Perfect for shoppers and businesses alike, this calculator helps you apply percentage-based discounts to any item or service.",
-        lastUpdated: "2024-08-07",
-        giveStars: "⭐⭐⭐⭐",
-        category: "Pricing",
-        author: "Veggie Smart Team",
-        usageTips: "Input the original price and discount percentage to calculate the final price.",
-        features: ["Percentage Discounts", "Final Price Calculation", "Simple Interface"],
-        supportedLanguages: ["English", "Korean", "Swedish"],
-        version: "1.4.1",
-        updateFrequency: "Quarterly",
-        supportLink: "./support.html",
-        privacyPolicy: "Discounts and pricing data are processed securely and not stored."
-    },
-    {
-        link: "./MarketCal/Profit-Margin-Calculator.html",
-        imageSrc: "https://img.icons8.com/arcade/800/point-spread.png",
-        imageAlt: "Profit Margin Calculator",
-        tagName: "Free",
-        buttonName: "Profit Margin Calculator",
-        description: "Calculate your profit margins with precision using this tool. Essential for businesses and entrepreneurs, this calculator helps you understand your profitability by analyzing cost, revenue, and margin.",
-        lastUpdated: "2024-08-06",
-        giveStars: "⭐⭐⭐⭐",
-        category: "Financial",
-        author: "Veggie Smart Team",
-        usageTips: "Enter cost and revenue to get your profit margin percentage.",
-        features: ["Margin Calculation", "Cost and Revenue Analysis", "Detailed Insights"],
-        supportedLanguages: ["English", "Arabic", "Turkish"],
-        version: "1.9.3",
-        updateFrequency: "Monthly",
-        supportLink: "./support.html",
-        privacyPolicy: "All financial data is processed securely and is not stored."
-    },
-    {
-        link: "./MarketCal/MarketShareCalculator.html",
-        imageSrc: "https://img.icons8.com/isometric/800/share.png",
-        imageAlt: "Market Share Calculator",
-        tagName: "Free",
-        buttonName: "Market Share Calculator",
-        description: "Assess your market position with this market share calculator. Analyze your business's share in the market based on revenue or unit sales, providing insights into your competitive landscape.",
-        lastUpdated: "2024-08-05",
-        giveStars: "⭐⭐⭐⭐",
-        category: "Business",
-        author: "Veggie Smart Team",
-        usageTips: "Enter revenue or sales data to calculate market share percentage.",
-        features: ["Market Share Analysis", "Revenue Tracking", "Competitive Insights"],
-        supportedLanguages: ["English", "French", "Spanish"],
-        version: "2.1.0",
-        updateFrequency: "Quarterly",
-        supportLink: "./support.html",
-        privacyPolicy: "Market data is analyzed securely and is not stored."
-    },
-],
-            // Add other categories here...
-        };
-
-        // Function to dynamically load tools based on categories
-        function loadTools() {
-            const toolsContainer = document.getElementById('toolsContainer');
-            toolsContainer.innerHTML = ''; // Clear existing content
-
-            for (const category in toolsData) {
-                const categoryContainer = document.createElement('div');
-                categoryContainer.className = 'mb-8';
-
-                const categoryTitle = document.createElement('h2');
-                categoryTitle.className = 'text-2xl font-bold mb-4';
-                categoryTitle.textContent = category.replace(/([A-Z])/g, ' $1').trim(); // Adding spaces between words
-
-                categoryContainer.appendChild(categoryTitle);
-
-                const toolsGrid = document.createElement('div');
-                toolsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6';
-
-                toolsData[category].forEach(tool => {
-                    const toolCard = document.createElement('div');
-                    toolCard.className = 'tool-card bg-gray-800 p-4 rounded-lg';
-
-                    toolCard.innerHTML = `
-                        <img src="${tool.imageSrc}" alt="${tool.imageAlt}" class="w-16 h-16 mb-4">
-                        <h3 class="text-xl font-semibold">${tool.buttonName}</h3>
-                        <p class="tool-description text-sm mt-2">${tool.description}</p>
-                    `;
-
-                    toolsGrid.appendChild(toolCard);
-                });
-
-                categoryContainer.appendChild(toolsGrid);
-                toolsContainer.appendChild(categoryContainer);
-            }
-        }
-
-        // Search function to filter tools
-        function filterTools() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const toolCards = document.querySelectorAll('.tool-card');
-
-            toolCards.forEach(card => {
-                const toolName = card.querySelector('h3').textContent.toLowerCase();
-                const toolDescription = card.querySelector('p').textContent.toLowerCase();
-                if (toolName.includes(query) || toolDescription.includes(query)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-
-        // Load tools on page load
-        loadTools();
-    </script>
+    <!-- <script src="scripts/Test.js"></script> -->
 </body>
-
 </html>

@@ -160,24 +160,27 @@ const toolsData = {
 // Function to create tool cards
 function createToolCard(tool) {
     return `
-        <div class="tool-card bg-gray-800 p-4 rounded-lg shadow-lg">
-            <img src="${tool.imageSrc}" alt="${tool.imageAlt}" class="w-16 h-16 mx-auto">
-            <h2 class="text-xl font-bold mt-4">${tool.buttonName}</h2>
-            <span class="inline-block mt-2 text-gray-400">${tool.tagName}</span>
-            <div class="hover-info">
-                <p>${tool.description}</p>
-                <p><strong>Last Updated:</strong> ${tool.lastUpdated}</p>
-                <p><strong>Rating:</strong> ${tool.giveStars}</p>
-                <p><strong>Category:</strong> ${tool.category}</p>
-                <p><strong>Author:</strong> ${tool.author}</p>
-                <p><strong>Version:</strong> ${tool.version}</p>
-                <p><strong>Features:</strong> ${tool.features.join(", ")}</p>
-                <p><strong>Supported Languages:</strong> ${tool.supportedLanguages.join(", ")}</p>
-                <a href="${tool.supportLink}" class="text-blue-400">Support</a> | 
-                <a href="${tool.privacyPolicy}" class="text-blue-400">Privacy Policy</a>
-            </div>
-            <a href="${tool.link}" class="mt-4 block text-center bg-green-600 p-2 rounded hover:bg-green-700">${tool.buttonName}</a>
-        </div>
+    <div class="tool-card bg-gray-800 text-center rounded-lg shadow-md hover:bg-gray-700">
+    <img src="${tool.imageSrc}" alt="${tool.imageAlt}" class="w-24 h-24 mx-auto mt-4 mb-2 transition-transform duration-300 ease-in-out">
+    <div class="tool-card-content">
+        <h2 class="text-2xl font-bold tool-card-title">${tool.buttonName}</h2>
+        <span class="tool-card-tag mt-1">${tool.tagName}</span>
+    </div>
+    <div class="hover-info p-4">
+        <p>${tool.description}</p>
+        <p><strong>Last Updated:</strong> ${tool.lastUpdated}</p>
+        <p><strong>Rating:</strong> ${tool.giveStars}</p>
+        <p><strong>Category:</strong> ${tool.category}</p>
+        <p><strong>Author:</strong> ${tool.author}</p>
+        <p><strong>Version:</strong> ${tool.version}</p>
+        <p><strong>Features:</strong> ${tool.features.join(", ")}</p>
+        <p><strong>Supported Languages:</strong> ${tool.supportedLanguages.join(", ")}</p>
+        <a href="${tool.supportLink}" class="tool-card-link block mt-2">Support</a> |
+        <a href="${tool.privacyPolicy}" class="tool-card-link block mt-1">Privacy Policy</a>
+    </div>
+    <a href="${tool.link}" class="tool-card-button mt-4">${tool.buttonName}</a>
+</div>
+
     `;
 }
 
