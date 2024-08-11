@@ -1,5 +1,5 @@
-export const AllToolsData = [
-    NewFeatured = [
+const AllToolsData = {
+    NewFeatured : [
         {
             link: "./AddtionalFeatures/ReceiptGenerator.html",
             imageSrc: "https://img.icons8.com/color/500/receipt.png",
@@ -15,7 +15,7 @@ export const AllToolsData = [
             buttonName: "QR Code Generator"
         },
     ],
-    MarketProCalculators = [
+    MarketProCalculators : [
         {
             link: "./MarketCal/Calculate-Total-Price.html",
             imageSrc: "https://img.icons8.com/color/800/calculate.png",
@@ -59,7 +59,7 @@ export const AllToolsData = [
             buttonName: "Market Share Cal"
         },
     ],
-    foodcal = [
+    foodcal : [
         {
             link: "./Recipe Cost Calculator/RecipeCostCalculator.html",
             imageSrc: "https://img.icons8.com/fluency/800/cost.png",
@@ -82,7 +82,7 @@ export const AllToolsData = [
             buttonName: "Serving Size Cal"
         },
     ],
-    healthcalc = [
+    healthcalc : [
         {
             link: "./calhealth/bmi.html",
             imageSrc: "https://img.icons8.com/fluency/800/bmi.png",
@@ -126,7 +126,7 @@ export const AllToolsData = [
             buttonName: "Menstrual Cycle"
         },
     ],
-    FinanceCal = [
+    FinanceCal : [
         {
             link: "./FinanceCal/LoanCal.html",
             imageSrc: "https://img.icons8.com/external-nawicon-outline-color-nawicon/800/external-Loan-economy-nawicon-outline-color-nawicon.png",
@@ -177,7 +177,7 @@ export const AllToolsData = [
             buttonName: "Cryptocurrency Profit"
         },
     ],
-    HomeMeasureCal = [
+    HomeMeasureCal : [
         {
             link: "./HomeImprovementCals/PaintCal.html",
             imageSrc: "https://img.icons8.com/glassmorphism/800/fill-color.png",
@@ -207,7 +207,7 @@ export const AllToolsData = [
             buttonName: "Renovation Cost"
         },
     ],
-    EducationCal = [
+    EducationCal : [
         {
             link: "./EducationCalculators/PercentageCalculator.html",
             imageSrc: "https://img.icons8.com/color/800/report-card.png",
@@ -244,7 +244,7 @@ export const AllToolsData = [
             buttonName: "Course Load Planner"
         },
     ],
-    FitnessCal = [
+    FitnessCal : [
         {
             link: "./FitnessCalculators/WorkoutPlanGenerator.html",
             imageSrc: "https://img.icons8.com/external-smashingstocks-flat-smashing-stocks/800/external-Workout-Plan-sports-smashingstocks-flat-smashing-stocks.png",
@@ -274,7 +274,7 @@ export const AllToolsData = [
             buttonName: "Advanced Pace Cal"
         },
     ],
-    Automotivecontainer = [
+    Automotivecontainer : [
         {
             link: "./AutomotiveCalculators/Automotive-Calculators.html",
             imageSrc: "https://img.icons8.com/external-smashingstocks-flat-smashing-stocks/800/external-Fuel-Cost-commodities-smashingstocks-flat-smashing-stocks.png",
@@ -304,7 +304,7 @@ export const AllToolsData = [
             buttonName: "Depreciation Cost"
         },
     ],
-    EventPlanCal = [
+    EventPlanCal : [
         {
             link: "./EventPlanningCalculators/Guest-list-Cal.html   ",
             imageSrc: "https://img.icons8.com/external-flaticons-lineal-color-flat-icons/800/external-guest-list-night-club-flaticons-lineal-color-flat-icons-3.png",
@@ -334,10 +334,49 @@ export const AllToolsData = [
             buttonName: "Venue Capacity Cal"
         },
     ]
-];
+};
 
+function createToolCard(tool) {
+    return `
+        <div class="tool relative p-4 bg-gray-800 rounded-lg shadow-md">
+            <a href="${tool.link}">
+                <img src="${tool.imageSrc}" alt="${tool.imageAlt}" class="w-16 h-16 mx-auto">
+                <h3 class="text-center mt-2">${tool.buttonName}</h3>
+                <span class="block text-center text-gray-400">${tool.tagName}</span>
+            </a>
+            <div class="tool-info">
+                <p>Additional information about ${tool.buttonName}...</p>
+            </div>
+        </div>
+    `;
+}
 
-// AllToolsData.forEach(element => {
-//     console.log(element);
-    
-// });
+function injectTools() {
+    const toolsContainer = document.getElementById('tools-container');
+    let toolsHTML = '';
+    for (const category in AllToolsData) {
+        toolsHTML += `<h2 class="text-xl mt-6 mb-4">${category}</h2>`;
+        AllToolsData[category].forEach(tool => {
+            toolsHTML += createToolCard(tool);
+        });
+    }
+    toolsContainer.innerHTML = toolsHTML;
+}
+
+function filterTools() {
+    const searchQuery = document.getElementById('search-bar').value.toLowerCase();
+    const toolCards = document.querySelectorAll('.tool');
+
+    toolCards.forEach(card => {
+        const toolName = card.querySelector('h3').innerText.toLowerCase();
+        if (toolName.includes(searchQuery)) {
+            card.style.display = '';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+document.getElementById('search-bar').addEventListener('input', filterTools);
+
+injectTools();
