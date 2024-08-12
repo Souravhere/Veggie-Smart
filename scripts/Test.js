@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded', function () {
 const toolsData = {
     NewFeatured: [
         {
@@ -143,40 +144,34 @@ const toolsData = {
             buttonName: "Market Share Calculator",
             description: "Assess your market position with this market share calculator. Analyze your business's share in the market based on revenue or unit sales, providing insights into your competitive landscape.",
             lastUpdated: "2024-08-05",
-            giveStars: "⭐⭐⭐⭐",
             category: "Business",
             author: "Veggie Smart Team",
             usageTips: "Enter revenue or sales data to calculate market share percentage.",
             features: ["Market Share Analysis", "Revenue Tracking", "Competitive Insights"],
-            supportedLanguages: ["English", "French", "Spanish"],
             version: "2.1.0",
-            updateFrequency: "Quarterly",
-            supportLink: "./support.html",
             privacyPolicy: "Market data is analyzed securely and is not stored."
         },
     ],
 };
 
-document.addEventListener('DOMContentLoaded', function () {
     // Function to create tool cards
     function createToolCard(tool) {
         return `
         <div class="tool-card">
-            <div class="tool-card-content">
-                <img src="${tool.imageSrc}" alt="${tool.imageAlt}" class="mx-auto mt-4 w-16 h-16 object-cover">
-                <h2 class="tool-card-title mt-4">${tool.buttonName}</h2>
-                <span class="tool-card-tag">${tool.tagName}</span>
-                <a href="${tool.link}" class="tool-card-button mt-4">Go to Tool</a>
-                <button class="show-more-btn mt-4 text-blue-500">More Info</button>
-                <div class="more-info hidden">
-                    <p class="my-2 text-gray-300 text-sm">${tool.description}</p>
-                    <p class="text-sm"><strong>Last Updated:</strong> ${tool.lastUpdated}</p>
-                    <p class="text-sm"><strong>Author:</strong> ${tool.author}</p>
-                    <p class="text-sm"><strong>Usage Tips:</strong> ${tool.usageTips}</p>
-                    <p class="text-sm"><strong>Version:</strong> ${tool.version}</p>
+                <div class="tool-card-content relative">
+                    <img src="${tool.imageSrc}" alt="${tool.imageAlt}" class="mx-auto mt-4 w-16 h-16 object-cover">
+                    <h2 class="tool-card-title mt-4">${tool.buttonName}</h2>
+                    <span class="tool-card-tag absolute top-2 left-3">${tool.tagName}</span>
+                    <a href="${tool.link}" class="tool-card-button mt-4">Go to Tool</a>
+                    <p class="text-sm"><strong></strong> ${tool.lastUpdated}</p>
+                    <p class="tool-card-tag text-sm absolute top-2 right-3"><strong>V </strong> ${tool.version}</p>
+                    <div class="more-info hidden">
+                        <p class="my-2 text-gray-300 text-sm">${tool.description}</p>
+                        <p class="text-sm"><strong>Author:</strong> ${tool.author}</p>
+                        <p class="text-sm"><strong>Usage Tips:</strong> ${tool.usageTips}</p>
+                    </div>
                 </div>
             </div>
-        </div>
         `;
     }
 
@@ -191,33 +186,16 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
-        // Re-select and add event listeners for "More Info" buttons
-        const showMoreButtons = document.querySelectorAll('.show-more-btn');
-        showMoreButtons.forEach(button => {
-            button.addEventListener('click', function (event) {
-                event.preventDefault();
-                const moreInfo = this.nextElementSibling;
-                moreInfo.classList.toggle('hidden');
-
-                // Adjust the height of the card if more info is opened
-                const card = this.closest('.tool-card');
-                if (!moreInfo.classList.contains('hidden')) {
-                    card.style.height = 'auto';
-                } else {
-                    card.style.height = '60%';
-                }
-            });
-        });
     }
 
     // Search functionality
-    document.getElementById('search').addEventListener('input', function() {
+    document.getElementById('search').addEventListener('input', function () {
         const searchQuery = this.value.toLowerCase();
         const filteredTools = {};
 
         for (const category in toolsData) {
-            filteredTools[category] = toolsData[category].filter(tool => 
-                tool.buttonName.toLowerCase().includes(searchQuery) || 
+            filteredTools[category] = toolsData[category].filter(tool =>
+                tool.buttonName.toLowerCase().includes(searchQuery) ||
                 tool.description.toLowerCase().includes(searchQuery)
             );
         }
