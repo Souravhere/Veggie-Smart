@@ -708,8 +708,9 @@ const toolsData = {
                     <img src="${tool.imageSrc}" alt="${tool.imageAlt}" class="mx-auto mt-4 w-16 h-16 object-cover">
                     <h2 class="tool-card-title mt-4">${tool.buttonName}</h2>
                     <span class="tool-card-tag absolute top-2 left-3">${tool.tagName}</span>
-                    <a href="${tool.link}" class="tool-card-button mt-4">Go to Tool</a>
-                    <p class="text-sm"><strong></strong> ${tool.lastUpdated}</p>
+                    <a href="${tool.link}" class="tool-card-button mt-4 relative">Go to Tool
+      <p class="text-sm inline-block px-2 absolute -top-1 left-0 bg-green-500 rounded-full"><strong></strong> ${tool.lastUpdated}</p>
+      </a>
                     <p class="tool-card-tag text-sm absolute top-2 right-3"><strong>V </strong> ${tool.version}</p>
                     <div class="more-info hidden">
                         <p class="my-2 text-gray-300 text-sm">${tool.description}</p>
