@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Advanced PDF and Image Compressor</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body class="bg-gray-900 text-white">
     <div class="container mx-auto py-10">
@@ -14,13 +19,21 @@
             <h2 class="text-2xl font-bold mb-4">Compress Your Files</h2>
 
             <div class="mb-6">
+                <label for="fileType" class="block mb-2 font-bold">Select File Type</label>
+                <select id="fileType" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" onchange="toggleFileInput()">
+                    <option value="image">Image</option>
+                    <option value="pdf">PDF</option>
+                </select>
+            </div>
+
+            <div class="mb-6">
                 <label for="fileInput" class="block mb-2 font-bold">Select PDF or Image</label>
                 <input type="file" id="fileInput" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" accept=".pdf, .jpg, .jpeg, .png">
             </div>
 
             <div class="mb-6">
                 <label for="compressionLevel" class="block mb-2 font-bold">Compression Level</label>
-                <input type="range" id="compressionLevel" min="1" max="100" value="50" class="w-full">
+                <input type="range" id="compressionLevel" min="1" max="100" value="50" class="w-full" onchange="updateCompressionValue()">
                 <p id="compressionValue" class="text-right">50%</p>
             </div>
 
@@ -30,16 +43,18 @@
             </div>
 
             <button type="button" class="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded" onclick="compressFile()">Compress</button>
+            <div id="loading" class="hidden text-yellow-400 text-center mt-4">Compressing... Please wait.</div>
+            <div id="progressBar" class="hidden bg-blue-600 h-1 mt-2"></div>
 
             <div id="beforeAfter" class="mt-8 grid grid-cols-2 gap-4">
                 <div>
                     <h3 class="font-bold">Before Compression</h3>
-                    <img id="originalImage" src="" alt="Original" class="w-full">
+                    <img id="originalImage" src="" alt="Original" class="w-full hidden">
                     <p id="originalSize" class="text-gray-400"></p>
                 </div>
                 <div>
                     <h3 class="font-bold">After Compression</h3>
-                    <img id="compressedImage" src="" alt="Compressed" class="w-full">
+                    <img id="compressedImage" src="" alt="Compressed" class="w-full hidden">
                     <p id="compressedSize" class="text-gray-400"></p>
                 </div>
             </div>
@@ -50,10 +65,20 @@
 
     <!-- Load Compress.js Library -->
     <script src="https://cdn.jsdelivr.net/npm/browser-image-compression/dist/browser-image-compression.js"></script>
-
-    <!-- Your Script -->
     <script>
-        function compressFile() {
+        function toggleFileInput() {
+            const fileType = document.getElementById('fileType').value;
+            const fileInput = document.getElementById('fileInput');
+            fileInput.accept = fileType === 'image' ? '.jpg, .jpeg, .png' : '.pdf';
+            fileInput.value = ''; // Reset input
+        }
+
+        function updateCompressionValue() {
+            const compressionLevel = document.getElementById('compressionLevel').value;
+            document.getElementById('compressionValue').textContent = compressionLevel + '%';
+        }
+
+        async function compressFile() {
             const fileInput = document.getElementById('fileInput').files[0];
             const compressionLevel = document.getElementById('compressionLevel').value;
             const desiredFileSize = document.getElementById('fileSize').value;
@@ -63,26 +88,42 @@
                 return;
             }
 
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('progressBar').classList.remove('hidden');
+            const progressBar = document.getElementById('progressBar');
+
+            // Resetting previous results
+            document.getElementById('originalImage').classList.add('hidden');
+            document.getElementById('compressedImage').classList.add('hidden');
+            document.getElementById('result').innerHTML = '';
+
             if (fileInput.type.startsWith('image/')) {
-                compressImage(fileInput, compressionLevel, desiredFileSize);
+                await compressImage(fileInput, compressionLevel, desiredFileSize, progressBar);
             } else {
                 alert('Unsupported file type. Please select an image file.');
+                document.getElementById('loading').classList.add('hidden');
+                return;
             }
         }
 
-        async function compressImage(file, compressionLevel, desiredFileSize) {
+        async function compressImage(file, compressionLevel, desiredFileSize, progressBar) {
             const options = {
-                maxSizeMB: compressionLevel / 10, // Maximum file size in MB
-                maxWidthOrHeight: 1920, // Maximum width or height
-                useWebWorker: true, // Use a web worker to prevent blocking the main thread
+                maxSizeMB: compressionLevel / 10,
+                maxWidthOrHeight: 1920,
+                useWebWorker: true,
                 maxIteration: 10,
                 initialQuality: compressionLevel / 100,
                 alwaysKeepResolution: true,
-                desiredSize: desiredFileSize ? parseInt(desiredFileSize) * 1024 : undefined, // Custom output size in bytes
+                desiredSize: desiredFileSize ? parseInt(desiredFileSize) * 1024 : undefined,
             };
 
             try {
                 const compressedFile = await imageCompression(file, options);
+
+                // Update progress bar and hide loading
+                progressBar.style.width = '100%';
+                document.getElementById('loading').classList.add('hidden');
+
                 const originalSize = (file.size / 1024).toFixed(2) + ' KB';
                 const compressedSize = (compressedFile.size / 1024).toFixed(2) + ' KB';
 
@@ -90,9 +131,11 @@
                 reader.readAsDataURL(compressedFile);
                 reader.onloadend = function () {
                     document.getElementById('originalImage').src = URL.createObjectURL(file);
+                    document.getElementById('originalImage').classList.remove('hidden');
                     document.getElementById('originalSize').textContent = 'Original Size: ' + originalSize;
 
                     document.getElementById('compressedImage').src = reader.result;
+                    document.getElementById('compressedImage').classList.remove('hidden');
                     document.getElementById('compressedSize').textContent = 'Compressed Size: ' + compressedSize;
 
                     const downloadLink = document.createElement('a');
@@ -107,6 +150,7 @@
             } catch (error) {
                 console.error(error);
                 alert('Compression failed. Please try again.');
+                document.getElementById('loading').classList.add('hidden');
             }
         }
     </script>
