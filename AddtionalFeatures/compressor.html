@@ -48,7 +48,67 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/compress.js@1.1.4/dist/compress.min.js"></script>
-    <script src="compressor.js"></script>
+    <!-- Load Compress.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/browser-image-compression/dist/browser-image-compression.js"></script>
+
+    <!-- Your Script -->
+    <script>
+        function compressFile() {
+            const fileInput = document.getElementById('fileInput').files[0];
+            const compressionLevel = document.getElementById('compressionLevel').value;
+            const desiredFileSize = document.getElementById('fileSize').value;
+
+            if (!fileInput) {
+                alert('Please select a file to compress.');
+                return;
+            }
+
+            if (fileInput.type.startsWith('image/')) {
+                compressImage(fileInput, compressionLevel, desiredFileSize);
+            } else {
+                alert('Unsupported file type. Please select an image file.');
+            }
+        }
+
+        async function compressImage(file, compressionLevel, desiredFileSize) {
+            const options = {
+                maxSizeMB: compressionLevel / 10, // Maximum file size in MB
+                maxWidthOrHeight: 1920, // Maximum width or height
+                useWebWorker: true, // Use a web worker to prevent blocking the main thread
+                maxIteration: 10,
+                initialQuality: compressionLevel / 100,
+                alwaysKeepResolution: true,
+                desiredSize: desiredFileSize ? parseInt(desiredFileSize) * 1024 : undefined, // Custom output size in bytes
+            };
+
+            try {
+                const compressedFile = await imageCompression(file, options);
+                const originalSize = (file.size / 1024).toFixed(2) + ' KB';
+                const compressedSize = (compressedFile.size / 1024).toFixed(2) + ' KB';
+
+                const reader = new FileReader();
+                reader.readAsDataURL(compressedFile);
+                reader.onloadend = function () {
+                    document.getElementById('originalImage').src = URL.createObjectURL(file);
+                    document.getElementById('originalSize').textContent = 'Original Size: ' + originalSize;
+
+                    document.getElementById('compressedImage').src = reader.result;
+                    document.getElementById('compressedSize').textContent = 'Compressed Size: ' + compressedSize;
+
+                    const downloadLink = document.createElement('a');
+                    downloadLink.href = reader.result;
+                    downloadLink.download = 'compressed_image.jpg';
+                    downloadLink.textContent = 'Download Compressed Image';
+                    downloadLink.className = 'bg-green-500 hover:bg-green-600 text-white p-2 rounded mt-4 block';
+
+                    document.getElementById('result').innerHTML = '';
+                    document.getElementById('result').appendChild(downloadLink);
+                };
+            } catch (error) {
+                console.error(error);
+                alert('Compression failed. Please try again.');
+            }
+        }
+    </script>
 </body>
 </html>
