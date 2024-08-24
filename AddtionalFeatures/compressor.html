@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF and Image Compressor</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white">
+    <div class="container mx-auto py-10">
+        <h1 class="text-3xl font-bold text-center mb-8">PDF and Image Compressor</h1>
+
+        <div class="bg-gray-800 p-8 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold mb-4">Compress Your Files</h2>
+
+            <div class="mb-6">
+                <label for="fileInput" class="block mb-2 font-bold">Select PDF or Image</label>
+                <input type="file" id="fileInput" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" accept=".pdf, .jpg, .jpeg, .png">
+            </div>
+
+            <div class="mb-6">
+                <label for="compressionLevel" class="block mb-2 font-bold">Compression Level</label>
+                <input type="range" id="compressionLevel" min="1" max="100" value="50" class="w-full">
+                <p id="compressionValue" class="text-right">50%</p>
+            </div>
+
+            <button type="button" class="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded" onclick="compressFile()">Compress</button>
+
+            <div id="result" class="mt-8"></div>
+        </div>
+    </div>
+
+    <script src="compressor.js"></script>
+</body>
+</html>
