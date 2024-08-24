@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced PDF and Image Compressor</title>
+    <title>Advanced Image Compressor</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         .slider {
@@ -45,27 +45,21 @@
 </head>
 <body class="bg-gray-900 text-white">
     <div class="container mx-auto py-10">
-        <h1 class="text-3xl font-bold text-center mb-8">Advanced PDF and Image Compressor</h1>
+        <h1 class="text-3xl font-bold text-center mb-8">Advanced Image Compressor</h1>
 
         <div class="bg-gray-800 p-8 rounded-lg shadow-lg">
             <h2 class="text-2xl font-bold mb-4">Compress Your Files</h2>
 
             <div class="mb-6">
-                <label for="fileInput" class="block mb-2 font-bold">Select PDF or Image</label>
-                <input type="file" id="fileInput" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" accept=".pdf, .jpg, .jpeg, .png">
+                <label for="fileInput" class="block mb-2 font-bold">Select Image</label>
+                <input type="file" id="fileInput" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" accept=".jpg, .jpeg, .png">
             </div>
 
             <div class="mb-6">
                 <label for="compressionLevel" class="block mb-2 font-bold">Compression Level</label>
                 <input type="range" id="compressionLevel" min="1" max="100" value="50" class="slider" oninput="updateCompressionValue()">
                 <p id="compressionValue" class="text-right">50%</p>
-            </div>
-
-            <div class="mb-6">
-                <label for="fileSize" class="block mb-2 font-bold">Custom File Size (KB)</label>
-                <input type="number" id="fileSize" placeholder="Enter desired file size in KB" class="w-full p-2 bg-gray-700 border border-gray-600 rounded" oninput="validateFileSize()">
-                <p id="fileSizeNote" class="text-gray-400 text-sm">Enter a value in KB for custom size.</p>
-            </div>
+            </div> 
 
             <button type="button" class="w-full text-center font-semibold bg-blue-500 hover:bg-blue-600 text-white p-2 rounded" onclick="compressFile()">Compress</button>
 
@@ -93,89 +87,6 @@
     <!-- Load Compress.js Library -->
     <script src="https://cdn.jsdelivr.net/npm/browser-image-compression/dist/browser-image-compression.min.js"></script>
 
-    <!-- Your Script -->
-    <script>
-        function updateCompressionValue() {
-            const compressionLevel = document.getElementById('compressionLevel').value;
-            document.getElementById('compressionValue').textContent = `${compressionLevel}%`;
-        }
-
-        function validateFileSize() {
-            const fileSizeInput = document.getElementById('fileSize');
-            const fileSizeNote = document.getElementById('fileSizeNote');
-            const customSizeValue = fileSizeInput.value;
-
-            if (customSizeValue < 1) {
-                fileSizeNote.textContent = "Please enter a value greater than 0.";
-            } else {
-                fileSizeNote.textContent = "Enter a value in KB for custom size.";
-            }
-        }
-
-        async function compressFile() {
-            const fileInput = document.getElementById('fileInput').files[0];
-            const compressionLevel = document.getElementById('compressionLevel').value;
-            const desiredFileSize = document.getElementById('fileSize').value;
-
-            if (!fileInput) {
-                alert('Please select a file to compress.');
-                return;
-            }
-
-            if (fileInput.type.startsWith('image/')) {
-                await compressImage(fileInput, compressionLevel, desiredFileSize);
-            } else {
-                alert('Unsupported file type. Please select an image file.');
-            }
-        }
-
-        async function compressImage(file, compressionLevel, desiredFileSize) {
-            const options = {
-                maxSizeMB: compressionLevel / 100, // Maximum file size in MB
-                maxWidthOrHeight: 1920, // Maximum width or height
-                useWebWorker: true, // Use a web worker to prevent blocking the main thread
-                maxIteration: 10,
-                initialQuality: compressionLevel / 100,
-                alwaysKeepResolution: true,
-                desiredSize: desiredFileSize ? parseInt(desiredFileSize) * 1024 : undefined, // Custom output size in bytes
-            };
-
-            try {
-                const compressedFile = await imageCompression(file, options);
-                const originalSize = (file.size / 1024).toFixed(2) + ' KB';
-                const compressedSize = (compressedFile.size / 1024).toFixed(2) + ' KB';
-
-                const reader = new FileReader();
-                reader.readAsDataURL(compressedFile);
-                reader.onloadend = function () {
-                    document.getElementById('originalImage').src = URL.createObjectURL(file);
-                    document.getElementById('originalImage').style.display = 'block';
-                    document.getElementById('originalSize').textContent = 'Original Size: ' + originalSize;
-
-                    document.getElementById('compressedImage').src = reader.result;
-                    document.getElementById('compressedImage').style.display = 'block';
-                    document.getElementById('compressedSize').textContent = 'Compressed Size: ' + compressedSize;
-
-                    const downloadLink = document.createElement('a');
-                    downloadLink.href = reader.result;
-                    downloadLink.download = 'compressed_image.jpg'; // Ensure the extension matches the format
-                    downloadLink.textContent = 'Download Compressed Image';
-                    downloadLink.className = 'bg-green-500 hover:bg-green-600 text-white p-2 rounded mt-4 block';
-
-                    document.getElementById('result').innerHTML = '';
-                    document.getElementById('result').appendChild(downloadLink);
-                };
-
-                // Update progress bar
-                const progressBar = document.getElementById('progressBar');
-                const progress = (file.size - compressedFile.size) / file.size * 100;
-                progressBar.style.width = `${progress}%`;
-                progressBar.classList.add('bg-green-500');
-            } catch (error) {
-                console.error(error);
-                alert('Compression failed. Please try again.');
-            }
-        }
-    </script>
+    <script src="compressor.js"></script>
 </body>
 </html>

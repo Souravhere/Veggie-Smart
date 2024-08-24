@@ -1,13 +1,11 @@
-const compress = new Compress();
+function updateCompressionValue() {
+    const compressionLevel = document.getElementById('compressionLevel').value;
+    document.getElementById('compressionValue').textContent = `${compressionLevel}%`;
+}
 
-document.getElementById('compressionLevel').addEventListener('input', function() {
-    document.getElementById('compressionValue').textContent = this.value + '%';
-});
-
-function compressFile() {
+async function compressFile() {
     const fileInput = document.getElementById('fileInput').files[0];
     const compressionLevel = document.getElementById('compressionLevel').value;
-    const desiredFileSize = document.getElementById('fileSize').value;
 
     if (!fileInput) {
         alert('Please select a file to compress.');
@@ -15,52 +13,55 @@ function compressFile() {
     }
 
     if (fileInput.type.startsWith('image/')) {
-        compressImage(fileInput, compressionLevel, desiredFileSize);
+        await compressImage(fileInput, compressionLevel);
     } else {
         alert('Unsupported file type. Please select an image file.');
     }
 }
 
-function compressImage(file, compressionLevel, desiredFileSize) {
-    const reader = new FileReader();
-    reader.onload = function(event) {
-        const img = new Image();
-        img.src = event.target.result;
-
-        img.onload = function() {
-            const options = {
-                size: 4, // the max size in MB
-                quality: compressionLevel / 100, // the quality of the image
-                maxWidth: 1920, // max width of the output image
-                maxHeight: 1920, // max height of the output image
-                resize: true, // use resize for better results
-                customOutput: desiredFileSize ? parseInt(desiredFileSize) * 1024 : null, // custom output size in bytes
-            };
-
-            compress.compress([file], options).then((results) => {
-                const output = results[0];
-                const { data, ext, size, alt } = output;
-
-                const originalSize = (file.size / 1024).toFixed(2) + ' KB';
-                const compressedSize = (size / 1024).toFixed(2) + ' KB';
-
-                document.getElementById('originalImage').src = event.target.result;
-                document.getElementById('originalSize').textContent = 'Original Size: ' + originalSize;
-
-                const compressedImage = `data:image/${ext};base64,${data}`;
-                document.getElementById('compressedImage').src = compressedImage;
-                document.getElementById('compressedSize').textContent = 'Compressed Size: ' + compressedSize;
-
-                const downloadLink = document.createElement('a');
-                downloadLink.href = compressedImage;
-                downloadLink.download = 'compressed.' + ext;
-                downloadLink.textContent = 'Download Compressed Image';
-                downloadLink.className = 'bg-green-500 hover:bg-green-600 text-white p-2 rounded mt-4 block';
-
-                document.getElementById('result').innerHTML = '';
-                document.getElementById('result').appendChild(downloadLink);
-            });
-        };
+async function compressImage(file, compressionLevel) {
+    const options = {
+        maxSizeMB: compressionLevel / 100, // Maximum file size in MB
+        maxWidthOrHeight: 1920, // Maximum width or height
+        useWebWorker: true, // Use a web worker to prevent blocking the main thread
+        maxIteration: 10,
+        initialQuality: compressionLevel / 100,
+        alwaysKeepResolution: true,
     };
-    reader.readAsDataURL(file);
+
+    try {
+        const compressedFile = await imageCompression(file, options);
+        const originalSize = (file.size / 1024).toFixed(2) + ' KB';
+        const compressedSize = (compressedFile.size / 1024).toFixed(2) + ' KB';
+
+        const reader = new FileReader();
+        reader.readAsDataURL(compressedFile);
+        reader.onloadend = function () {
+            document.getElementById('originalImage').src = URL.createObjectURL(file);
+            document.getElementById('originalImage').style.display = 'block';
+            document.getElementById('originalSize').textContent = 'Original Size: ' + originalSize;
+
+            document.getElementById('compressedImage').src = reader.result;
+            document.getElementById('compressedImage').style.display = 'block';
+            document.getElementById('compressedSize').textContent = 'Compressed Size: ' + compressedSize;
+
+            const downloadLink = document.createElement('a');
+            downloadLink.href = reader.result;
+            downloadLink.download = 'compressed_image.jpg'; // Ensure the extension matches the format
+            downloadLink.textContent = 'Download Compressed Image';
+            downloadLink.className = 'bg-green-500 hover:bg-green-600 text-white p-2 rounded mt-4 block';
+
+            document.getElementById('result').innerHTML = '';
+            document.getElementById('result').appendChild(downloadLink);
+        };
+
+        // Update progress bar
+        const progressBar = document.getElementById('progressBar');
+        const progress = (file.size - compressedFile.size) / file.size * 100;
+        progressBar.style.width = `${progress}%`;
+        progressBar.classList.add('bg-green-500');
+    } catch (error) {
+        console.error(error);
+        alert('Compression failed. Please try again.');
+    }
 }
