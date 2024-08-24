@@ -1,92 +1,66 @@
-async function compressFile() {
+const compress = new Compress();
+
+document.getElementById('compressionLevel').addEventListener('input', function() {
+    document.getElementById('compressionValue').textContent = this.value + '%';
+});
+
+function compressFile() {
     const fileInput = document.getElementById('fileInput').files[0];
-    const customSize = document.getElementById('customSize').value;
+    const compressionLevel = document.getElementById('compressionLevel').value;
+    const desiredFileSize = document.getElementById('fileSize').value;
 
     if (!fileInput) {
         alert('Please select a file to compress.');
         return;
     }
 
-    const fileType = fileInput.type;
-
-    if (fileType === 'application/pdf') {
-        await compressPDF(fileInput, customSize);
-    } else if (fileType.startsWith('image/')) {
-        await compressImage(fileInput, customSize);
+    if (fileInput.type.startsWith('image/')) {
+        compressImage(fileInput, compressionLevel, desiredFileSize);
     } else {
-        alert('Unsupported file type. Please select a PDF or image file.');
+        alert('Unsupported file type. Please select an image file.');
     }
 }
 
-async function compressPDF(file, customSize) {
-    const apiKey = 'YOUR_PDFCO_API_KEY';  // Replace with your PDF.co API key
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('name', file.name);
-    formData.append('customSize', customSize);
+function compressImage(file, compressionLevel, desiredFileSize) {
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        const img = new Image();
+        img.src = event.target.result;
 
-    try {
-        const response = await fetch('https://api.pdf.co/v1/pdf/optimize', {
-            method: 'POST',
-            headers: {
-                'x-api-key': apiKey
-            },
-            body: formData
-        });
+        img.onload = function() {
+            const options = {
+                size: 4, // the max size in MB
+                quality: compressionLevel / 100, // the quality of the image
+                maxWidth: 1920, // max width of the output image
+                maxHeight: 1920, // max height of the output image
+                resize: true, // use resize for better results
+                customOutput: desiredFileSize ? parseInt(desiredFileSize) * 1024 : null, // custom output size in bytes
+            };
 
-        const result = await response.json();
-        if (result.error) {
-            alert('Compression failed: ' + result.message);
-            return;
-        }
+            compress.compress([file], options).then((results) => {
+                const output = results[0];
+                const { data, ext, size, alt } = output;
 
-        displayResult(result.url, 'compressed.pdf');
-    } catch (error) {
-        alert('An error occurred: ' + error.message);
-    }
-}
+                const originalSize = (file.size / 1024).toFixed(2) + ' KB';
+                const compressedSize = (size / 1024).toFixed(2) + ' KB';
 
-async function compressImage(file, customSize) {
-    const apiKey = 'YOUR_CLOUDINARY_API_KEY';  // Replace with your Cloudinary API key
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', 'YOUR_UPLOAD_PRESET');  // Replace with your Cloudinary upload preset
-    formData.append('folder', 'compressed_images');
-    formData.append('quality', 'auto');
-    formData.append('customSize', customSize);
+                document.getElementById('originalImage').src = event.target.result;
+                document.getElementById('originalSize').textContent = 'Original Size: ' + originalSize;
 
-    const beforeImageUrl = URL.createObjectURL(file);
-    document.getElementById('beforeImage').src = beforeImageUrl;
+                const compressedImage = `data:image/${ext};base64,${data}`;
+                document.getElementById('compressedImage').src = compressedImage;
+                document.getElementById('compressedSize').textContent = 'Compressed Size: ' + compressedSize;
 
-    try {
-        const response = await fetch(`https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/image/upload`, {
-            method: 'POST',
-            body: formData
-        });
+                const downloadLink = document.createElement('a');
+                downloadLink.href = compressedImage;
+                downloadLink.download = 'compressed.' + ext;
+                downloadLink.textContent = 'Download Compressed Image';
+                downloadLink.className = 'bg-green-500 hover:bg-green-600 text-white p-2 rounded mt-4 block';
 
-        const result = await response.json();
-        if (result.error) {
-            alert('Compression failed: ' + result.error.message);
-            return;
-        }
-
-        document.getElementById('afterImage').src = result.secure_url;
-        document.getElementById('preview').classList.remove('hidden');
-
-        displayResult(result.secure_url, 'compressed.jpg');
-    } catch (error) {
-        alert('An error occurred: ' + error.message);
-    }
-}
-
-function displayResult(downloadUrl, fileName) {
-    const downloadLink = document.createElement('a');
-    downloadLink.href = downloadUrl;
-    downloadLink.download = fileName;
-    downloadLink.textContent = `Download Compressed ${fileName}`;
-    downloadLink.className = 'bg-green-500 hover:bg-green-600 text-white p-2 rounded';
-
-    const resultDiv = document.getElementById('result');
-    resultDiv.innerHTML = '';
-    resultDiv.appendChild(downloadLink);
+                document.getElementById('result').innerHTML = '';
+                document.getElementById('result').appendChild(downloadLink);
+            });
+        };
+    };
+    reader.readAsDataURL(file);
 }
