@@ -30,6 +30,21 @@ const toolsData = {
             features: ["Multiple QR Code Types", "Logo Integration", "Various Output Formats"],
             version: "2.0.1",
             privacyPolicy: "Generated QR codes are not stored; your data is used solely for the QR code creation process."
+        },
+        {
+            link: "./AddtionalFeatures/compressor.html",
+            imageSrc: "https://img.icons8.com/color/500/image-file.png",
+            imageAlt: "Image Compressor",
+            tagName: "Free",
+            buttonName: "Image Compressor",
+            description: "Image Compressor api powered tool to compres the images in few seconds.",
+            lastUpdated: "25 Aug",
+            category: "Utilities",
+            author: "Veggie Smart Team",
+            usageTips: "Image Compressor api powered tool to compres the images in few seconds.",
+            features: ["jpg Image Compressor", "png Image Compressor", "Many other Image Compressor"],
+            version: "1.0.3",
+            privacyPolicy: "Generated QR codes are not stored; your data is used solely for the QR code creation process."
         }
     ],
     MarketProCalculators: [
