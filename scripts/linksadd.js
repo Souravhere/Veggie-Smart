@@ -14,6 +14,13 @@ function NewFeatured() {
             tagName: "Free",
             buttonName: "QR Code Generator"
         },
+        {
+            link: "./AddtionalFeatures/compressor.html",
+            imageSrc: "https://img.icons8.com/color/500/image-file.png",
+            imageAlt: "Image Compressor",
+            tagName: "Free",
+            buttonName: "Image Compressor"
+        },
     ];
     
     const NewFeatured = document.getElementById("NewFeatured");
