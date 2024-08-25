@@ -93,7 +93,7 @@ if (footer) {
 
 loadFontAwesome();
 
-const imageUrl = 'https://veggie-smart.vercel.app/SourceImages/open-graph-img.png'; 
+const imageUrl = 'https://veggie-smart.vercel.app/SourceImages/open-graph-img.jpg'; 
 const pageDescription = 'A tool to calculate vegetable prices, recipe costs, and more. Updated regularly with new features.';
 const pageTitle = encodeURIComponent(document.title + ' | Where Smart Calculations Begin');
 const pageUrl = encodeURIComponent(window.location.href);
@@ -244,5 +244,61 @@ document.addEventListener('click', (event) => {
         shareMenu.style.display = 'none';
     }
 });
+
+// Create and inject the favicon links
+var faviconLink = document.createElement('link');
+faviconLink.rel = 'icon';
+faviconLink.href = 'https://img.icons8.com/color/300/calculator--v1.png';
+faviconLink.type = 'image/png';
+document.head.appendChild(faviconLink);
+
+var shortcutIconLink = document.createElement('link');
+shortcutIconLink.rel = 'shortcut icon';
+shortcutIconLink.href = 'https://img.icons8.com/color/300/calculator--v1.png';
+shortcutIconLink.type = 'image/png';
+document.head.appendChild(shortcutIconLink);
+
+// Create and inject the Open Graph meta tags
+var ogImage = document.createElement('meta');
+ogImage.setAttribute('property', 'og:image');
+ogImage.content = 'https://veggie-smart.vercel.app/SourceImages/open-graph-img.jpg';
+document.head.appendChild(ogImage);
+
+var ogUrl = document.createElement('meta');
+ogUrl.setAttribute('property', 'og:url');
+ogUrl.content = 'https://veggie-smart.vercel.app/';
+document.head.appendChild(ogUrl);
+
+var ogType = document.createElement('meta');
+ogType.setAttribute('property', 'og:type');
+ogType.content = 'website';
+document.head.appendChild(ogType);
+
+// Create and inject the Twitter meta tags
+var twitterCard = document.createElement('meta');
+twitterCard.setAttribute('name', 'twitter:card');
+twitterCard.content = 'https://veggie-smart.vercel.app/SourceImages/open-graph-img.jpg';
+document.head.appendChild(twitterCard);
+
+var twitterTitle = document.createElement('meta');
+twitterTitle.setAttribute('name', 'twitter:title');
+twitterTitle.content = 'Veggie Smart';
+document.head.appendChild(twitterTitle);
+
+var twitterDescription = document.createElement('meta');
+twitterDescription.setAttribute('name', 'twitter:description');
+twitterDescription.content = 'A tool to calculate vegetable prices, recipe costs, and more. Updated regularly with new features.';
+document.head.appendChild(twitterDescription);
+
+var twitterImage = document.createElement('meta');
+twitterImage.setAttribute('name', 'twitter:image');
+twitterImage.content = 'https://veggie-smart.vercel.app/SourceImages/open-graph-img.jpg';
+document.head.appendChild(twitterImage);
+
+var twitterCreator = document.createElement('meta');
+twitterCreator.setAttribute('name', 'twitter:creator');
+twitterCreator.content = '@sourav-chhimpa';
+document.head.appendChild(twitterCreator);
+
 });
 
