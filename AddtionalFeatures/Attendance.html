@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Calculate how many days you can bunk while maintaining 75% attendance, or how many days you need to attend to reach 75%.">
+    <meta name="description" content="Calculate how many days you can bunk while maintaining your required attendance percentage.">
     <meta name="keywords" content="Attendance Calculator, Bunk Days, Attendance Percentage, Veggie Smart">
     <meta name="author" content="Sourav Chhimpa">
     <title>Attendance Calculator</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="bg-gray-900 text-white">
     <div class="container mx-auto p-6">
         <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
             <h2 class="text-2xl font-semibold text-center text-green-400 mb-4">Attendance Calculator</h2>
+            <p class="text-center text-lg text-green-300 mb-4">Find out how many days you can bunk or how many more days you need to attend to achieve your attendance goal!</p>
+
             <form id="attendanceForm" class="space-y-4">
                 <div class="flex flex-col space-y-2">
                     <label for="presentDays" class="text-lg font-medium">Days Present:</label>
@@ -22,9 +25,43 @@
                     <label for="totalDays" class="text-lg font-medium">Total Days:</label>
                     <input type="number" id="totalDays" placeholder="Enter total number of days" class="p-2 rounded border border-gray-600 bg-gray-900 text-white">
                 </div>
+                <div class="flex flex-col space-y-2">
+                    <label for="requiredAttendance" class="text-lg font-medium">Required Attendance:</label>
+                    <select id="requiredAttendance" class="p-2 rounded border border-gray-600 bg-gray-900 text-white">
+                        <option value="60">60%</option>
+                        <option value="65">65%</option>
+                        <option value="70">70%</option>
+                        <option value="75" selected>75%</option>
+                        <option value="80">80%</option>
+                        <option value="85">85%</option>
+                    </select>
+                </div>
                 <button type="button" onclick="calculateAttendance()" class="w-full bg-green-500 hover:bg-green-600 text-white p-2 rounded">Calculate</button>
             </form>
+
             <div id="result" class="mt-4 text-xl text-center text-green-300"></div>
+            
+            <!-- Chart Container -->
+            <div class="mt-6">
+                <canvas id="attendanceChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mx-auto p-6">
+        <div class="bg-gray-800 p-4 rounded-lg shadow-lg mt-8">
+            <h2 class="text-xl font-semibold text-green-400">User Documentation for "Attendance Calculator"</h2>
+            <h3 class="text-lg text-green-300">Overview</h3>
+            <p class="mb-4">The Attendance Calculator helps students figure out how many days they can bunk while maintaining their required attendance percentage, or how many more days they need to attend to reach the desired percentage. You can select different attendance goals, such as 60%, 65%, 70%, 75%, and more.</p>
+            <h3 class="text-lg text-green-300">How to Use</h3>
+            <ul class="list-disc ml-5 space-y-2">
+                <li>Enter your current number of days attended in the "Days Present" field.</li>
+                <li>Enter the total number of academic days in the "Total Days" field.</li>
+                <li>Select your required attendance percentage from the dropdown menu.</li>
+                <li>Click the "Calculate" button to see the results.</li>
+                <li>The calculator will tell you how many days you can still bunk or how many more days you need to attend to meet the required percentage.</li>
+                <li>View the graphical representation of your attendance before and after in the chart below.</li>
+            </ul>
         </div>
     </div>
 
@@ -32,7 +69,7 @@
         function calculateAttendance() {
             const present = parseFloat(document.getElementById('presentDays').value);
             const total = parseFloat(document.getElementById('totalDays').value);
-            const requiredAttendance = 75;
+            const requiredAttendance = parseFloat(document.getElementById('requiredAttendance').value);
 
             if (!present || !total || present > total || present < 0 || total <= 0) {
                 document.getElementById('result').innerHTML = "Please enter valid values.";
@@ -43,21 +80,69 @@
             const attendanceNeeded = requiredAttendance / 100;
             const totalWithBunks = present / attendanceNeeded;
 
+            let resultMessage = '';
+            let chartData = [present, total - present]; // Data for the pie chart (present vs absent)
+
             if (currentAttendance >= requiredAttendance) {
                 const canBunk = Math.floor(totalWithBunks - total);
-                document.getElementById('result').innerHTML = `
+                resultMessage = `
                     <p>You can bunk for <strong>${canBunk}</strong> more days.</p>
                     <p>Current Attendance: <strong>${present}/${total}</strong> -> <strong>${currentAttendance.toFixed(2)}%</strong></p>
                     <p>Attendance Then: <strong>${present}/${Math.ceil(totalWithBunks)}</strong> -> <strong>${requiredAttendance}%</strong></p>
                 `;
             } else {
                 const extraDaysNeeded = Math.ceil((present / attendanceNeeded) - total);
-                document.getElementById('result').innerHTML = `
-                    <p>You need to attend <strong>${extraDaysNeeded}</strong> more days to reach 75% attendance.</p>
+                resultMessage = `
+                    <p>You need to attend <strong>${extraDaysNeeded}</strong> more days to reach ${requiredAttendance}% attendance.</p>
                     <p>Current Attendance: <strong>${present}/${total}</strong> -> <strong>${currentAttendance.toFixed(2)}%</strong></p>
                     <p>Attendance Needed: <strong>${present}/${Math.ceil(totalWithBunks)}</strong> -> <strong>${requiredAttendance}%</strong></p>
                 `;
+                chartData = [present + extraDaysNeeded, total + extraDaysNeeded - present]; // Adjust chart for required attendance
             }
+
+            document.getElementById('result').innerHTML = resultMessage;
+
+            // Update the chart
+            updateChart(chartData);
+        }
+
+        // Function to create or update Chart.js graph
+        function updateChart(data) {
+            const ctx = document.getElementById('attendanceChart').getContext('2d');
+            if (window.attendanceChart) {
+                window.attendanceChart.destroy();
+            }
+            window.attendanceChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Days Attended', 'Days Remaining'],
+                    datasets: [{
+                        label: 'Attendance Chart',
+                        data: data,
+                        backgroundColor: ['#4CAF50', '#FF7043'],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                color: 'white'
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Attendance Overview',
+                            color: 'white',
+                            font: {
+                                size: 18
+                            }
+                        }
+                    }
+                }
+            });
         }
     </script>
 </body>
