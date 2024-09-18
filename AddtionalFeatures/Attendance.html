@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculate how many days you can bunk while maintaining 75% attendance, or how many days you need to attend to reach 75%.">
+    <meta name="keywords" content="Attendance Calculator, Bunk Days, Attendance Percentage, Veggie Smart">
+    <meta name="author" content="Sourav Chhimpa">
+    <title>Attendance Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white">
+    <div class="container mx-auto p-6">
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-semibold text-center text-green-400 mb-4">Attendance Calculator</h2>
+            <form id="attendanceForm" class="space-y-4">
+                <div class="flex flex-col space-y-2">
+                    <label for="presentDays" class="text-lg font-medium">Days Present:</label>
+                    <input type="number" id="presentDays" placeholder="Enter number of present days" class="p-2 rounded border border-gray-600 bg-gray-900 text-white">
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <label for="totalDays" class="text-lg font-medium">Total Days:</label>
+                    <input type="number" id="totalDays" placeholder="Enter total number of days" class="p-2 rounded border border-gray-600 bg-gray-900 text-white">
+                </div>
+                <button type="button" onclick="calculateAttendance()" class="w-full bg-green-500 hover:bg-green-600 text-white p-2 rounded">Calculate</button>
+            </form>
+            <div id="result" class="mt-4 text-xl text-center text-green-300"></div>
+        </div>
+    </div>
+
+    <script>
+        function calculateAttendance() {
+            const present = parseFloat(document.getElementById('presentDays').value);
+            const total = parseFloat(document.getElementById('totalDays').value);
+            const requiredAttendance = 75;
+
+            if (!present || !total || present > total || present < 0 || total <= 0) {
+                document.getElementById('result').innerHTML = "Please enter valid values.";
+                return;
+            }
+
+            const currentAttendance = (present / total) * 100;
+            const attendanceNeeded = requiredAttendance / 100;
+            const totalWithBunks = present / attendanceNeeded;
+
+            if (currentAttendance >= requiredAttendance) {
+                const canBunk = Math.floor(totalWithBunks - total);
+                document.getElementById('result').innerHTML = `
+                    <p>You can bunk for <strong>${canBunk}</strong> more days.</p>
+                    <p>Current Attendance: <strong>${present}/${total}</strong> -> <strong>${currentAttendance.toFixed(2)}%</strong></p>
+                    <p>Attendance Then: <strong>${present}/${Math.ceil(totalWithBunks)}</strong> -> <strong>${requiredAttendance}%</strong></p>
+                `;
+            } else {
+                const extraDaysNeeded = Math.ceil((present / attendanceNeeded) - total);
+                document.getElementById('result').innerHTML = `
+                    <p>You need to attend <strong>${extraDaysNeeded}</strong> more days to reach 75% attendance.</p>
+                    <p>Current Attendance: <strong>${present}/${total}</strong> -> <strong>${currentAttendance.toFixed(2)}%</strong></p>
+                    <p>Attendance Needed: <strong>${present}/${Math.ceil(totalWithBunks)}</strong> -> <strong>${requiredAttendance}%</strong></p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
