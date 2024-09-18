@@ -6,7 +6,7 @@
     <meta name="description" content="Calculate how many days you can bunk while maintaining your required attendance percentage.">
     <meta name="keywords" content="Attendance Calculator, Bunk Days, Attendance Percentage, Veggie Smart">
     <meta name="author" content="Sourav Chhimpa">
-    <title>Attendance Calculator</title>
+    <title>Fun Attendance Calculator 🎉</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -19,11 +19,12 @@
         .custom-button {
             background-color: #00C853;
             color: white;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.2s;
         }
 
         .custom-button:hover {
             background-color: #00A152;
+            transform: scale(1.05);
         }
 
         .card {
@@ -51,13 +52,35 @@
             color: #00E676;
             font-weight: bold;
         }
+
+        .fun-result {
+            font-size: 1.5rem;
+            margin-top: 10px;
+        }
+
+        .emoji {
+            font-size: 2rem;
+        }
+
+        .result-box {
+            background-color: #1F2937;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            color: #ffffff;
+        }
+
+        .highlight {
+            color: #FFAB00;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <div class="container mx-auto p-6">
         <div class="card p-6 mb-8">
-            <h2 class="text-3xl font-bold text-center text-green-400 mb-6">Attendance Calculator</h2>
-            <p class="text-center text-lg mb-6">Find out how many days you can bunk or how many more days you need to attend to meet your attendance goals!</p>
+            <h2 class="text-3xl font-bold text-center text-green-400 mb-6">Fun Attendance Calculator 🎉</h2>
+            <p class="text-center text-lg mb-6">Find out how many days you can bunk or how many more days you need to attend to meet your attendance goals! 🎓</p>
 
             <form id="attendanceForm" class="space-y-4">
                 <div class="flex flex-col space-y-2">
@@ -79,10 +102,10 @@
                         <option value="85">85%</option>
                     </select>
                 </div>
-                <button type="button" onclick="calculateAttendance()" class="w-full custom-button p-3 rounded">Calculate</button>
+                <button type="button" onclick="calculateAttendance()" class="w-full custom-button p-3 rounded">Calculate 🎯</button>
             </form>
 
-            <div id="result" class="mt-4 text-center result-text"></div>
+            <div id="result" class="result-box hidden mt-4 text-center result-text"></div>
             
             <!-- Chart Container -->
             <div class="chart-container mt-6">
@@ -93,7 +116,7 @@
 
     <div class="container mx-auto p-6">
         <div class="bg-gray-800 p-4 rounded-lg shadow-lg mt-8">
-            <h2 class="text-xl font-semibold text-green-400">User Documentation for "Attendance Calculator"</h2>
+            <h2 class="text-xl font-semibold text-green-400">User Documentation for "Fun Attendance Calculator"</h2>
             <h3 class="text-lg text-green-300">Overview</h3>
             <p class="mb-4">This Attendance Calculator helps students figure out how many days they can bunk while maintaining their required attendance percentage, or how many more days they need to attend to reach the desired percentage. You can select different attendance goals, such as 60%, 65%, 70%, 75%, and more.</p>
             <h3 class="text-lg text-green-300">How to Use</h3>
@@ -117,7 +140,8 @@
             const requiredAttendance = parseFloat(document.getElementById('requiredAttendance').value);
 
             if (!present || !total || present > total || present < 0 || total <= 0) {
-                document.getElementById('result').innerHTML = "Please enter valid values.";
+                document.getElementById('result').classList.add('hidden');
+                alert("Please enter valid values. ⚠️");
                 return;
             }
 
@@ -126,26 +150,30 @@
             const totalWithBunks = present / attendanceNeeded;
 
             let resultMessage = '';
+            let funMessage = '';
             let chartData = [present, total - present]; // Data for the pie chart (present vs absent)
 
             if (currentAttendance >= requiredAttendance) {
                 const canBunk = Math.floor(totalWithBunks - total);
                 resultMessage = `
-                    <p>You can bunk for <strong>${canBunk}</strong> more days.</p>
-                    <p>Current Attendance: <strong>${present}/${total}</strong> -> <strong>${currentAttendance.toFixed(2)}%</strong></p>
-                    <p>Attendance Then: <strong>${present}/${Math.ceil(totalWithBunks)}</strong> -> <strong>${requiredAttendance}%</strong></p>
+                    You can bunk <span class="highlight">${canBunk}</span> more days! 🎉
+                    <p class="mt-2">Current Attendance: <strong>${present}/${total}</strong> -> <strong>${currentAttendance.toFixed(2)}%</strong></p>
+                    <p>Attendance After Bunking: <strong>${present}/${Math.ceil(totalWithBunks)}</strong> -> <strong>${requiredAttendance}%</strong></p>
                 `;
+                funMessage = "Go enjoy your time! 😎";
             } else {
                 const extraDaysNeeded = Math.ceil((present / attendanceNeeded) - total);
                 resultMessage = `
-                    <p>You need to attend <strong>${extraDaysNeeded}</strong> more days to reach ${requiredAttendance}% attendance.</p>
-                    <p>Current Attendance: <strong>${present}/${total}</strong> -> <strong>${currentAttendance.toFixed(2)}%</strong></p>
-                    <p>Attendance Needed: <strong>${present}/${Math.ceil(totalWithBunks)}</strong> -> <strong>${requiredAttendance}%</strong></p>
+                    You need to attend <span class="highlight">${extraDaysNeeded}</span> more days! 💪
+                    <p class="mt-2">Current Attendance: <strong>${present}/${total}</strong> -> <strong>${currentAttendance.toFixed(2)}%</strong></p>
+                    <p>Attendance After Attending: <strong>${present}/${Math.ceil(totalWithBunks)}</strong> -> <strong>${requiredAttendance}%</strong></p>
                 `;
+                funMessage = "Better hit the books! 📚";
                 chartData = [present + extraDaysNeeded, total + extraDaysNeeded - present]; // Adjust chart for required attendance
             }
 
-            document.getElementById('result').innerHTML = resultMessage;
+            document.getElementById('result').innerHTML = `${resultMessage}<p class="fun-result">${funMessage}</p>`;
+            document.getElementById('result').classList.remove('hidden');
 
             // Update the chart
             updateChart(chartData);
@@ -167,25 +195,19 @@
                     datasets: [{
                         label: 'Attendance Chart',
                         data: data,
-                        backgroundColor: ['#00C853', '#FF7043'],
-                        hoverOffset: 4
+                        backgroundColor: ['#00E676', '#FF7043'],
+                        borderColor: '#263238',
+                        borderWidth: 2
                     }]
                 },
                 options: {
                     responsive: true,
                     plugins: {
                         legend: {
-                            position: 'top',
-                            labels: {
-                                color: 'white'
-                            }
-                        },
-                        title: {
                             display: true,
-                            text: 'Attendance Overview',
-                            color: 'white',
-                            font: {
-                                size: 18
+                            position: 'bottom',
+                            labels: {
+                                color: '#ffffff'
                             }
                         }
                     }
