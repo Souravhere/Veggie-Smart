@@ -9,25 +9,68 @@
     <title>Attendance Calculator</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background-color: #121212; /* Dark background */
+            color: #f5f5f5; /* White text */
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .custom-button {
+            background-color: #00C853;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .custom-button:hover {
+            background-color: #00A152;
+        }
+
+        .card {
+            background-color: #1E1E1E;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        input, select {
+            background-color: #2E2E2E;
+            color: white;
+        }
+
+        input::placeholder {
+            color: #9E9E9E;
+        }
+
+        .chart-container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .result-text {
+            font-size: 1.25rem;
+            color: #00E676;
+            font-weight: bold;
+        }
+    </style>
 </head>
-<body class="bg-gray-900 text-white">
+<body>
     <div class="container mx-auto p-6">
-        <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
-            <h2 class="text-2xl font-semibold text-center text-green-400 mb-4">Attendance Calculator</h2>
-            <p class="text-center text-lg text-green-300 mb-4">Find out how many days you can bunk or how many more days you need to attend to achieve your attendance goal!</p>
+        <div class="card p-6 mb-8">
+            <h2 class="text-3xl font-bold text-center text-green-400 mb-6">Attendance Calculator</h2>
+            <p class="text-center text-lg mb-6">Find out how many days you can bunk or how many more days you need to attend to meet your attendance goals!</p>
 
             <form id="attendanceForm" class="space-y-4">
                 <div class="flex flex-col space-y-2">
                     <label for="presentDays" class="text-lg font-medium">Days Present:</label>
-                    <input type="number" id="presentDays" placeholder="Enter number of present days" class="p-2 rounded border border-gray-600 bg-gray-900 text-white">
+                    <input type="number" id="presentDays" placeholder="Enter number of present days" class="p-3 rounded border border-gray-600">
                 </div>
                 <div class="flex flex-col space-y-2">
                     <label for="totalDays" class="text-lg font-medium">Total Days:</label>
-                    <input type="number" id="totalDays" placeholder="Enter total number of days" class="p-2 rounded border border-gray-600 bg-gray-900 text-white">
+                    <input type="number" id="totalDays" placeholder="Enter total number of days" class="p-3 rounded border border-gray-600">
                 </div>
                 <div class="flex flex-col space-y-2">
                     <label for="requiredAttendance" class="text-lg font-medium">Required Attendance:</label>
-                    <select id="requiredAttendance" class="p-2 rounded border border-gray-600 bg-gray-900 text-white">
+                    <select id="requiredAttendance" class="p-3 rounded border border-gray-600">
                         <option value="60">60%</option>
                         <option value="65">65%</option>
                         <option value="70">70%</option>
@@ -36,13 +79,13 @@
                         <option value="85">85%</option>
                     </select>
                 </div>
-                <button type="button" onclick="calculateAttendance()" class="w-full bg-green-500 hover:bg-green-600 text-white p-2 rounded">Calculate</button>
+                <button type="button" onclick="calculateAttendance()" class="w-full custom-button p-3 rounded">Calculate</button>
             </form>
 
-            <div id="result" class="mt-4 text-xl text-center text-green-300"></div>
+            <div id="result" class="mt-4 text-center result-text"></div>
             
             <!-- Chart Container -->
-            <div class="mt-6">
+            <div class="chart-container mt-6">
                 <canvas id="attendanceChart"></canvas>
             </div>
         </div>
@@ -52,7 +95,7 @@
         <div class="bg-gray-800 p-4 rounded-lg shadow-lg mt-8">
             <h2 class="text-xl font-semibold text-green-400">User Documentation for "Attendance Calculator"</h2>
             <h3 class="text-lg text-green-300">Overview</h3>
-            <p class="mb-4">The Attendance Calculator helps students figure out how many days they can bunk while maintaining their required attendance percentage, or how many more days they need to attend to reach the desired percentage. You can select different attendance goals, such as 60%, 65%, 70%, 75%, and more.</p>
+            <p class="mb-4">This Attendance Calculator helps students figure out how many days they can bunk while maintaining their required attendance percentage, or how many more days they need to attend to reach the desired percentage. You can select different attendance goals, such as 60%, 65%, 70%, 75%, and more.</p>
             <h3 class="text-lg text-green-300">How to Use</h3>
             <ul class="list-disc ml-5 space-y-2">
                 <li>Enter your current number of days attended in the "Days Present" field.</li>
@@ -66,6 +109,8 @@
     </div>
 
     <script>
+        let attendanceChart;
+
         function calculateAttendance() {
             const present = parseFloat(document.getElementById('presentDays').value);
             const total = parseFloat(document.getElementById('totalDays').value);
@@ -109,17 +154,20 @@
         // Function to create or update Chart.js graph
         function updateChart(data) {
             const ctx = document.getElementById('attendanceChart').getContext('2d');
-            if (window.attendanceChart) {
-                window.attendanceChart.destroy();
+
+            // If chart exists, destroy it first before creating a new one
+            if (attendanceChart) {
+                attendanceChart.destroy();
             }
-            window.attendanceChart = new Chart(ctx, {
+
+            attendanceChart = new Chart(ctx, {
                 type: 'pie',
                 data: {
                     labels: ['Days Attended', 'Days Remaining'],
                     datasets: [{
                         label: 'Attendance Chart',
                         data: data,
-                        backgroundColor: ['#4CAF50', '#FF7043'],
+                        backgroundColor: ['#00C853', '#FF7043'],
                         hoverOffset: 4
                     }]
                 },
