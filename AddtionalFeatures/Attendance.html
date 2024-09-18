@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Calculate how many days you can bunk while maintaining your required attendance percentage.">
-    <meta name="keywords" content="Attendance Calculator, Bunk Days, Attendance Percentage, Veggie Smart">
+    <meta name="description" content="Calculate how many lecturer you can bunk while maintaining your required attendance percentage.">
+    <meta name="keywords" content="Attendance Calculator, Bunk lecturer, Attendance Percentage, Veggie Smart">
     <meta name="author" content="Sourav Chhimpa">
     <title>Fun Attendance Calculator 🎉</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -80,20 +80,12 @@
     <div class="container mx-auto p-6">
         <div class="card p-6 mb-8">
             <h2 class="text-3xl font-bold text-center text-green-400 mb-6">Fun Attendance Calculator 🎉</h2>
-            <p class="text-center text-lg mb-6">Find out how many days you can bunk or how many more days you need to attend to meet your attendance goals! 🎓</p>
+            <p class="text-center text-lg mb-6">Find out how many lecturer you can bunk or how many more lecturer you need to attend to meet your attendance goals! 🎓</p>
 
             <form id="attendanceForm" class="space-y-4">
-                <div class="flex flex-col space-y-2">
-                    <label for="presentDays" class="text-lg font-medium">Days Present:</label>
-                    <input type="number" id="presentDays" placeholder="Enter number of present days" class="p-3 rounded border border-gray-600">
-                </div>
-                <div class="flex flex-col space-y-2">
-                    <label for="totalDays" class="text-lg font-medium">Total Days:</label>
-                    <input type="number" id="totalDays" placeholder="Enter total number of days" class="p-3 rounded border border-gray-600">
-                </div>
-                <div class="flex flex-col space-y-2">
+                <div class="flex sm:flex-col item-center justify-between space-y-2">
                     <label for="requiredAttendance" class="text-lg font-medium">Required Attendance:</label>
-                    <select id="requiredAttendance" class="p-3 rounded border border-gray-600">
+                    <select id="requiredAttendance" class="p-3 rounded border border-gray-600 sm:mt-0 -mt-6">
                         <option value="60">60%</option>
                         <option value="65">65%</option>
                         <option value="70">70%</option>
@@ -101,6 +93,14 @@
                         <option value="80">80%</option>
                         <option value="85">85%</option>
                     </select>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <label for="presentlecturer" class="text-lg font-medium">lecturer Present:</label>
+                    <input type="number" id="presentlecturer" placeholder="Enter number of present lecturer" class="p-3 rounded border border-gray-600">
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <label for="totallecturer" class="text-lg font-medium">Total lecturer:</label>
+                    <input type="number" id="totallecturer" placeholder="Enter total number of lecturer" class="p-3 rounded border border-gray-600">
                 </div>
                 <button type="button" onclick="calculateAttendance()" class="w-full custom-button p-3 rounded">Calculate 🎯</button>
             </form>
@@ -118,14 +118,14 @@
         <div class="bg-gray-800 p-4 rounded-lg shadow-lg mt-8">
             <h2 class="text-xl font-semibold text-green-400">User Documentation for "Fun Attendance Calculator"</h2>
             <h3 class="text-lg text-green-300">Overview</h3>
-            <p class="mb-4">This Attendance Calculator helps students figure out how many days they can bunk while maintaining their required attendance percentage, or how many more days they need to attend to reach the desired percentage. You can select different attendance goals, such as 60%, 65%, 70%, 75%, and more.</p>
+            <p class="mb-4">This Attendance Calculator helps students figure out how many lecturer they can bunk while maintaining their required attendance percentage, or how many more lecturer they need to attend to reach the desired percentage. You can select different attendance goals, such as 60%, 65%, 70%, 75%, and more.</p>
             <h3 class="text-lg text-green-300">How to Use</h3>
             <ul class="list-disc ml-5 space-y-2">
-                <li>Enter your current number of days attended in the "Days Present" field.</li>
-                <li>Enter the total number of academic days in the "Total Days" field.</li>
+                <li>Enter your current number of lecturer attended in the "lecturer Present" field.</li>
+                <li>Enter the total number of academic lecturer in the "Total lecturer" field.</li>
                 <li>Select your required attendance percentage from the dropdown menu.</li>
                 <li>Click the "Calculate" button to see the results.</li>
-                <li>The calculator will tell you how many days you can still bunk or how many more days you need to attend to meet the required percentage.</li>
+                <li>The calculator will tell you how many lecturer you can still bunk or how many more lecturer you need to attend to meet the required percentage.</li>
                 <li>View the graphical representation of your attendance before and after in the chart below.</li>
             </ul>
         </div>
@@ -135,8 +135,8 @@
         let attendanceChart;
 
         function calculateAttendance() {
-            const present = parseFloat(document.getElementById('presentDays').value);
-            const total = parseFloat(document.getElementById('totalDays').value);
+            const present = parseFloat(document.getElementById('presentlecturer').value);
+            const total = parseFloat(document.getElementById('totallecturer').value);
             const requiredAttendance = parseFloat(document.getElementById('requiredAttendance').value);
 
             if (!present || !total || present > total || present < 0 || total <= 0) {
@@ -156,20 +156,20 @@
             if (currentAttendance >= requiredAttendance) {
                 const canBunk = Math.floor(totalWithBunks - total);
                 resultMessage = `
-                    You can bunk <span class="highlight">${canBunk}</span> more days! 🎉
+                    You can bunk <span class="highlight">${canBunk}</span> more lecturer! 🎉
                     <p class="mt-2">Current Attendance: <strong>${present}/${total}</strong> -> <strong>${currentAttendance.toFixed(2)}%</strong></p>
                     <p>Attendance After Bunking: <strong>${present}/${Math.ceil(totalWithBunks)}</strong> -> <strong>${requiredAttendance}%</strong></p>
                 `;
                 funMessage = "Go enjoy your time! 😎";
             } else {
-                const extraDaysNeeded = Math.ceil((present / attendanceNeeded) - total);
+                const extralecturerNeeded = Math.ceil((present / attendanceNeeded) - total);
                 resultMessage = `
-                    You need to attend <span class="highlight">${extraDaysNeeded}</span> more days! 💪
+                    You need to attend <span class="highlight">${extralecturerNeeded}</span> more lecturer! 💪
                     <p class="mt-2">Current Attendance: <strong>${present}/${total}</strong> -> <strong>${currentAttendance.toFixed(2)}%</strong></p>
                     <p>Attendance After Attending: <strong>${present}/${Math.ceil(totalWithBunks)}</strong> -> <strong>${requiredAttendance}%</strong></p>
                 `;
                 funMessage = "Better hit the books! 📚";
-                chartData = [present + extraDaysNeeded, total + extraDaysNeeded - present]; // Adjust chart for required attendance
+                chartData = [present + extralecturerNeeded, total + extralecturerNeeded - present]; // Adjust chart for required attendance
             }
 
             document.getElementById('result').innerHTML = `${resultMessage}<p class="fun-result">${funMessage}</p>`;
@@ -191,7 +191,7 @@
             attendanceChart = new Chart(ctx, {
                 type: 'pie',
                 data: {
-                    labels: ['Days Attended', 'Days Remaining'],
+                    labels: ['lecturer Attended', 'lecturer Remaining'],
                     datasets: [{
                         label: 'Attendance Chart',
                         data: data,
