@@ -21,6 +21,13 @@ function NewFeatured() {
             tagName: "Free",
             buttonName: "Image Compressor"
         },
+        {
+            link: "./AddtionalFeatures/Attendance.html",
+            imageSrc: "https://img.icons8.com/color/500/image-file.png",
+            imageAlt: "Attendance Calculator",
+            tagName: "Free",
+            buttonName: "Attendance Calculator"
+        },
     ];
     
     const NewFeatured = document.getElementById("NewFeatured");
