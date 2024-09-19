@@ -23,10 +23,10 @@ function NewFeatured() {
         },
         {
             link: "./AddtionalFeatures/Attendance.html",
-            imageSrc: "https://img.icons8.com/color/500/image-file.png",
+            imageSrc: "https://img.icons8.com/color/500/checked-user-male--v1.png",
             imageAlt: "Attendance Calculator",
             tagName: "Free",
-            buttonName: "Attendance Calculator"
+            buttonName: "Attendance Cal"
         },
     ];
     
